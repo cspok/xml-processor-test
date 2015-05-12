@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp1 (x64) (http://www.altova.com) by Mat Saidi Mohamed (DHL Information Services (Asia-Pacific) Sdn Bhd) -->
+<!-- change log 
+version 1.002 date 2013-09-26
+ - the initial version
+
+version 1.003 - Date 2014-06-16 <Modified by Srinidhi Ramachandra>
+- Latest version of CM_Event_ver_1.004.xsd imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/EventRqstMsg/v1" xmlns:CM_Evt="http://www.dhl.com/Express/CM/CM_Evt/v1" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v1" xmlns:CM_HDR="http://www.dhl.com/Express/CM/CM_Header/v1" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v1" xmlns:ns1="http://www.dhl.com/Express/CM/CM_GenericRequest/v2" xmlns:CM_GREQ="http://www.dhl.com/Express/CM/CM_GenericRequest/v1" targetNamespace="http://www.dhl.com/Express/CM/EventRqstMsg/v1" version="1.003">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Evt/v1" schemaLocation="CM_Event_ver_1.004.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v1" schemaLocation="CM_Domain_ver_1.004.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Header/v1" schemaLocation="CM_Header_ver_1.003.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v1" schemaLocation="CM_GeneralInfo_ver_1.003.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GenericRequest/v1" schemaLocation="CM_GenericRequest_ver_1.002.xsd"/>
+	<xs:complexType name="EvtRqstMsgType">
+		<xs:annotation>
+			<xs:documentation>Event request message type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hdr" type="CM_HDR:HDR" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Standard message header</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Bd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Container element for the message data.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>General Info</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:choice>
+							<xs:annotation>
+								<xs:documentation>An event can be requested for a Business Object.
+
+The business object is identified by its Business key.
+
+Exactly one Business Object Key must be provided.</xs:documentation>
+							</xs:annotation>
+							<xs:element name="ShpId" type="CM_DMN:ShpIdType">
+								<xs:annotation>
+									<xs:documentation>Shipment Identifier</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="PcsId" type="CM_DMN:PcsId_35">
+								<xs:annotation>
+									<xs:documentation>Piece Identifier</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="HUID" type="CM_DMN:HUId_35">
+								<xs:annotation>
+									<xs:documentation>Handling Unit Identifier</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+								<xs:annotation>
+									<xs:documentation>Booking Reference</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RtId" type="CM_DMN:RtIdType">
+								<xs:annotation>
+									<xs:documentation>Route Identifier</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="VehId" type="CM_DMN:VehIdType">
+								<xs:annotation>
+									<xs:documentation>Vehicle Identifier</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="MvmtID" type="CM_DMN:Movement_IDType"/>
+						</xs:choice>
+						<xs:element name="GenReq" type="CM_GREQ:CdmGenericRequest_GenericRequest" minOccurs="0" maxOccurs="100">
+							<xs:annotation>
+								<xs:documentation>Generic request criteria.
+
+The request can be further specifield with the usage of this complex type element.
+
+Service operation needs to be specified in the implementation guide.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="EvtRqstMsg" type="EvtRqstMsgType">
+		<xs:annotation>
+			<xs:documentation>Event request message</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

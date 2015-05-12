@@ -1,0 +1,2457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+version 0.006 date 2012-04-10
+ - CM_Domain_V0.006 version increased
+ - CM_Piece_V0.006 version increased
+ - CM_Cust_V0.006 version increased
+ - CM_Domain_V0.006 version increased
+ - CM_Domain_V0.006 version increased
+ - CM_ShpC namespace prefix changed to CM_Cust
+ - ShpC type changed from BkgCustType to CustomerType
+ - In ShpType: 
+	 - ShpC element renamed to Cust
+	 - CCd renamed to CmdtCd
+	 - BkgRef type changed from simple to complex tupe BkgRefType
+	 - BkgTyCd element removed
+	 - BkgDt element removed
+	 - BkgSrcAppCd element removed
+	 - Pickup route and Delivery route PK elements removed
+	 - Ref renamed to ShpRef
+	 - UqCnsgRef renamed to UnqCnsgRef	
+	 - GlProdSrvCd and LclProdSrvCd elements added
+	 - HIns type changed to HInsBaseType
+ - In ImgType:ok thanks
+	  - redesigned to be aligned wih DDM 5.007 version 11 for GCA 5
+
+version 0.007 date 2012-10-17
+ - CM_Domain_V0.011 version increased
+ - CM_Piece_V0.007 version increased
+ - CM_Cust_V0.007 version increased
+ - CM_Domain_V0.009 version increased
+ - CM_HIns_V0.008 version increased
+
+version 0.008 date 2013-01-22
+ - CM_Piece_V0.008 version increased
+ - CM_Cust_V0.008 version increased
+ - CM_HIns_V0.009 version increased
+
+version 0.009 - Date 2013-02-20
+ - CM_Domain_V0.011 version increased
+ - CM_Piece_ver_0.009.xsd version increased
+ - CM_Customer_ver_0.009.xsd version increased
+ - CM_HandlingInstruction_ver_0.010.xs version increased
+ - CM_GeneralInfo_ver_0.004.xsd version increased
+ - //element(*,ExChrgType)/PayNtwAccNo - added
+ - //element(*,ChrgType)/PayNtwAccNo - added
+
+version 0.010 - Date 2013-03-08
+ - Shipment Document Line added: ShpDocLnType
+ - Shipment document aligned with latest DDM v5.010: ShpDocType
+ - Shipment outbound charge attributes added: //element(*,ChrgType)/ObShpChrg
+ - Shipment inbound charge attributes added: //element(*,ChrgType)/IbShpChrg
+ - CM_Domain_V0.012 version increased
+ - OAGIS\org_openapplications_platform\1_2_1\Common\OAGi\Components\Components.xsd - imported
+
+version 1.000 - Date 2013-03-12
+ - latest CM_GeneralInfo_ver_1.000.xsd version imported
+ - latest CM_Domain_ver_1.000.xsd version imported
+ - latest CM_HandlingInstruction_ver_1.000.xsd version imported
+ - latest CM_Event_ver_1.000.xsd version imported
+ - latest CM_Customer_ver_1.000.xsd version imported
+ - latest CM_Piece_ver_1.000.xsd version imported
+ - major version introduced
+
+version 1.001 - Date 2013-03-28
+ - latest CM_GeneralInfo_ver_1.001.xsd version imported
+ - latest CM_Domain_ver_1.001.xsd version imported
+ - latest CM_HandlingInstruction_ver_1.001.xsd version imported
+ - latest CM_Event_ver_1.001.xsd version imported
+ - latest CM_Customer_ver_1.001.xsd version imported
+ - latest CM_Piece_ver_1.001.xsd version imported
+
+version 1.002 - Date 2013-04-12
+ - latest CM_GeneralInfo_ver_1.002.xsd version imported
+ - latest CM_Domain_ver_1.002.xsd version imported
+ - latest CM_HandlingInstruction_ver_1.002.xsd version imported
+ - latest CM_Event_ver_1.002.xsd version imported
+ - latest CM_Customer_ver_1.002.xsd version imported
+ - latest CM_Piece_ver_1.002.xsd version imported
+ - PuDtm, AvlDtm, SDtm, EstDtmD, CmtdDtm, CDtm, EstPuDtm, PrcDt, Dtm, SDtm, AvlDtm -  domain changed to CM_DMN:DtmUTCType, the base XML type remains same xs:DateTime, but the semantic of the domain is different, see the domain documentation tag
+
+version 1.003 - Date 2013-05-07
+//element(*,ShpRefType)/CRlTyCd - set as optional
+
+version 2.000 - Date 2013-05-20 - redesigned as to be aligned with OMP data model
+
+version 2.001 - Date 2013-06-14
+ - CM_Domain_ver_2.001.xsd version increased
+ - CM_GeneralInfo_ver_2.002.xsd version increased
+ - CM_Piece_ver_2.001.xsd version increased
+ - CM_Customer_ver_2.001.xsd version increased
+ - CM_HandlingInstruction_ver_2.001.xsd version increased
+
+version 2.002 - Date 2013-07-09
+ - CM_Piece_ver_2.002.xsd version increased
+ - //element(*,ShpType)/Trashbin - removed
+ - //element(*,ShpType)/Pcs - max number of occurences increased to 5000
+ - CM_Domain_ver_2.002.xsd version increased
+ - CM_GeneralInfo_ver_2.003.xsd version increased
+ - CM_Piece_ver_2.002.xsd version increased
+ - CM_Customer_ver_2.002.xsd version increased
+ - CM_HandlingInstruction_ver_2.002.xsd version increased
+
+version 2.003 - Date 2013-08-21
+Following changes were done in order to support parent ShpId and ShpKey usage
+ - //element(*,ShpType)/AscPSId - removed
+ - //element(*,ShpType)/AscPShpId - added
+ - //element(*,ShpType)/AscPShpKey - added
+ - //element(*,ShpType)/DclInd - added
+ - CM_Domain_ver_2.004.xsd - latest version imported
+ - CM_Piece_ver_2.004.xsd version increased
+ - CM_Customer_ver_2.002.xsd version increased
+ - CM_HandlingInstruction_ver_2.003.xsd version increased
+ - CM_GeneralInfo_ver_2.005.xsd - latest version imported
+
+version 2.003 - Date 2013-08-29
+ - CM_Domain_ver_2.005.xsd - latest version imported
+ - CM_Piece_ver_2.005.xsd version increased
+ - CM_Customer_ver_2.003.xsd version increased
+ - CM_HandlingInstruction_ver_2.004.xsd version increased
+ - CM_GeneralInfo_ver_2.006.xsd - latest version imported
+
+version 2.004 - Date 2013-09-18
+ - CM_Domain_ver_2.007.xsd - latest version imported
+ - CM_Piece_ver_2.007.xsd version increased
+ - CM_Customer_ver_2.006.xsd version increased
+ - CM_HandlingInstruction_ver_2.005.xsd version increased
+ - CM_GeneralInfo_ver_2.008.xsd - latest version imported
+ - DocLineDscType - data type changed to Text_512
+ - PieceMeasType type added
+ - ShpType/Srv/DatElGrp added
+
+version 2.005 - Date 2013-09-20 <Modified by - Srinidhi Ramachandra>
+ - changed '\' to '/' while importing Components.xsd so that it it compatible to both windows and unix platforms
+
+version 2.006 - Date 2013-09-30
+ - //element(*,PieceMeasType)/NPcs - added
+ - //element(*,ShpType)/DlvDtm - added
+ - //element(*,ShpType)/RcvSpecDlvDtm - removed
+ - //element(*,ShpType)/CDlvDtm - removed
+ - //element(*,ShpType)/EstDlvDtm - removed
+ - //element(*,ShpType)/QDlvDtm - removed
+ - //element(*,ShpType)/AscPSId - removed - already substituted by //element(*,ShpType)/AscPShpId and //element(*,ShpType)/AscPShpKey
+ - CM_Piece_ver_2.008.xsd - latest version imported
+ - CM_Customer_ver_2.007.xsd - latest version imported
+
+version 2.007 - Date 2013-10-22
+ - CM_Piece_ver_2.009.xsd - latest version imported
+ - //element(*,ShpType)/ShpDoc/Cust/Rgs - added
+
+version 2.008 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.009.xsd - latest version imported
+ - CM_Piece_ver_2.010.xsd version increased
+ - CM_Customer_ver_2.009.xsd version increased
+ - CM_HandlingInstruction_ver_2.007.xsd version increased
+ - CM_GeneralInfo_ver_2.009.xsd - latest version imported
+ - element ShpDocType/ReaForTrCd - added
+ - Missing datatypes for ShpDocType/Cust/Rgs/TyCd and ShpDocType/Cust/Rgs/No updated
+
+version 2.009 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+ - CM_Piece_ver_2.011.xsd version increased
+ - CM_Customer_ver_2.010.xsd version increased
+ - CM_GeneralInfo_ver_2.010.xsd - latest version imported
+
+ version 2.010 - Date 2013-11-20 <Modified by Lukas Neubauer>
+ - //element(*,ShpDeliveryDtmType)/SrcTyCd - added
+
+ version 2.011 - Date 2014-01-06 <Modified by Lukas Neubauer>
+ - CM_Customer_ver_2.011.xsd version increased
+
+ version 2.012 - Date 2014-01-09 <Modified by Srinidhi Ramachandra>
+ - CM_Customer_ver_2.012.xsd version increased
+ - ShpType/DclInd made optional
+ - DocLineDscType/@LngCd made optional
+
+version 2.013 - Date 2014-01-15 <Modified by Srinidhi Ramachandra>
+ - CM_Piece_ver_2.012.xsd version increased
+
+version 2.013 - Date 2014-01-23 <Modified by Srinidhi Ramachandra>
+Following elements made optional in order to support shipper provided data
+- ShpDeliveryDtmType/TyCd
+- ShpDeliveryDtmType/Dtm
+- PieceMeasType/SqNo
+- PieceMeasType/TyCd
+- ImgType/ImgId
+- ImgType/Img
+- ShpDocLnType/LnNo
+- ShpDocLnType/CmdtClss/CtryCd
+- ShpDocLnType/Tax/TxTyCd
+- ShpDocLnType/Tax/TxAmt
+- ShpDocType/DocId
+- ShpDocType/DocTyCd
+- ShpDocType/Cust/CustRolTyCd
+- ShpDocType/Cust/Rgs/TyCd
+- ShpDocType/Cust/Rgs/No
+- ShpDocType/TrdBlocCdn/TrdBlocCd
+- ServiceChrgType/GlSrvCd
+- ChrgType/TyCd
+- MeasType/TyCd
+- MAmtType/TyCd
+- ShpRefType/TyCd
+- ShpRefType/Ref
+- DscType/Cd
+- ShpRqstType/Srv/GlSrvCd
+- ShpType/Srv/GlSrvCd
+
+version 2.015 - Date 2014-02-24 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+- CM_Piece_ver_2.014.xsd - latest version imported
+- CM_Customer_ver_2.014.xsd - latest version imported
+- CM_HandlingInstruction_ver_2.009.xsd - latest version imported
+- CM_GeneralInfo_ver_2.011.xsd - latest version imported
+- ShpType/Dtm added
+- ShpType/PlnDt added
+
+version 2.016 - Date 2014-04-28 <Modified by Srinidhi Ramachandra>
+- ShpType/Dtm modified to ShpType/ActvDtm
+- ShpType/PlnDt modified to ShpType/PlnDtm
+- ShpType/AscCShpId and ShpType/AscCShpKey added
+- ShpRefType/GI added
+- ShpType/Srv/GI added
+- ShpDocType/GI added
+- ChrgType/GI added
+- CM_Domain_ver_2.011.xsd - latest version imported
+- CM_Piece_ver_2.015.xsd - latest version imported
+- CM_Customer_ver_2.017.xsd - latest version imported
+- CM_HandlingInstruction_ver_2.010.xsd - latest version imported
+- CM_GeneralInfo_ver_2.012.xsd - latest version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_Shp/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_HIns="http://www.dhl.com/Express/CM/CM_HIns/v2" xmlns:CM_Cust="http://www.dhl.com/Express/CM/CM_Cust/v2" xmlns:CM_Pcs="http://www.dhl.com/Express/CM/CM_Piece/v2" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" xmlns:OAGIS="http://www.openapplications.org/oagis/9" targetNamespace="http://www.dhl.com/Express/CM/CM_Shp/v2" version="2.016">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Piece/v2" schemaLocation="CM_Piece_ver_2.015.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Cust/v2" schemaLocation="CM_Customer_ver_2.017.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_HIns/v2" schemaLocation="CM_HandlingInstruction_ver_2.010.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" schemaLocation="CM_GeneralInfo_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="OAGIS/org_openapplications_platform/1_2_1/Common/OAGi/Components/Components.xsd"/>
+	<xs:complexType name="ShpType">
+		<xs:annotation>
+			<xs:documentation> Shipment details</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>The optino for the legacy and/or the target Shipment business key.
+
+Both Shipment business keys will need to be provided during the migration period.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="ShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (legacy).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ShpKey" type="CM_DMN:ShpKeyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (target).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="ActvDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment DateTime - The date time of the first physical event against the shipment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PlnDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment Planned Date time – Expected datetime of physical handover to DHL from Shipper</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GlProdSrvCd" type="CM_DMN:GlProdSrvCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Global Product and service code: Uniquely identifies a service, either a transportation service, feature, periodic charge or any other type of service that DHL or its partners provide.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LclProdSrvCd" type="CM_DMN:LclProdSrvCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Local product and service code: Defines uniquely the local code used for the global, regional or local product or service.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PdCntnCd" type="CM_DMN:SrvCatCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Product content code: "A code uniquely to identify a product content.
+
+E.g.: WPX"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DclInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment declarable indicator.
+Allowed values:
+Y - Yes
+N- No
+
+Default value: N - No
+
+Identifies whether or not a Shipment is Declarable to Inbound Customs for Import Clearance.
+
+The indicator is derived from Shipment Product and de-normalized in this message for performance reasons.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The option between Booking reference, the migration booking business key, and the target Global Reference Number.
+
+At minimum one of them will be provided in the message.
+
+BkgRef alement and the choice will be removed once solutions are migrated to the target.
+
+Both, GRN and BkgRef will need to be provided to support migration period.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="GRN" type="CM_DMN:BkgGRN" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Global reference number
+
+The target Booking business key.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="BkgRef" type="CM_DMN:BkgRefType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="OrgFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment origin facility identifier.
+
+Identifies Facility managing Shipment pickup.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgSrvACd" type="CM_DMN:SrvaCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment origin service area code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgFcCd" type="CM_DMN:FcCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment origin facility code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DstFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment destination facility identifier.
+
+Identifies a Facility managing delivery of the Shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DstSrvACd" type="CM_DMN:SrvaCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment destination service area code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DstFcCd" type="CM_DMN:FcCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Destination facility code: A code to identify an addressed location where DHL business functions are performed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DclNPcs" type="CM_DMN:NoPcs_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment declared number of pieces: The number of pieces related to a shipment as declared by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActNPcs" type="CM_DMN:NoPcs_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment actual number of pieces: "The total number of pieces belonging to a shipment, which have actually been picked up."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DlvDtm" type="ShpDeliveryDtmType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>A list of Shipment delivery date time is required for a Shipment.
+
+This entity allows for capture and maintenance of an unrestricted number of the Shipment delivery datetimes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrmTrdCd" type="CM_DMN:IncTrmCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment terms of trade code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PwkInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment paperwork indicator: "Indicates whether there is paperwork related to the shipment.
+Y=Yes,
+N=No"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImpFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Import facility identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Export facility identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelCoInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Related company indicator: "An indication that, during the fiscal year, either the USPPI or foreign ultimate consignee reported owned 10% or more of the other?s voting securities.
+Y = Yes; Companies related.
+N = No; Companies NOT related.
+
+The INDICATOR IS used ON export control.
+
+DDM review: IN data MODEL should be represented AS relationship BETWEEN two business parties."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dsc" type="DscType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment description: 
+
+A brief description of the shipment with a specified type of description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="St" type="CM_DMN:BOStatusExtendedType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Shipment Status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cust" type="CM_Cust:ShipmentCustomerType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>A collection of information about a shipment transaction that helps serve the customer needs depending on the customer role type, e.g. shipper, receiver, etc.
+
+Issue/Plan:
+1) The address attributes need to be removed and referenced address entity should be used instead. The attributes are used by on a lot of interfaces using DHL CF and migration path needs to be defined.
+
+2) We have two customers: Shipment customer and Customer. The double definition should be resolved.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShpRef" type="ShpRefType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment reference: 
+
+Any reference that a business party involved in the transaction wants to assign to the piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShpHIns" type="CM_HIns:HInsBaseType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Additional information provided about a shipment, to support the pickup and transport within the DHL Network.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShpDoc" type="ShpDocType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation identifier: "The unique identifier for a shipment document. For the contract with the customer, ie. the waybill, the identifier is the waybill number."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The option for the legacy and/or the target Shipment business key.
+
+Both Shipment business keys will need to be provided during the migration period.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="AscPShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (legacy).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.
+
+Contains the parent shipment business key</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AscPShpKey" type="CM_DMN:ShpKeyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (target).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.
+
+Contains the parent shipment business key</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence minOccurs="0" maxOccurs="5000">
+				<xs:annotation>
+					<xs:documentation>The option for the legacy and/or the target Shipment business key.
+
+Both Shipment business keys will need to be provided during the migration period.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="AscCShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (legacy).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.
+
+Contains the child shipment business keys</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AscCShpKey" type="CM_DMN:ShpKeyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (target).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.
+
+Contains the child shipment business keys</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="Chrg" type="ChrgType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment charge: Information about fees applied to a shipment for transportation.  A shipment charge can be a charge based on the weight of the shipment or a charge dependent on the customer tariff agreement.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Srv" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment service</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>General Info</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GlSrvCd" type="CM_DMN:GlProdSrvCd" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Service type code. The GALOP code.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Chrg" type="ServiceChrgType" minOccurs="0" maxOccurs="100">
+							<xs:annotation>
+								<xs:documentation>Shipment service charge.
+
+An additional fee charged by DHL to a customer for a special service related to a specific Shipment.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="5000">
+							<xs:annotation>
+								<xs:documentation>Provides a flexible tool for a capture of Service specific data elements.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="removeAll" type="xs:boolean" use="optional" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Amt" type="MAmtType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>With a shipment can be associated various monetary amounts, like value,  and charges. This entity provides an actual amount and type captured at and required by processing of a particular shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Meas" type="MeasType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment measures</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcsMeas" type="PieceMeasType" minOccurs="0" maxOccurs="5000">
+				<xs:annotation>
+					<xs:documentation> Piece measurements as provided by customer in the cases where Piece
+business object is not created yet and Piece identifier is not
+assigned.
+
+Is used to calculate the Shipper Dim Weight which is used by Billing
+where DHL has not reweighed pieces. Also used to validate variance
+between Shipper declared Volumetric and DHL Validated Volumetric.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LoHlpCd" type="LoHlpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Identifies how many units of each type of loading help have been used in the transportation of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InHUId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment in handling unit.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:HUId_35">
+							<xs:attribute name="DeCntDtm" type="CM_DMN:DtmType">
+								<xs:annotation>
+									<xs:documentation>Shipment de-containerization datetime
+
+The datetime when the Piece was removed from the HU.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Pos">
+								<xs:annotation>
+									<xs:documentation>Position
+
+Position occupied by the Shipment in the handling unit.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Pcs" type="CM_Pcs:PcsType" minOccurs="0" maxOccurs="5000">
+				<xs:annotation>
+					<xs:documentation>A uniquely-identified part of a shipment that is packaged and handled separately.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ShpRqstType">
+		<xs:annotation>
+			<xs:documentation>Copy of ShpType wher all data elments are all optional for support of Query smf Request message types. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The optino for the legacy and/or the target Shipment business key.
+
+Both Shipment business keys will need to be provided during the migration period.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="ShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (legacy).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ShpKey" type="CM_DMN:ShpKeyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (target).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="GlProdSrvCd" type="CM_DMN:GlProdSrvCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Global Product and service code: Uniquely identifies a service, either a transportation service, feature, periodic charge or any other type of service that DHL or its partners provide.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LclProdSrvCd" type="CM_DMN:LclProdSrvCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Local product and service code: Defines uniquely the local code used for the global, regional or local product or service.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PdCntnCd" type="CM_DMN:SrvCatCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Product content code: "A code uniquely to identify a product content.
+
+E.g.: WPX"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DclInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment declarable indicator.
+Allowed values:
+Y - Yes
+N- No
+
+Default value: N - No
+
+Identifies whether or not a Shipment is Declarable to Inbound Customs for Import Clearance.
+
+The indicator is derived from Shipment Product and de-normalized in this message for performance reasons.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The option between Booking reference, the migration booking business key, and the target Global Reference Number.
+
+At minimum one of them will be provided in the message.
+
+BkgRef alement and the choice will be removed once solutions are migrated to the target.
+
+Both, GRN and BkgRef will need to be provided to support migration period.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="GRN" type="CM_DMN:BkgGRN" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Global reference number
+
+The target Booking business key.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="BkgRef" type="CM_DMN:BkgRefType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="OrgFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment origin facility identifier.
+
+Identifies Facility managing Shipment pickup.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgSrvACd" type="CM_DMN:SrvaCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment origin service area code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgFcCd" type="CM_DMN:FcCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment origin facility code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DstFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment destination facility identifier.
+
+Identifies a Facility managing delivery of the Shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DstSrvACd" type="CM_DMN:SrvaCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment destination service area code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DstFcCd" type="CM_DMN:FcCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Destination facility code: A code to identify an addressed location where DHL business functions are performed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DclNPcs" type="CM_DMN:NoPcs_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment declared number of pieces: The number of pieces related to a shipment as declared by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActNPcs" type="CM_DMN:NoPcs_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment actual number of pieces: "The total number of pieces belonging to a shipment, which have actually been picked up."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="QDlvDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment quoted delivery datetime (QDD).
+
+The estimated delivery date/time that DHL calculates, and is quoted to the customer, at booking or shipment creation.  The QDD is always derived from DHL’s standard customer-facing transit time.u  The QDD is held at shipment level, and is mandatory whenever captured (hence business-conditional).  If captured, the QDD is never presented/articulated to customers outside of the booking or shipment creation process.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EstDlvDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment estimated delivery datetime (EDD).
+
+The estimated delivery date/time DHL calculates as the shipment moves through the network to destination/final delivery. The EDD starts out as the CDD and may be adjusted during transit. The EDD is held at shipment and piece level, and is business-mandatory. v The EDD is displayed to customers as per its network display rules.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CDlvDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment committed delivery datetime (CDD).
+
+The estimated delivery date/time that DHL calculates following physical shipment acceptance (calculation is triggered in most cases by the PU scan). The CDD is always derived from DHL’s standard customer-facing transit time, and does not change during transit.u The CDD represents DHL’s delivery service commitment. The CDD is held at shipment level, and is business-mandatory.  The CDD is displayed to customers only as the first instance of the EDD.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RcvSpecDlvDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment receiver specified delivery datetime (RDD).
+
+The estimated delivery date/time the Receiver, or the Receiver’s authorized representative, has requested and DHL has accepted/validated. The RDD is only relevant, and will only be present, if a Receiver has requested a delivery date, delivery time or delivery date/time change, or has requested disposition of the shipment that causes such a change (e.g. redirect).  The RDD is held at shipment and piece level and is business-conditional. The RDD is displayed to customers as the current EDD.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrmTrdCd" type="CM_DMN:IncTrmCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment terms of trade code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PwkInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment paperwork indicator: "Indicates whether there is paperwork related to the shipment.
+Y=Yes,
+N=No"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImpFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Import facility identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpFcId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Export facility identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelCoInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Related company indicator: "An indication that, during the fiscal year, either the USPPI or foreign ultimate consignee reported owned 10% or more of the other?s voting securities.
+Y = Yes; Companies related.
+N = No; Companies NOT related.
+
+The INDICATOR IS used ON export control.
+
+DDM review: IN data MODEL should be represented AS relationship BETWEEN two business parties."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dsc" type="DscType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment description: 
+
+A brief description of the shipment with a specified type of description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="St" type="CM_DMN:BOStatusType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Shipment status code
+
+The shipment status can change during the shipment life cycle and this entity describes the shipment lifecycle statuses.
+
+Shipment can have parallel status types during its lifecycle.
+
+Status code describes the state.
+
+Just one state of a state type is possible and allowed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cust" type="CM_Cust:ShipmentCustomerType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>A collection of information about a shipment transaction that helps serve the customer needs depending on the customer role type, e.g. shipper, receiver, etc.
+
+Issue/Plan:
+1) The address attributes need to be removed and referenced address entity should be used instead. The attributes are used by on a lot of interfaces using DHL CF and migration path needs to be defined.
+
+2) We have two customers: Shipment customer and Customer. The double definition should be resolved.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShpRef" type="ShpRefType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment reference: 
+
+Any reference that a business party involved in the transaction wants to assign to the piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShpHIns" type="CM_HIns:HInsBaseType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Additional information provided about a shipment, to support the pickup and transport within the DHL Network.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShpDoc" type="ShpDocType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation identifier: "The unique identifier for a shipment document. For the contract with the customer, ie. the waybill, the identifier is the waybill number."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>The option for the legacy and/or the target Shipment business key.
+
+Both Shipment business keys will need to be provided during the migration period.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="AscPShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (legacy).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AscPShpKey" type="CM_DMN:ShpKeyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Shipment business key (target).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="AscPSId" type="CM_DMN:ShpIdType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Associated parent shipment identifier: "An identification number assigned to a shipment, controlled by DHL."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Chrg" type="ChrgType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment charge: Information about fees applied to a shipment for transportation.  A shipment charge can be a charge based on the weight of the shipment or a charge dependent on the customer tariff agreement.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Srv" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment service</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GlSrvCd" type="CM_DMN:GlProdSrvCd" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Service type code. The GALLOP code.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Chrg" type="ServiceChrgType" minOccurs="0" maxOccurs="100">
+							<xs:annotation>
+								<xs:documentation>Shipment service charge.
+
+An additional fee charged by DHL to a customer for a special service related to a specific Shipment.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Amt" type="MAmtType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>With a shipment can be associated various monetary amounts, like value,  and charges. This entity provides an actual amount and type captured at and required by processing of a particular shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Meas" type="MeasType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Shipment measures</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LoHlpCd" type="LoHlpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Identifies how many units of each type of loading help have been used in the transportation of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InHUId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment in handling unit.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:HUId_35">
+							<xs:attribute name="DeCntDtm" type="CM_DMN:DtmType">
+								<xs:annotation>
+									<xs:documentation>Shipment de-containerization datetime
+
+The datetime when the Piece was removed from the HU.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Pos">
+								<xs:annotation>
+									<xs:documentation>Position
+
+Position occupied by the Shipment in the handling unit.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Pcs" type="CM_Pcs:PcsRqstType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece details which can be used for a query opr request purposes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DscType">
+		<xs:annotation>
+			<xs:documentation>Shipment description</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="CM_DMN:Text_70">
+				<xs:annotation>
+					<xs:documentation>Shipment description of goods: A brief description of the goods in a shipment.</xs:documentation>
+				</xs:annotation>
+				<xs:attribute name="LngCd" type="CM_DMN:LanguageCodeType">
+					<xs:annotation>
+						<xs:documentation>Language code
+
+Provides informatin in which language is the shipment description.
+
+Code to uniquely identify a language.
+
+ISO 639-2 Code</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Cd">
+					<xs:annotation>
+						<xs:documentation>Shipment description code: "Classifies the description of the shipment.
+Allowed VALUES:
+CNT=Content"</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="CM_DMN:Cd_3">
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ShpRefType">
+		<xs:annotation>
+			<xs:documentation>Shipment reference</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reference type code.
+
+A code identifying the type of reference used in relationship to a shipment, e.g.
+
+BKN 	Booking Number 
+BOL 	Bill of Lading Number 
+CRN 	Carrier Reference Number 
+HAN 	House Airwaybill Number
+MAB 	Master Airwaybill Number 
+OBL 	Ocean Bill of Lading Number 
+PON 	Purchase Order Number
+etc. 
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ref" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment reference: Any reference that a customer wants to assign to a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer identifier: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LoHlpType">
+		<xs:annotation>
+			<xs:documentation>Shipment loading help</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="CM_DMN:Cd_3">
+				<xs:annotation>
+					<xs:documentation>Loading help type code: "Defines uniquely a loading help type, e.g.
+PAL= Euro Pallets
+POP= Pool Pallets 1000 Address Address.xsd b Contact Contact.xsd CustomsStatus CustomsStatus.xsd ExtraCharge ExtraCharge.xsd gca.sh HandlingInstructionType HandlingInstructionType.xsd Individual Individual.xsd Piece PieceMeasure PieceMeasure.xsd Piece.xsd ProofOfDelivery ProofOfDelivery.xsd Shipment ShipmentAssociation ShipmentAssociation.xsd ShipmentCharge ShipmentCharge.xsd ShipmentCustomerCommunicationDevice ShipmentCustomerCommunicationDevice.xsd ShipmentCustomerDetail ShipmentCustomerDetail.xsd ShipmentDescription ShipmentDescription.xsd ShipmentInDocument ShipmentInDocument.xsd ShipmentInHandlingUnit ShipmentInHandlingUnit.xsd ShipmentLoadingHelp ShipmentLoadingHelp.xsd ShipmentMeasure ShipmentMonetaryAmount ShipmentReference Shipment.xsd SpecialHandlingInstructionForShipment 1200 cm
+PLA= Plastic
+AAA= Air contanier AAA ULD
+SWB= Swap BODY
+WHC=Wheeled cage
+etc."</xs:documentation>
+				</xs:annotation>
+				<xs:attribute name="Ct" type="CM_DMN:No_6">
+					<xs:annotation>
+						<xs:documentation>Shipment loading help count: The number of loading help used to transport the shipment.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="GvnRcv" type="CM_DMN:No_6">
+					<xs:annotation>
+						<xs:documentation>Shipment loading help given to receiver: The number of loading help given to the receiver when delivering the shipment.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="AscType">
+		<xs:annotation>
+			<xs:documentation>Shipment association</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="CM_DMN:ShpId_35">
+				<xs:annotation>
+					<xs:documentation>Parent shipment identifier: "An identification number assigned to a shipment, controlled by DHL."</xs:documentation>
+				</xs:annotation>
+				<xs:attribute name="PSDtm" type="CM_DMN:DtmType">
+					<xs:annotation>
+						<xs:documentation>Parent shipment datetime: The date and time written on the Waybill/shipping document.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="MAmtType">
+		<xs:annotation>
+			<xs:documentation>Shipment monetary amount</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" type="CM_DMN:Cd_5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment monetary amount type code: "Provides unique identification of shipment monetary amounts:
+
+SCUSV:
+Shipment customs value
+The value OF the shipment that the shipper has given FOR usage TO the customs.
+
+SINSV:
+Shipment insurance value
+The amount that the shipment has been insured FOR against loss OR damage during transit.
+
+SCODA:
+Shipment cash ON delivery amount
+The amount the receiver must pay IN ORDER TO receive the shipment. This amount IS returned TO the shipper.
+
+SPPTC
+Shipment prepaid total charge
+Total charges payed BY shipper. NUMBER OF implied DECIMAL places dependant ON the Housebill currency code.
+
+SCOTC
+Shipment COLLECT total charge
+Total charges payed BY consignee.NUMBER OF implied DECIMAL places dependant ON the Housebill currency code.
+"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Amount and ISO currency code: A shipment amount of an amount type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MeasType">
+		<xs:annotation>
+			<xs:documentation>Shipment measurement type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Measure type code: "Provides classificatin of various measure types for an unit.
+
+DEC - measurement provided BY customer/shipper
+
+BIL - measurement that has been used FOR the charging. IS used WHEN the product OR service enables e.g. piece billing.
+
+ACT - measurement taken AND verified BY DHL.
+
+PRC - measurement that has been used FOR pricing."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="H" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Height: The total height of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="L" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Length: The total length of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="W" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Width: The total width of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Wgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Weight: The total weight of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NetWgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Net weight: The total net weight of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VolWgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Volumetric weight: A calculated weight based on the shipment total volume.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Vol" type="CM_DMN:VolType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Volume: The total volume of a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChrgType">
+		<xs:annotation>
+			<xs:documentation>Shipment charge</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="CM_DMN:SChrgTyCd_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge type code: "A code to indicate the type of shipment charge that can be applied to a shipment.
+TRNPRT=Shipment transport"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSrcCd" type="CM_DMN:CCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country source code: "The country code is a two-character code that uniquely identifies a country. The code should be aligned to the ISO (ISO 3166-1-alpha-2 code elements) or in certain circumstances created by DHL.
+VALUES are e.g.
+BE=Belgium
+FR=France
+XC=Curacao (NOT ISO - part OF Netherlands Antilles)"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisation identifier: The unique identifier of a business party - in this subtype of organization represents organisational unit identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayNtwAccNo" type="CM_DMN:NtwAccNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Payer network account number:
+
+A unique nine-digit number without leading zeros used to identify an account within DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Payer identifier: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge amount: "The amount to be charged for the shipment for the Charge type, expressed in local currency."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TxAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge tax amount: The amount of tax that has been levied on this charge.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TxDsc" type="CM_DMN:Text_70" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge tax description: Describes the tax that has been applied to the amount.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TxTyCd" type="CM_DMN:TxTy_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Tax type code: "A code to identify the rate of tax that will be levied.
+e.g. VAT OR duty, airport, excise, postal tax, carrier tax.
+This tax TYPE IS given FOR EACH country."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DHLCoEntCurCd" type="CM_DMN:CurCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>DHL company entity currency code: "Currency ID is the three-character alphabetic unique identifier issued by the ISO
+(International Standards Organisation) FOR an internationally-recognised currency."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge total amount: Indicates the total shipment charge including taxes and discount.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BCurrTotAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge base currency total amount.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BCurrExRt" type="CM_DMN:CurExRtType_18_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge base currency exchange rate.  
+
+The exchange rate used to convert the local currency to DHL base currency.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge override indicator: A flag to indicate if this charge is an override charge.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dsc" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge description: Describe the shipment charge code in details.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TnColStkN" type="CM_DMN:TCStkNo_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge transport collect sticker number: A number to identify a Transport Collect sticker (label) attached to a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TnColAmtBCurr" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge transport collect amount in base currency: The monetary amount to be charged for an inbound transport collect shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChrgSqN" type="CM_DMN:SqNo_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge sequence number: A number identifying the shipment charge type associated with a shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyDscr" type="CM_DMN:Cd_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment charge type discriminator: "Discriminates charge type.
+VALUES:
+I - Inbound
+O - Outbound
+"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0">
+				<xs:element name="ObShpChrg" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Outbound Shipment Charge
+
+Information about fees applied to an outbound shipment for transportation.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Rmk" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Remarks
+
+Text to make remarks related to the billing of a shipment.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="70"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="PayTy" type="OAGIS:PaymentBaseType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Payment type
+
+The outbound charge can be paid in the various ways.
+
+The schema type is taken from OAGIS and is not one to one with DDM.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ChrgCshPayTy" type="CM_DMN:ChrgCshPayTy" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Charge cash payment type
+
+A code to indicate the method used by a shipper to settle the amount outstanding for a cash shipment.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="DstBInd" type="CM_DMN:Ind_1" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Charge destination billed indicator
+
+Indicates if the shipment has been billed at the destination.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IbShpChrg" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Inbound Shipment Charge
+
+Information about fees applied to an inbound shipment for transportation.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="LcTxAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Local tax amount
+
+The amount of local tax for an inbound shipment charge.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="LcAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Local shipment charge amount
+
+The amount of local charge for an inbound shipment.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ExRt" type="CM_DMN:CurExRtType_18_6" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Exchange rate
+
+The exchange rate from base currency to foreign/other currenct.
+			Ie, 1.00 USD = 0.76 EUR, then the exchange rate is "0.76" and the base currency 
+				 "BCurCd" is "USD"; The other currecny "OCurCd" is "Euro"
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceChrgType">
+		<xs:annotation>
+			<xs:documentation>Shipment extra charge</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GlSrvCd" type="CM_DMN:GlProdSrvCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Service type code. The GALOP code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSrcCd" type="CM_DMN:CCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country source code: "The country code is a two-character code that uniquely identifies a country. The code should be aligned to the ISO (ISO 3166-1-alpha-2 code elements) or in certain circumstances created by DHL.
+VALUES are e.g.
+BE=Belgium
+FR=France
+XC=Curacao (NOT ISO - part OF Netherlands Antilles)"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayNtwAccNo" type="CM_DMN:NtwAccNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Payer network account number:
+
+A unique nine-digit number without leading zeros used to identify an account within DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Payer identifier: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisation identifier: The unique identifier of a business party - in this subtype of organization represents organisational unit identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge amount: An amount of fee charged for an extra sevice provided by DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge override indicator: A flag to indicate whether or not a non-standard amount has been charged for an Extra Charge.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TxTyCd" type="CM_DMN:TxTy_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Tax type code: "A code to identify the rate of tax that will be levied.
+e.g. VAT OR duty, airport, excise, postal tax, carrier tax.
+This tax TYPE IS given FOR EACH country."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TxAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge tax amount: The amount of tax that has been levied on an extra charge.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TxDsc" type="CM_DMN:Text_70" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge tax description: Describes the tax that has been applied to the amount.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge total amount: Indicates the total extra charge amount including taxes and discount.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Pcnt" type="CM_DMN:Pcnt_8_4" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge percentage: Provides the percentage of the extra charge.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrcDt" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge pricing date: The date that an Extra Charge for a Shipment was calculated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dsc" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge description: Describe the extra charge code in details.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObChrgDstBInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Outbound service charge destination billed indicator: A flag to indicate if the charge is to be billed at destination.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UWgt" type="CM_DMN:Uom_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Weight unit of measure: "Identifies uniquely the unit of measure code.
+FOR example:
+LB=Pounds
+YD=Yard
+YD3=Cubic Yard
+FT=Feet
+FT3=Cubic Feet
+IN=Inches
+MI=Mile
+M=Meter
+M3=Cubic Meter
+CM=Centimeter
+CM3=Cubic Centimeter
+KG=Kilogram
+KM=Kilometer
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets AND boxes"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AmtWgtUnt" type="CM_DMN:MonAmt_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Extra charge amount per weight unit: "For certain charges for example Remote Area Surcharges the charge is provided per weight unit.
+SAMPLE 50 cent/kg"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayTy" type="OAGIS:PaymentBaseType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Payment type
+
+The outbound charge can be paid in the various ways.
+
+The schema type is taken from OAGIS and is not one to one with DDM.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PMthTyCd" type="CM_DMN:PMthTyCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Payment method type code: Identifies uniquely a payment method type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BCurrTotAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment service charge base currency total amount.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BCurrExRt" type="CM_DMN:CurExRtType_18_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment service charge base currency exchange rate.  
+
+The exchange rate used to convert the local currency to DHL base currency.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ShpDocType">
+		<xs:annotation>
+			<xs:documentation>Shipment document</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocId" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation identifier
+
+The  unique identifier for a shipment document. For the contract with the customer, ie. the waybill, the identifier is the waybill number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocTyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Document type code
+
+Identifies uniquely a document type., e.g.Visa, export licence, import licence, SGS certificate, commercial invoice, certificate of origin.If official documents the standard abbreviation to be used, e.g. from customs. If internal DHL documents use e.g.CIN=Commercial InvoiceDCL=Customs DeclarationDSP=DispatchEXL=Export LicenceIML=Import LicenceMAN=ManifestRCP=RecieptREQ=RequestRSP=ResponseDTI= Duty and tax invoice"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IncTrmCd" type="CM_DMN:IncTrmCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Incoterm code: "Defines uniquely an Incoterm. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BdTyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Bond type code: "There are many types of bonds required by Customs  Border Protection (CBP) for various reasons. While TRG has the experience and expertise to provide every type, the most common types issued are:AC1=Import bondA1a=Drawback bondAC2=Custodian of Bonded MerchandiseAC3=International carrierAC4=Foregin Trade Zone"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation datetime
+
+The date and time the document was created.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Loc" type="CM_DMN:Text_250" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation locator
+
+The location of the image of the document on the internet.Value is a  URL (Universal Resource Locator), which  is a general purpose internet addressing protocol, used in WWW (HTTP) service.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rmk" type="CM_DMN:Text_504" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation remark
+
+Any comments to shipment document can be mentioned here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CusProcTyCd" type="CM_DMN:Text_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customs procedure type code
+
+A code used by customs to facilitate clearence, e.g. IM4 - Permamently import.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReglBdCd" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Regulatory body code: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrcCtryCd" type="CM_DMN:CCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation source country code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RevsnNo" type="CM_DMN:No_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation revision number
+
+Indicates whether there has been more than one revision of this particular document.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoLnItm" type="CM_DMN:No_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation number of line item
+
+Contains the total number of the line item of that shipment document.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SADNo" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation SAD number
+
+The SAD number used by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReaForTrCd" type="CM_DMN:Cd_5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reason for transaction code
+A code uniquely identifying a reason for the trade transaction.
+Reason for exporting/importing the part, e.g. temporary, permanent.
+This reason for transaction applies to all document lines in the document.
+If a reason for transaction is provided on document line level, then it needs to be specified at all document lines and document level reason code doesn't apply.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpLicNo" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation export license
+
+The export license used by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpLicCd" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Export licence code
+
+Export License Code indicates the type of export license, export permit, license exemption, license exception or other export authorization.
+
+This is based solely on the commodity type being exported. The license code associated with a commodity may indicate that the shipper must have a license to export the commodity, but it’s not the shipper that is determining the need for a license, it is the commodity. 
+
+Reference to industry standard: Permit Type / Permit No:  Export License Code is a permit or exemption type.  It will indicate that a license number is to be reported and the type of license, or the authorization for not providing a license number. 
+ 
+It is mandatory for all EEI filings.  In other words, if a shipment’s category is FRML and the shipper has not provided an ITN and DCE cannot assign an exemption through normal workflow, then an EEI filing is required and the Export License Code is mandatory. 
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImpLicNo" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation import license: The import license used by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImpLicCd" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Import licence code
+
+Import License Code indicates the type of import license, import permit, license exemption, license exception or other import authorization.
+
+This is based solely on the commodity type being imported. The license code associated with a commodity may indicate that the receiver/importer must have a license to import the commodity, but it’s not the receiver/importer that is determining the need for a license, it is the commodity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cust" minOccurs="0" maxOccurs="10">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustId" type="CM_DMN:Bp_20" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Customer identifier: The unique identifier of the customer.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CustRolTyCd" type="CM_DMN:Cd_2" minOccurs="0" maxOccurs="10">
+							<xs:annotation>
+								<xs:documentation>Customer role type code: "A code that uniquely identifies a customer role.
+VALUES are:
+BC=Barcode
+BT=Bill TO
+BY=Buyer
+DF=Destination Facility
+DH=DDI Shipper
+DP=DDI Payer
+DR=DDI Receiver
+DS=Dispatch
+DL=Delivery
+EP=Exporter
+FR=Freight Customer
+IN=Indivisible trans
+IP=Importer
+IQ=Inquirer
+LP=Logistic Service Supplier
+LS=Logistic Supplier Provider
+MR=Message Receiver Party
+MS=Message Sender Party
+NF=Non Freight Customer
+OB=Origin Barcode
+OF=Origin Facility
+OP=Operational
+PK=PACKAGE KEY
+PU=Pick-up
+PY=Payer
+RQ=Requestor
+RT=RETURN TO
+RV=Receiver
+SP=Shipper
+SU=Supplier
+TC=Technical
+TH=Third party"</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Rgs" minOccurs="0" maxOccurs="10">
+							<xs:annotation>
+								<xs:documentation>Customer's registration
+
+An official identification issued by a regulatory body to a business party.
+</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ReglBdCd" type="CM_DMN:Bp_20" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Regulatory body code: The unique identifier of a business party.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="CtryCd" type="CM_DMN:CCd_2" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Country code of the regulatory body.
+
+Country code is a two character code, assigned by the International Standards Organization, that uniquely identifies the specified ISO country.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Registration type code
+
+The discriminator for the different types of registered numbers that may be assigned to a business party.
+Values are:
+VAT=Value Added Tax
+DUT=Duty Tax
+SRT=SIRET
+SRN=SIREN
+</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="No" type="CM_DMN:RgsNo_35" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Registration Number
+
+A unique reference issued by a country regulatory body to identify a trader.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="TrdBlocCdn" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Trading bloc coding</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TrdBlocCd" type="CM_DMN:TrdBlocCdType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>A short label for a Trading bloc. Values are
+EU=European Union
+NAFTA=Nafta
+Mercosur=Mercosur.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TrdBlocRecncltCd" type="CM_DMN:Cd_3" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>A code used within a trading bloc.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ShpInDoc" type="CM_DMN:ShpIdType" minOccurs="0" maxOccurs="100000"/>
+			<xs:element name="PcsIdInDoc" type="CM_DMN:PcsId_35" minOccurs="0" maxOccurs="100000">
+				<xs:annotation>
+					<xs:documentation>Piece in document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ln" type="ShpDocLnType" minOccurs="0" maxOccurs="1000">
+				<xs:annotation>
+					<xs:documentation>Shipment document line</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DocLineDscType">
+		<xs:annotation>
+			<xs:documentation>Shipment description</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="CM_DMN:Text_512">
+				<xs:annotation>
+					<xs:documentation>Shipment description of goods: A brief description of the goods in a shipment.</xs:documentation>
+				</xs:annotation>
+				<xs:attribute name="LngCd" type="CM_DMN:LanguageCodeType">
+					<xs:annotation>
+						<xs:documentation>Language code
+
+Provides informatin in which language is the shipment description.
+
+Code to uniquely identify a language.
+
+ISO 639-2 Code</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ShpDocLnType">
+		<xs:annotation>
+			<xs:documentation>Shipment document line</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LnNo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Identifies the line on the document.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IncTrmCd" type="CM_DMN:IncTrmCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Incoterm code: "Defines uniquely an Incoterm. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManCtryCd" type="CM_DMN:CCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country of manufacture code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An identifier of the goods manufacturer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpDt" type="CM_DMN:Dt_CYMD_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date the goods is exported.
+
+Derived from Movement departure date.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DscGds" type="DocLineDscType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece document line descriptino of goods.
+
+A description of the goods of a Commodity Type, contained within the shipment or piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Qty" type="CM_DMN:QuantityType" minOccurs="0"/>
+			<xs:element name="NetWgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Net Weight
+
+Derived field showing the total net weight of all articles on the shipment documentation line.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotVal" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Line total value
+
+Derived field showing the total value of all articles on the shipment documentation line.
+
+Tax is included.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotTxAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Line total tax amnount.
+
+Derived field. The total tax amount related to documentation line item.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReaForTrCd" type="CM_DMN:Cd_5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reason for transaction code
+A code uniquely identifying a reason for the trade transaction.
+Reason for exporting/importing the part, e.g. temporary, permanent.
+If a reason for transaction is provided on document line level, then it needs to be specified at all document lines and document level reason code doesn't apply.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rmk" type="CM_DMN:Text_255" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation line remark
+
+Any comments to shipment document line can be mentioned here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CusProcTyCd" type="CM_DMN:Text_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customs procedure type code
+
+A code used by customs to facilitate clearence, e.g. IM4 - Permamently import.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReglBdCd" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Regulatory body code: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartNo" type="CM_DMN:PartNumberType" minOccurs="0"/>
+			<xs:element name="ExCtlClssNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Goods classification number issues by control agency of country of shipment origin. Export restrictions can be associated with the number. See also http://www.bis.doc.gov/licensing/
+
+DDM review: should be FK and lthe entity related with comodity.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ExpLicNo" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation line export license
+
+The export license used by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpLicCd" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Export licence code
+
+Export License Code indicates the type of export license, export permit, license exemption, license exception or other export authorization.
+
+This is based solely on the commodity type being exported. The license code associated with a commodity may indicate that the shipper must have a license to export the commodity, but it’s not the shipper that is determining the need for a license, it is the commodity. 
+
+Reference to industry standard: Permit Type / Permit No:  Export License Code is a permit or exemption type.  It will indicate that a license number is to be reported and the type of license, or the authorization for not providing a license number. 
+ 
+It is mandatory for all EEI filings.  In other words, if a shipment’s category is FRML and the shipper has not provided an ITN and DCE cannot assign an exemption through normal workflow, then an EEI filing is required and the Export License Code is mandatory. 
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImpLicNo" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation line import license: The import license used by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImpLicCd" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Import licence code
+
+Import License Code indicates the type of import license, import permit, license exemption, license exception or other import authorization.
+
+This is based solely on the commodity type being imported. The license code associated with a commodity may indicate that the receiver/importer must have a license to import the commodity, but it’s not the receiver/importer that is determining the need for a license, it is the commodity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DngGdsInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Dangerous goods indicator
+
+Indicates whether the document pieces contain dangerous goods.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CmdtClss" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment document line commodity classification</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CtryCd" type="CM_DMN:CCd_2" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Commodity classification country code.
+
+The classifications are country specific extensions of  Harmonized commodity code. Usually by local tarrifs.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Ob" type="CM_DMN:CmdtClsBaseType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Country Outbound commodity classification.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Ib" type="CM_DMN:CmdtClsBaseType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Country Inbound commodity classification.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="HrmnCmdtCd" type="CM_DMN:HrmnCmdtCdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Represent codes as defined by Harmonized System Codes (HS Codes) plus country defined tarif extension.
+
+The HTS is organized into 21 sections and 96 chapters, accompanied with general rules of interpretation and explanatory notes. The system begins by assigning goods to categories of crude and natural products, and from there proceeds to categories with increasing complexity. The codes with the broadest coverage are the first four digits, and are referred to as the heading. The HTS therefore sets forth all the international nomenclature through the 6-digit level and, where needed, contains added subdivisions assigned 2 more digits, for a total of 8 at the tariff-rate line (legal) level. Two final (non-legal) digits are assigned as statistical reporting numbers if warranted, for a total of 10 digits to be listed on entries.
+
+See also: 
+http://www.foreign-trade.com/reference/hscode.htm
+http://en.wikipedia.org/wiki/Harmonized_System
+
+The proper modeling would be to reuse HS codes and introduce an additional attribute for country tarif.
+
+
+WCO definition:
+Commodity classification: The non-commercial categorization of a commodity by a standard-setting organization.  First 6 digits must be the HS
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddQty" type="CM_DMN:QuantityType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>The additinal quantity in other UOM can be provided at document line.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Tax" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>List the type of taxes associated to the shipment documentation line item.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TxTyCd" type="CM_DMN:TxTy_6" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Tax type code: "A code to identify the rate of tax that will be levied.
+e.g. VAT OR duty, airport, excise, postal tax, carrier tax.
+This tax TYPE IS given FOR EACH country."</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TxAmt" type="CM_DMN:MonType_18_3" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Extra charge tax amount: The amount of tax that has been levied on an extra charge.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TxRt" type="CM_DMN:TxRtTy" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Tax Rate
+
+The rate used for calculation of the tax amount.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PcsIdInDocLn" type="CM_DMN:PcsId_35" minOccurs="0" maxOccurs="100000">
+				<xs:annotation>
+					<xs:documentation>Piece in document line</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ImgType">
+		<xs:annotation>
+			<xs:documentation>Image</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ImgId" type="CM_DMN:No_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image identifier:A number that uniquely identifies an image.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SDocId" type="CM_DMN:DcId_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment documentation identifier:"The  unique identifier for a shipment document. For the contract with the customer, ie. the waybill, the identifier is the waybill number."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CDtm" type="CM_DMN:DtmType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image captured datetime: The date and time that Image was cpatured. E.g. by photo camera or on a scanner.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RDtm" type="CM_DMN:DtmType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image recording datetime: Data Entry Timestamp (Insertion Timestamp)
+
+The data entry timestamp identifies the moment in time that the Image details become available to a business application on an on-line computer system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image send datetime:The Image issue timestamp identifies the moment in time that the Image information is sent from the business application that captures it to the appropriate databases. In most cases this will be the time that the message is passed from the business application to the local communications infrastructure.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AvlDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image available datetime: The time at which the data is available and can be returned by image archive solution.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrvAreaGenCd" type="CM_DMN:SrvaCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Service area generated code:A code to identify a service area within the DHL operations network.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FcGenCd" type="CM_DMN:FcCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Facility generated code:A code to identify an addressed location where DHL business functions are performed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FcGenId" type="CM_DMN:FcId_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Facility generated identifier:"Defines uniquely a physical location in DHL.  This code consists of a 3-character Service Area Code (linked to a valid IATA code, and often identical to it) and a 3-character Facility Code.  The harmonized facility identifier for globally unique facility identification."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrcAppCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Source application code:
+
+The name of the application from where the image was received.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrcAppVer" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Source application version:
+
+The version number of the application.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrcAppInstId" type="CM_DMN:Text_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Source application instance identifier:
+
+Unique identifier of an applicaiton instance.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rmk" type="CM_DMN:Text_255" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image remarks:Any comments about the image.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnCdTy" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image.Image encoding type:Format of image file.  List of allowable values maintained by CPI CRB. Three-letter code should follow PC standards for file name extensions. Currently allowed: TIF  TIFF file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MimeTy" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image mime type:Specifies MIME type of Image Encoding List of allowable values maintained by CPI CRB. Currently allowed: image/tiff</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!--xs:element name="Img" type="CM_DMN:Blob_Type" minOccurs="0"> 
+	 	  		   <xs:annotation> 
+					<xs:documentation>Image.Image:Iamage data</xs:documentation> 
+				</xs:annotation> 
+			</xs:element-->
+			<xs:element name="Loc" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image location:Complete location needed to download the image. Follows format specified in Image Location Type field.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:Text_250">
+							<xs:attribute name="LocTy" type="CM_DMN:Cd_3">
+								<xs:annotation>
+									<xs:documentation>Image.Image location type:Format of Image Location field. Allowable image location types maintained by the CPI CRB. Currently allowed: URL  Image Location is a URL</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ExpDt" type="CM_DMN:Dt_CYMD_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image expiry date:The date the image reference expires.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Size" type="CM_DMN:No_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image size:Image size in bytes.  This attribute can be use for example for checking of data completness.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Img" type="xs:base64Binary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image row data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CIndvId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image captured user name individual identifier: 
+
+The unique identifier of an individual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CUsrNm" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image captured user name.
+
+The name that uniquely identify a user within a system or set of systems.
+
+e.g. LDAP USER ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="COpsFncId" type="CM_DMN:Text_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image captured operation function identifier: "Contains the specific identifier of the Operation function that recorded the event. This identifier can be an identifier of a Tour, Movement, facility etc."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="COpsFncTyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Image captured operation function type code: "Unique identifier of the type of operation function, e.g.
+
+PUT = Pick-Up Tour
+PTR = Pick-Up Terminal
+DLT= Delivery Tour
+DTR = Delivery Terminal
+AMV = Air Movement
+RMV = Road Movement
+ORG = Origin Gateway
+DEG = Destination Gateway
+ING = Inbound Gateway
+OUG = Outbound Gateway
+DOH = Domestic Hub
+INH = International Hub
+MFF = Multi-FUNCTION Facility
+SUF = Subcontractor Facility
+CUF = Customer Facility
+LUL = Loading/ Unloading Location
+HAL = Special Handling Location
+STL = STORAGE Location
+AIF = Airlport Facility
+HAF = Harbour Facility
+DRL = DROP-OFF Location
+etc.
+"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PieceMeasType">
+		<xs:annotation>
+			<xs:documentation>Shipment Piece measure type
+Piece measurements as provided by customer in the cases where Piece
+business object is not created yet and Piece identifier is not
+assigned.
+
+Is used to calculate the Shipper Dim Weight which is used by Billing
+where DHL has not reweighed pieces. Also used to validate variance
+between Shipper declared Volumetric and DHL Validated Volumetric.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SqNo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The sequence number of the Piece measure.
+
+This sequence number has not value of a unique identifier and has no
+business meaining.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Measure type code: "Provides classificatin of various measure types for an unit.
+
+DEC - measurement provided BY customer/shipper
+
+BIL - measurement that has been used FOR the charging. IS used WHEN the product OR service enables e.g. piece billing.
+
+ACT - measurement taken AND verified BY DHL.
+
+PRC - measurement that has been used FOR pricing."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NPcs" type="CM_DMN:NoPcs_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of pieces: 
+
+The number of pieces for which the measure was captured.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="H" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The height of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="L" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The length of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="W" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The width of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Wgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The weight of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NetWgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The net weight of the piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VolWgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A calculated weight based on the piece volume.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Vol" type="CM_DMN:VolType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The piece volume.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ShpDeliveryDtmType">
+		<xs:annotation>
+			<xs:documentation>A list of Shipment delivery date time is required for a Shipment.
+
+This entity allows for capture and maintenance of an unrestricted number of the Shipment delivery datetimes.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment delivery datetime type code
+
+Quoted Delivery Date/Time - Fastest (QDDF) / Committed (QDDC)
+
+QDDF -  is the fastest ("docs") transit time as quoted to the customer at booking or shipment creation. When clearance or any other non-transport operational component is expected to impact transit time, QDDf does not constitute DHL's service commitment.
+
+QDDC -  constitutes DHL's service commitment as quoted at booking/shipment creation. QDDc builds in clearance time, and potentially other special operational non-transport component(s), when relevant.
+
+QDD's - are held at shipment level, and are mandatory for shipment detail whenever captured at booking or shipment creation. QDDs are never displayed, presented or otherwise articulated to customers outside of booking or shipment creation. QDDs are always derived from DHL's customer-facing transit time standards.(1)
+
+Fastest Delivery Date/Time (FDD)
+The fastest ("docs") estimated delivery date/time DHL calculates following physical shipment acceptance. FDD does not consider clearance or any other non-transport operational component that may impact transit time. FDD is held at shipment level, and is mandatory for all shipment detail. FDD is always derived from DHL's customer-facing transit time standards, and does not change in transit.(1)
+
+Committed Delivery Date/Time (CDD)
+The committed estimated delivery date/time DHL calculates following physical shipment acceptance. CDD builds in clearance and/or any other special non-transport operational component that may impact transit time. CDD is held at shipment level, and is mandatory for all shipment detail. CDD is always derived from DHL's customer-facing transit time standards, and does not change in transit.(1)
+
+Estimated Delivery Date/Time (EDD)
+The best/latest estimate of delivery date/time for a shipment. The EDD starts out as the F/CDD (2) and may be adjusted during transit. EDD is held at shipment and piece level, and is business-mandatory.(3) The EDD is displayed to customers as per its standard Global SOP network display rules.
+
+Requested Delivery Date/Time (RDD)
+The delivery date/time the Shipper, Receiver, Payer or other authorized party has requested and DHL has accepted/validated. RDD is only relevant, and will only be present, if a specific delivery date/time change has been requested, or if the requested disposition of the shipment causes such a change (e.g. redirect). RDD is held at shipment and piece level and is business-conditional. If present, RDD is displayed to customers as the current EDD.
+
+Dynamic Delivery Date/Time (DDD)
+The estimated delivery date/time DHL calculates as a shipment moves through the network to delivery. DDD is held at shipment and piece level, and is business-mandatory. (3) DDD is displayed to customers as per its network display rules.
+
+(1) In future, customer-specific transit times may apply in select instances.
+(2) The business will decide whether CDD or FDD is to be used.
+(3) Piece level EDD calculation for shipments-in-transit is not at present possible. Shipment-level EDDs will be cascaded.
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Dtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment delivery datetime
+
+The delivery datetime of the specified type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrcTyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Source shipment delivery datetime type code 
+can be the source for EDD.
+
+EDD source is meant to indicate the type of Estimated Delivery Date/Times used for updating the EDD, 
+The following are the values:
+"	"CDD" if EDD is the Committed Delivery Date/Time 
+"	"FDD" if EDD is the Fastest Delivery Date/Time 
+"	"DDD" if EDD is the Dynamic Delivery Date/Time 
+"	"RDD" if EDD is the Requested Delivery Date/Time from ODD.
+
+It is only applicable to EDD Shipment delivery datetime type.
+
+The source code is used by customer facing UI to customize the information displayed.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

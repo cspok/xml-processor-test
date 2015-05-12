@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+
+version 2.000 - Date 2013-09-20 - Initial version - <Created by Srinidhi Ramachandra>
+ - based on CM_ShpPcsDetails_Resp_ver_2.005.xsd - filename and root element renamed so it can be implemented in request and response messages without confusion in the XSD name
+
+version 2.001 - Date 2013-09-30
+ - CM_Shipment_ver_2.006.xsd latest version imported
+ - CM_GenericRequest_ver_2.008.xsd - imported
+ - //element(*,ShpPcdDetailsMsgType)/Bd/GenReq - added
+
+version 2.002 - Date 2013-10-22
+ - CM_Shipment_ver_2.007.xsd latest version imported
+
+version 2.003 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.009.xsd - latest version imported
+- CM_Header_ver_2.009.xsd - latest version imported
+- CM_GeneralInfo_ver_2.009.xsd - latest version imported
+- CM_Shipment_ver_2.008.xsd - latest version imported
+- CM_ResponseStatus_ver_2.009.xsd - latest version imported
+- CM_GenericRequest_ver_2.009.xsd - latest version imported
+
+version 2.004 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+- CM_Header_ver_2.010.xsd - latest version imported
+- CM_GeneralInfo_ver_2.010.xsd - latest version imported
+- CM_Shipment_ver_2.009.xsd - latest version imported
+- CM_ResponseStatus_ver_2.010.xsd - latest version imported
+- CM_GenericRequest_ver_2.010.xsd - latest version imported
+
+version 2.005 - Date 2013-11-20 <Modified by Lukas Neubauer>
+- CM_Shipment_ver_2.010.xsd - latest version imported
+
+version 2.006 - Date 2014-01-06 <Modified by Lukas Neubauer>
+ - CM_Shipment_ver_2.011.xsd version increased
+
+version 2.007 - Date 2014-01-09 <Modified by Srinidhi Ramachandra>
+- CM_Shipment_ver_2.012.xsd version increased
+
+version 2.008 - Date 2014-01-15 <Modified by Srinidhi Ramachandra>
+- CM_Shipment_ver_2.013.xsd version increased
+
+version 2.009 - Date 2014-01-23 <Modified by Srinidhi Ramachandra>
+- CM_Shipment_ver_2.014.xsd version increased
+
+version 2.010 - Date 2014-02-24 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+- CM_Header_ver_2.011.xsd - latest version imported
+- CM_GeneralInfo_ver_2.011.xsd - latest version imported
+- CM_Shipment_ver_2.015.xsd - latest version imported
+- CM_ResponseStatus_ver_2.011.xsd - latest version imported
+- CM_GenericRequest_ver_2.011.xsd - latest version imported
+
+version 2.011 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd version increased
+- CM_Header_ver_2.012.xsd - latest version imported
+- CM_GeneralInfo_ver_2.012.xsd - latest version imported
+- CM_Shipment_ver_2.016.xsd - latest version imported
+- CM_ResponseStatus_ver_2.012.xsd - latest version imported
+- CM_GenericRequest_ver_2.012.xsd - latest version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_ShpPcsDetailsMsg/v2" xmlns:CM_Shp="http://www.dhl.com/Express/CM/CM_Shp/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_HDR="http://www.dhl.com/Express/CM/CM_Header/v2" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" xmlns:CM_RESPST="http://www.dhl.com/Express/CM/CM_RespStatus/v2" xmlns:CM_GREQ="http://www.dhl.com/Express/CM/CM_GenericRequest/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_ShpPcsDetailsMsg/v2" version="2.011">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Header/v2" schemaLocation="CM_Header_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" schemaLocation="CM_GeneralInfo_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Shp/v2" schemaLocation="CM_Shipment_ver_2.016.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_RespStatus/v2" schemaLocation="CM_ResponseStatus_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GenericRequest/v2" schemaLocation="CM_GenericRequest_ver_2.012.xsd"/>
+	<xs:complexType name="ShpPcdDetailsMsgType">
+		<xs:annotation>
+			<xs:documentation>Message type for Shipment and piece details message.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hdr" type="CM_HDR:HDR">
+				<xs:annotation>
+					<xs:documentation>Standard message header </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Bd">
+				<xs:annotation>
+					<xs:documentation>Container element for the message data.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Shp" type="CM_Shp:ShpType" minOccurs="0" maxOccurs="1000">
+							<xs:annotation>
+								<xs:documentation>Shipment and piece details message.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GenReq" type="CM_GREQ:GenericRequest_GenericRequest" minOccurs="0" maxOccurs="100">
+							<xs:annotation>
+								<xs:documentation>Generic request criteria.
+
+The request can be further specifield with the usage of this complex type element.
+
+Service operation needs to be specified in the implementation guide.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RespStatus" type="CM_RESPST:RespStatusType" minOccurs="0" maxOccurs="1000">
+				<xs:annotation>
+					<xs:documentation>Response status type. Represents a single status and related information. One status can consists of multiple validation errors of a request message.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ShpPcdDetailsMsg" type="ShpPcdDetailsMsgType">
+		<xs:annotation>
+			<xs:documentation>Shipment and piece details message,</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

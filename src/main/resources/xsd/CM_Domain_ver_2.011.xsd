@@ -1,0 +1,3129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Change log:
+ version 0.006
+ - Confidentiality Level domain added: ConfL
+ -Individual Role Type domain added: IndRlTy
+ - CommDeviceTyCd_3 type added
+ - CommNumber_70 type added
+ - In VolType_15_3 UVol renamed to Uom
+ - In MeaType_10_3 UMea renamed to Uom
+ - In WgtType_15_3 Uwgt renamed to Uom
+ - Amt_8_2 removed
+ - GlProdSrvCd and LclProdSrvCd complex types added
+ - TmZnType added
+ version 0.007
+ - VehIdType added
+ - Movement_IDType added
+ - IATA_CdType added
+ - OpsFncIdType added
+ - DatElmntValType definition moved to CM_Domain_ver_0.007.xsd
+ - DatElmntType definition moved to CM_Domain_ver_0.007.xsd
+ version 0.007
+OpsFncTyCd - annotation updated and aligned with DDM
+ version 0.008 - Date 2012-08-13
+ - VehIdType changed from char(18) to char(36)
+ version 0.009 - Date 2012-08-29
+ - Business party role type code added
+ - Data element group type added
+ version 0.010 - Date 2013-02-12
+ - GUIDType - added
+ version 0.011 - Date 2013-02-20
+ - NtwAccNo type: Business is still using non numeric account numbers and for that reason the restriction for the exact nine digits was removed
+ - Event data element group enhanced with optional child event data element group data element
+ version 0.012 - Date 2013-03-08
+ - AccountIdentification4Choice - added, and also required types. See annotations.
+ - QuantityType added
+ - TxRtTy - added
+ - PartNumberType - added
+ - CmdtClssType - added
+ - HrmnCmdtCdType - added
+ - TrdBlocCdType - added
+
+ version 1.000 - Date 2013-03-12
+ - schema major version introduced
+
+ version 1.001 - Date 2013-03-28
+ - Tm_HM5 data type changed from xs:datetime to xs:time
+ - Tm_HM5 data type changed from xs:datetime to xs:time
+
+ version 1.002 - Date 2013-04-11
+ - DtmUTCType - complex domain type added
+ - DtmUTC_25 - domain removed
+ - SchDptDtm data type changed to DtmType
+ - //element(*,Movement_IDType)/@SchDptTmOff added
+ - Tm_HrMin5, DtmHM_5 - type definitions removed, these were duplicate to Tm_HM5
+ - Dtm_19 renamed to DtmType
+
+ version 2.000 - Date 2013-05-10
+ - ShpKeyType added
+
+ version 2.001 - Date 2013-06-03
+ - //element(*,OpsFncIdType)/OpsFncTyCd - min length changed from 3 to 1.
+ - //element(*,ShpIdType)/@Dtm renamed to //element(*,ShpIdType)/@Dt
+ - //element(*,Movement_IDType)/@OrgFcCd - added
+ - //element(*,Movement_IDType)/@DstFcCd - added
+
+version 2.002 - Date 2013-07-09
+ - //element(*,DatElGrpType)/DatEl -  max number of occurences increased to 5000
+ - //element(*,DatElGrpType)/DatElGrp -  max number of occurences increased to 5000
+ - //element(*,DatElGrpType)/@Cd - set as mandatory
+
+version 2.003 - Date 2013-08-07
+ - BOCdType - added
+ - //element(*,BOStatusType)/@BOCd - added
+
+version 2.004 - Date 2013-08-19
+ - //element(*,BOStatusType)/@Dtm - added
+ - LdDevRgsNoType - added
+ - Movement_IDRqstType - added
+
+version 2.005 - Date 2013-08-29
+ - CustAgrIdType - added
+
+version 2.006 - Date 2013-09-02
+ - //element(*,CurExRtType_18_6)/@TyCd - added
+ - TmZnCd_5 - renamed to TmZnCdType and data type changed to string with max length 6
+ - DtmGMTOff_6 - min length set to 6
+ - HUTyCdType - added
+
+version 2.007 - Date 2013-09-18
+ - TmZnCdType changed from char(6) to char(10)
+ - Text_40 type added
+ - Text_512 type added
+ - DatElmntValType changed to Text_2000
+
+version 2.008 - Date 2013-10-10 - <Modified by Srinidhi Ramachandra>
+ - TxType added
+ - MeasType added
+
+version 2.009 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+ - BOExtendedStatusType complex type added
+
+version 2.010 - Date 2014-02-11 - <Modified by Srinidhi Ramachandra>
+ - updated the annotation for OpsFncIdType/OpsFncTyCd
+ 
+version 2.011 - Date 2014-04-07 - <Modified by Lukas Neubauer>
+- //element(*,LclProdSrvCd)/@GlProdSrvClsCd renamed to //element(*,LclProdSrvCd)/@GlProdSrvClssCd - so it is aligned with Global Product
+ -->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_Domain/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_Domain/v2" version="2.011">
+	<xs:simpleType name="Acc_4_2">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: Accuracy  in decimal 99.99</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="4"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AccountIdentification4Choice">
+		<xs:annotation>
+			<xs:documentation> Bank account identification, Reused from ISO20022 : www.iso20022.org as defined in acmt.007.001.01.xsd.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="IBAN" type="IBAN2007Identifier">
+					<xs:annotation>
+						<xs:documentation>International Bank Account Number</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Othr" type="GenericAccountIdentification1">
+					<xs:annotation>
+						<xs:documentation>Other bank account identification</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AccountSchemeName1Choice">
+		<xs:annotation>
+			<xs:documentation>Part of Bank account identification, Reused from ISO20022 : www.iso20022.org as defined in acmt.007.001.01.xsd.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="Cd" type="ExternalAccountIdentification1Code"/>
+				<xs:element name="Prtry" type="Max35Text"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AddrTyCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Address Type Code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CustAgrIdType">
+		<xs:annotation>
+			<xs:documentation>Unique identifier of a customer agreement.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int"/>
+	</xs:simpleType>
+	<xs:complexType name="AltType">
+		<xs:annotation>
+			<xs:documentation>Geo position altitude: The vertical distance of a level, a point or an object considered as a point, measured from mean sea level.
+
+Altitude is optional parameter of geo position.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="DimSz_15_2">
+				<xs:attribute name="Acc" type="Acc_4_2">
+					<xs:annotation>
+						<xs:documentation>Percentage accuracy of the captured altitude.
+
+Range: 0 - 100%</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="AppSysId_10">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Identification of an Application system.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BankChqNoTy">
+		<xs:annotation>
+			<xs:documentation>A number that identifies a Bank cheque.
+
+A Bank cheque number needs a Bank account number to get a unique id for the Bank cheque.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BilTyCd_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for code as a single char.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BkgDs">
+		<xs:annotation>
+			<xs:documentation>
+A number of days that can be booked in advanced.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BkgGRN">
+		<xs:annotation>
+			<xs:documentation>Booking Global Reference Number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BkgRef_10">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: A reference given to the Customer when booking a shipment..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:minLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BkgRefType">
+		<xs:simpleContent>
+			<xs:extension base="BkgRef_10">
+				<xs:attribute name="Dt" type="Dt_CYMD_10">
+					<xs:annotation>
+						<xs:documentation>Booking Date: The date when the courier needs to attend the customer premises in order to pick up the shipments.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="TyCd" type="BkgTyCd_1">
+					<xs:annotation>
+						<xs:documentation>Booking Type Code: A code to uniquely identify a booking types used within the booking systems.
+
+Valid types are
+A = Adhoc Advance 
+S = Adhoc Same day or Special 
+R = Regular
+U = Unknown</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SrcAppCd" type="AppSysId_10">
+					<xs:annotation>
+						<xs:documentation>Booking source application code: A code to uniquely define an application/system, e.g. 
+DST
+Eurion
+GCA.
+Network (In case a division has a network standard checkpoint/event structure this default code can be used)</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="BkgTyCd_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Booking Type Code.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BOCdType">
+		<xs:annotation>
+			<xs:documentation>Identifies uniquely a business object type , e.g. 
+PCE = Piece
+SHP = Shipment
+HUN = Handling Unit
+MVT = Movement
+ACT = Account
+CST = Customer
+BKG = Booking</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BOStatusTyCdType">
+		<xs:annotation>
+			<xs:documentation>Status type code
+
+A business object can have parallel states. The parallel states need to be classified by status type. 
+
+A business object can have only on state of a status type.
+
+Defines the list of possible business object status types.
+
+The types need to be taken from Business object state model.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BOStatusBaseType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BOStatusType">
+		<xs:annotation>
+			<xs:documentation>Complex type for business object status.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="BOStatusBaseType">
+				<xs:attribute name="TyCd" type="BOStatusTyCdType" use="required">
+					<xs:annotation>
+						<xs:documentation>Status type code
+
+A business object can have parallel states. The parallel states need to be classified by status type. 
+
+A business object can have only on state of a status type.
+
+Defines the list of possible business object status types.
+
+The types need to be taken from Business object state model.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="BOCd" type="BOCdType">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely a business object type , e.g. 
+PCE = Piece
+SHP = Shipment
+HUN = Handling Unit
+MVT = Movement
+ACT = Account
+CST = Customer
+PUR = PU Request.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Dtm" type="DtmType">
+					<xs:annotation>
+						<xs:documentation>Business object state datetime
+
+The UTC date and time when the business object moved to this state of the business object lifecycle.
+
+The date time is equal to the UTC date time of the event trigering the business object state transition.
+</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="BOStatusExtendedType">
+		<xs:annotation>
+			<xs:documentation>Extended complex type for business object status.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>BO status code
+
+The BO status can change during the BO life cycle and this entity describes the BO lifecycle statuses.
+
+BO can have parallel status types during its lifecycle.
+
+Status code describes the state.
+
+Just one state of a state type is possible and allowed.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="BOStatusBaseType">
+							<xs:attribute name="TyCd" type="BOStatusTyCdType" use="required">
+								<xs:annotation>
+									<xs:documentation>Status type code
+
+A business object can have parallel states. The parallel states need to be classified by status type. 
+
+A business object can have only on state of a status type.
+
+Defines the list of possible business object status types.
+
+The types need to be taken from Business object state model.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="BOCd" type="BOCdType">
+								<xs:annotation>
+									<xs:documentation>Identifies uniquely a business object type , e.g. 
+PCE = Piece
+SHP = Shipment
+HUN = Handling Unit
+MVT = Movement
+ACT = Account
+CST = Customer
+PUR = PU Request.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Dtm" type="DtmType">
+								<xs:annotation>
+									<xs:documentation>Business object state datetime
+
+The UTC date and time when the business object moved to this state of the business object lifecycle.
+
+The date time is equal to the UTC date time of the event trigering the business object state transition.
+</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="StDtElGrp" type="DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>BO status data element group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Bp_20">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: An identifier of a person or an organisation that DHL is interested in</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BsnPtyRolTyCd">
+		<xs:annotation>
+			<xs:documentation>Business party role type code: The unque identifier of a Business party role as such:
+Customer
+Prospect
+Service Partner
+Regulatory body
+Carrier
+Customs office</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessObjCode">
+		<xs:annotation>
+			<xs:documentation>Business object code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CCd_2">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Unique code for a Country.
+
+Global DHL codelist available in ESD. Codelist based on ISO 3166, containing alphanumeric codes.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CCd_6">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CChnTyCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Communication Channel Type Code as format 3 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CCNo_16">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Cd_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for code as a single char.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Cd_18">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text.</xs:documentation>
+			<xs:documentation>
+Original Domain_Note: Text can be a Description, Instruction, Remarks or a String.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="18"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Cd_2">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for code as with format 2 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Cd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for code as with format 3 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Cd_4">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for code as with format 4 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Cd_5">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for code as with format 5 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ChrgCshPayTy">
+		<xs:annotation>
+			<xs:documentation>A code indicating the Payment method used by a shipper to settle the amount outstanding for a cash payment of a shipment charge.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CmdtClsBaseType">
+		<xs:annotation>
+			<xs:documentation>Commodity classification base type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="18"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Cno_70">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Based on Trade Data Element Directory '94
+3148 Communication number
+Complete communication number including country or area code when applicable.  Also see: 3153 Communication channel identifier.
+
+This domain is generally used for communication numbers.
+
+For a telephone number, the following breakdown must be used:
+
+Communication number = Country dial code + Area dial code + Local dial code.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="70"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DivTyCdType">
+		<xs:annotation>
+			<xs:documentation>
+Country division type code
+Code that uniquely identifies a division type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CommDeviceTyCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Communication device type code:
+
+The code for a communication method that can be used to reach e.g. a facility, staff contact. Values are:
+EML=Email
+EXT=Extension
+FAX=Fax
+MOB=Mobile
+REV=ReversePhoneNo
+SMS=SMS
+TEL=Phone
+TLX=Telex
+VML=Voice Mail
+URL=Website / URL
+IP4=Internet Protocol version 4
+IP6=Internet Protocol version 6
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CommNumber_70">
+		<xs:annotation>
+			<xs:documentation>
+Communication number:
+Commuication number or Id for a given communication device type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="70"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ConfL">
+		<xs:annotation>
+			<xs:documentation>Confidentiality Level: The Corporate Information Security Standard (CISS) defines that all organization information stored and distributed aither internally or externally must be clssified according its confidentiality level into one of four classes:
+0 - Unclassified
+1 - For Internal Use
+2 - Restricted
+3 - Confidential
+
+Confidentiality level is used as indicator how a HI needs to be processed by human and systems.
+
+3 - Confidential: This level requires encryption of the HI Description attribute.
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+			<xs:minLength value="1"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CrrChrgCdType">
+		<xs:annotation>
+			<xs:documentation>Carrier charge code type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CurCd_3">
+		<xs:annotation>
+			<xs:documentation>"Code to identify the Unit of currency.
+
+GLOBAL DHL codelist based ON ISO standard 4217 (3-alpha code).
+DHL codelist defined IN International Data Coding Standards Policy Document."</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CurExRt_18_6">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="18"/>
+			<xs:fractionDigits value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CurExRtType_18_6">
+		<xs:annotation>
+			<xs:documentation>The exchange rate from base currency to foreign/other currency.
+
+Ie, 1.00 USD = 0.76 EUR, then the exchange rate is "0.76" and the base currency.
+
+"BCurCd" is "USD"; The other currecny "OCurCd" is "Euro".
+
+An amount in OCurCd devided by the exchange rate gives an amount in BCurCd.
+
+An amount in BCurCd nultiplied by the exchange rate gives an amount in OCurCd.
+ 
+.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="CurExRt_18_6">
+				<xs:attribute name="TyCd">
+					<xs:annotation>
+						<xs:documentation>Exchange rate type code.
+
+A code to define the type of exchange rate.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="8"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="BCurCd" type="CurCd_3">
+					<xs:annotation>
+						<xs:documentation>Base Currency Code</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OCurCd" type="CurCd_3">
+					<xs:annotation>
+						<xs:documentation>Other currency code</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DatElGrpType">
+		<xs:annotation>
+			<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DatEl" type="DatElmntType" maxOccurs="5000">
+				<xs:annotation>
+					<xs:documentation>Event data element.
+
+Provides a flexible tool for a capture of event specific data elements and their values.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="DatElGrpType" minOccurs="0" maxOccurs="5000">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+Optional element allowing of data element groups within data elements groups.
+
+This construct supports capture of complex event specific information structures.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Nm" use="optional">
+			<xs:annotation>
+				<xs:documentation>Data element group name
+
+Unique name of the data element group type.
+
+This attribute is not required to be used unless a specific use case requires.
+The important attribute is the code.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Cd" use="required">
+			<xs:annotation>
+				<xs:documentation>Data element group code
+
+Unique identifier of the Data element group type.
+</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DatElmntType">
+		<xs:annotation>
+			<xs:documentation>Data Element Type
+
+Messages can use this complex type where is required mechanism for exchanging Key and Value pairs.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Cd" type="Text_35">
+				<xs:annotation>
+					<xs:documentation>Data element code: 
+
+Unique identifier of an event data element. 
+This is the Key.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Val" type="DatElmntValType">
+				<xs:annotation>
+					<xs:documentation>Data element value: 
+
+Value of the data element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DatElmntValType">
+		<xs:annotation>
+			<xs:documentation>Data element value:
+
+Element contains a value of a data element. The Value must be classified by its Data element code.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Text_2000">
+				<xs:attribute name="Ty" type="Text_50">
+					<xs:annotation>
+						<xs:documentation>Data element data type: 
+
+Specifies a data type of the element which will be used for an actual element value.
+E.g.:
+INTEGER
+DOUBLE
+CHAR(%)
+DATE
+TIMESTAMP"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="DcId_35">
+		<xs:annotation>
+			<xs:documentation>A unique identifier of a document that caprtures the content of a delivery.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Dgre_7_4">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: A degree, usually denoted by ° (the degree symbol), is a measurement of plane angle, representing fraction of a full rotation.
+
+Range of values: 000.0000 - 359.9999</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="7"/>
+			<xs:fractionDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DhlDvLECd_6">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for DP DHL Division Legal Entity Code as 6 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DimSz_15_2">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: Dimensional size with format decimal(15,2).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DivCd_2">
+		<xs:annotation>
+			<xs:documentation>
+Divsion Code[2]: Generic domain for code as with format 2 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DocTyCd">
+		<xs:annotation>
+			<xs:documentation>Document type code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DOWNo_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Each day of the week is qualified by a number. 
+0 = Sunday
+1 = Monday
+2 = Tuesday 
+3 = Wednesday 
+4 = Thursday 
+5 = Friday 
+6 = Saturday 
+7 = Holiday.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DrpPntId_12">
+		<xs:annotation>
+			<xs:documentation>A number to identify a Drop Box. It indicates as well whether or not a Drop Box is manned or unmanned, and indoors or outdoors.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Dt_CYMD_10">
+		<xs:annotation>
+			<xs:documentation>
+     format: CCYY-MM-DD
+     example 2012-01-17
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Dt_DMCY_10">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Dt_Y4MD_8">
+		<xs:annotation>
+			<xs:documentation>The Year that the credit card expires</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="DtmGMTOff_6">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Coded time difference between Local time and Universal time.
+Allowed values:	(-12:00,+12:00).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+			<xs:minLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DtmType">
+		<xs:annotation>
+			<xs:documentation>Date and time expressed in UTC.
+
+http://www.w3.org/TR/NOTE-datetime
+
+Complete date plus hours, minutes and seconds:
+      YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30Z)
+      
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+	<xs:complexType name="DtmUTCType">
+		<xs:annotation>
+			<xs:documentation>Date and time expressed in UTC.
+
+http://www.w3.org/TR/NOTE-datetime
+
+Complete date plus hours, minutes and seconds:
+      YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30Z)
+
+where:
+
+     YYYY = four-digit year
+     MM   = two-digit month (01=January, etc.)
+     DD   = two-digit day of month (01 through 31)
+     hh   = two digits of hour (00 through 23) (am/pm NOT allowed)
+     mm   = two digits of minute (00 through 59)
+     ss   = two digits of second (00 through 59)
+     TZD  = time zone designator (Z)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:dateTime">
+				<xs:attribute name="Off" type="DtmGMTOff_6" use="required">
+					<xs:annotation>
+						<xs:documentation>Current local UTC time zone offset including daylight saving offset if applicable.
+
+A time zone offset of "+hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes ahead of UTC. 
+
+A time zone offset of "-hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes behind UTC.
+
+Example:
+1994-11-05T08:15:30 and offset -05:00 corresponds to November 5, 1994, 3:15:30 am, US Eastern Standard Time.
+
+UTC time: 1994-11-05T08:15:30
+Local time zone offset: -05:00
+
+US Eastern Standard Time is 05:00 behind UTC time.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="TmZnCd">
+					<xs:annotation>
+						<xs:documentation>Local time zone code
+
+The up to six-character code by which the standard zone time is normally referred (e.g. UTC - Coordinated Universal Time, PST - Pacific Standard Time, etc).</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="6"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="EvtCat_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition:Eventcategory[3]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EvtCd_5">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for A code defining the type events as defined by the Business.
+
+See Network Standard for ICE..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EvtClss_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition:Eventclassification[3]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExChrgTyCd_6">
+		<xs:annotation>
+			<xs:documentation>A code to identify the type of extra charge.
+CUSTOM=Custom handling charges
+EXWORK=ExWorks
+INSURN=Insurance
+SATDLV=Saturday Delivery
+LATEPU=Late Pickup
+SATPUP=Saturday  Pickup</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ExternalAccountIdentification1Code">
+		<xs:annotation>
+			<xs:documentation>Part of Bank account identification, Reused from ISO20022 : www.iso20022.org as defined in acmt.007.001.01.xsd.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FcCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for A code assigned to a Facility within a Service area. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FcId_6">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Facility Identifier as 6 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FcTyCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: To be replaced by FcCd when possible.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="FleetTy_Type">
+		<xs:annotation>
+			<xs:documentation>Fleet type: 
+
+Identifies a mean of transport.
+
+E.g.:
+AIRPLAN
+TRUCK
+BICYCLE
+BOAT
+WALK
+
+The actual codes are defined in global reference data repository.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Text_20"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="FuelTy_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Fuel Type as 1 char</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="GenericAccountIdentification1">
+		<xs:annotation>
+			<xs:documentation>Part of Bank account identification, Reused from ISO20022 : www.iso20022.org as defined in acmt.007.001.01.xsd.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="Max35Text">
+				<xs:annotation>
+					<xs:documentation>Bank account identification.
+
+This tag will be used by DHL Express if the bank account identifier type is not known.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SchmeNm" type="AccountSchemeName1Choice" minOccurs="0"/>
+			<xs:element name="Issr" type="Max35Text" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="GeoCd_10_7">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: Latitude and longitude expressed in decimal [-]999,9999999
+
+South latitudes are negative
+North latitudes are positive
+
+West latitudes are negative
+East latitudes are positive</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="10"/>
+			<xs:fractionDigits value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="GlProdSrvCd">
+		<xs:annotation>
+			<xs:documentation>Global Product and service code: 
+
+Uniquely identifies a service, either a transportation service, feature, periodic charge or any other type of service that DHL or its partners provide.
+</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="SrvCd_6">
+				<xs:attribute name="GlProdSrvClssCd" type="GlProdSrvClssCd">
+					<xs:annotation>
+						<xs:documentation>Global product and service classification code: A code to uniquely classify a product or service.
+Values are:
+P=Product
+S=Service
+
+Is part of Global product and service entity primary key.
+If Global product and service is implemented only in one entity/table then this attribute should be as used as filter in an application layer transparently to users.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="GlProdSrvClssCd">
+		<xs:annotation>
+			<xs:documentation>Global product and service classification code: A code to uniquely classify a product or service.
+Values are:
+P=Product
+S=Service
+
+Is part of Global product and service entity primary key.
+If Global product and service is implemented only in one entity/table then this attribute should be as used as filter in an application layer transparently to users.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Cd_1"/>
+	</xs:simpleType>
+	<xs:simpleType name="GUIDType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The representation of a GUID, generally the id of an element.
+The GUID pattern is not explicitly defined as the element need to support existing solutions.
+The GUID pattern is {[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}>
+			 </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="36"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HdType">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The movement Head at Geo Position</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Dgre_7_4">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="HIIdType">
+		<xs:annotation>
+			<xs:documentation>Unique identifier of handling instruction.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="GUIDType"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="HmnCCd">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for commodity code up to 10 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HrmnCmdtCdType">
+		<xs:annotation>
+			<xs:documentation>Harmonized commodity code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HUId_35">
+		<xs:annotation>
+			<xs:documentation>The globally unique identifier assigned to the contents of a Handling unit.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HUntType_3">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The any measurement with Dec(10,3) can be applied to this data type; UOM is the attribue</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="No_3">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation> "Identifies uniquely the unit of measure code.
+FOR example:
+LB=Pounds
+YD=Yard
+YD3=Cubic Yard
+FT=Feet
+FT3=Cubic Feet
+IN=Inches
+MI=Mile
+M=Meter
+M3=Cubic Meter
+CM=Centimeter
+CM3=Cubic Centimeter
+KG=Kilogram
+KM=Kilometer
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets AND boxes"   </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="HUTyCdType">
+		<xs:annotation>
+			<xs:documentation>Handling unit type code
+
+A code to indicate the type of device that can be used to transport shipments.
+E.g.: 
+C=Container
+U=Uld</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HUTyCd_1">
+		<xs:annotation>
+			<xs:documentation>Code defining the type of Handling unit.
+
+Global DHL-codelist.
+Currently defined values:
+B = Bag
+C = Cage
+U = Unit load device
+V = Vehicle
+Z = (Other).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IATA_CdType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IBAN2007Identifier">
+		<xs:annotation>
+			<xs:documentation>Part of Bank account identification, Reused from ISO20022 : www.iso20022.org as defined in acmt.007.001.01.xsd.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IncTrmCd_3">
+		<xs:annotation>
+			<xs:documentation>The valid terms of trade is a sub-set of the International Chamber Of Commerce’s Incoterms:
+EXW = Ex Works </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Ind_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for An generic indicator field that can either be set to Y or N.
+
+Only allowed values are:
+Y = Yes
+N = No.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="Y"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IndRlTy">
+		<xs:annotation>
+			<xs:documentation>
+Short name of an individual role type.
+
+E.g.: Courier, Loader
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JbCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition:Code to identify a Job description.
+
+The code is assigned by DHL.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LanguageCodeType">
+		<xs:annotation>
+			<xs:documentation>Language code simple type
+
+Code to uniquely identify a language.
+
+ISO 639-2 Code</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="LatType">
+		<xs:annotation>
+			<xs:documentation>Also called the Parallel.  The distance north or south of the equator of a point on the earth's surface. This distance is measured in degrees, minutes, and seconds. Lines (parallels) of latitude circle the earth horizontally and are parallel to one another.  One minute of latitude equals one nautical mile.
+(south latitudes are negative)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="GeoCd_10_7">
+				<xs:attribute name="Acc" type="Acc_4_2">
+					<xs:annotation>
+						<xs:documentation>Percentage accuracy of the captured latitude.
+
+Range: 0 - 100%</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="LclProdSrvCd">
+		<xs:annotation>
+			<xs:documentation>Local product and service code: Defines uniquely the local code used for the global, regional or local product or service.
+</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Cd_3">
+				<xs:attribute name="CtryCd" type="CCd_2">
+					<xs:annotation>
+						<xs:documentation>Country code of country which defined locally the local product or service.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="GlProdSrvClssCd" type="GlProdSrvClssCd">
+					<xs:annotation>
+						<xs:documentation>Global product and service classification code: A code to uniquely classify a product or service.
+Values are:
+P=Product
+S=Service
+
+Is part of Global product and service entity primary key.
+If Global product and service is implemented only in one entity/table then this attribute should be as used as filter in an application layer transparently to users.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="LdDevRgsNoType">
+		<xs:annotation>
+			<xs:documentation>Handling unit load device registration number
+
+The formal and physical identifier of any receptacle that is used to enclose the contents of a Handling unit.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="LgtdType">
+		<xs:annotation>
+			<xs:documentation>Geo position longtitude:Also called the meridian.
+The distance east or west of the prime meridian of a point on the earth's surface. Longitude is measured in degrees, minutes and seconds. Lines (meridians) of longitude create a geographic grid around the world and are not      parallel, but rather converge at the poles.
+(West longitude is depicted by negative values.)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="GeoCd_10_7">
+				<xs:attribute name="Acc" type="Acc_4_2">
+					<xs:annotation>
+						<xs:documentation>Percentage accuracy of the captured longtitude.
+
+Range: 0 - 100%</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="LPrdCd_3">
+		<xs:annotation>
+			<xs:documentation>Used to suport a Genesis attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Max35Text">
+		<xs:annotation>
+			<xs:documentation>Part of Bank account identification, Reused from ISO20022 : www.iso20022.org as defined in acmt.007.001.01.xsd.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Mea_10_3">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The Magnitude of a Physical unit expressed as an amount times the  Unit of measurement.
+
+Unit of measurement = centimetres.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="10"/>
+			<xs:fractionDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MeaType_10_3">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The any measurement with Dec(10,3) can be applied to this data type; UOM is the attribue</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Mea_10_3">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="MeasType">
+		<xs:annotation>
+			<xs:documentation>Measurement type to be associated with units such as shipment, piece, HU etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" type="Cd_3">
+				<xs:annotation>
+					<xs:documentation>Measure type code: "Provides classificatin of various measure types for an unit.
+
+DEC - measurement provided BY customer/shipper
+
+BIL - measurement that has been used FOR the charging. IS used WHEN the product OR service enables e.g. piece billing.
+
+ACT - measurement taken AND verified BY DHL.
+
+PRC - measurement that has been used FOR pricing."
+Note: additional measurement type codes needed to be defined as necessary in future</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="H" type="MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Height: The total height of a unit.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="L" type="MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Length: The total length of a unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="W" type="MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Width: The total width of a unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Wgt" type="WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Weight: The total weight of a unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NetWgt" type="WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Net weight: The total net weight of a unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VolWgt" type="WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Volumetric weight: A calculated weight based on the unit total volume.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Vol" type="VolType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Volume: The total volume of a unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="Milg_8_2">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: Mileage/total km as decimal(8,2).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="8"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MilgType_8_2">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The any measurement with Dec(10,3) can be applied to this data type; UOM is the attribue</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Milg_8_2">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Shipment distance unit of measure: "Identifies uniquely the unit of measure code.
+FOR example:
+LB=Pounds
+YD=Yard
+YD3=Cubic Yard
+FT=Feet
+FT3=Cubic Feet
+IN=Inches
+MI=Mile
+M=Meter
+M3=Cubic Meter
+CM=Centimeter
+CM3=Cubic Centimeter
+KG=Kilogram
+KM=Kilometer
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets AND boxes"</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="Mon_M2">
+		<xs:annotation>
+			<xs:documentation>Defines number of a month in the range from 1 to 12.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[01][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MonAmt_18_3">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: Monetary Amount as decimal(18,3).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="18"/>
+			<xs:fractionDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MonType_18_3">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: Monetary Amount as decimal(18,3) and the currency code</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="MonAmt_18_3">
+				<xs:attribute name="CurCd">
+					<xs:annotation>
+						<xs:documentation>Currency code for the monetary amount.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="CurCd_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="Movement_ID">
+		<xs:annotation>
+			<xs:documentation>Movement identifier - it can also refer to flight number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="14"/>
+			<xs:minLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Movement_IDType">
+		<xs:annotation>
+			<xs:documentation>Movement business key</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Movement_ID">
+				<xs:attribute name="OrgFcId" type="FcId_6" use="required">
+					<xs:annotation>
+						<xs:documentation>Movement origin facility identifier.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OrgSrvaCd" type="SrvaCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement origin service area code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OrgFcCd" type="FcCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement origin facility code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DstFcId" type="FcId_6" use="required">
+					<xs:annotation>
+						<xs:documentation>Movement destination facility identifier.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DstSrvaCd" type="SrvaCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement destination service area code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DstFcCd" type="FcCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement destination facility code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SchDptDtm" type="DtmType" use="required">
+					<xs:annotation>
+						<xs:documentation>Scheduled movement departure datetime : The scheduled UTC date and time of departure of a movement.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SchDptTmOff" type="DtmGMTOff_6" use="required">
+					<xs:annotation>
+						<xs:documentation>Scheduled Departure Time Offset.
+
+Current local UTC time zone offset including daylight saving offset if applicable.
+
+A time zone offset of "+hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes ahead of UTC. 
+
+A time zone offset of "-hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes behind UTC.
+
+Example:
+1994-11-05T08:15:30 and offset -05:00 corresponds to November 5, 1994, 3:15:30 am, US Eastern Standard Time.
+
+UTC time: 1994-11-05T08:15:30
+Local time zone offset: -05:00
+</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="FstSectrDsgntr" type="MovementDesignatorType">
+					<xs:annotation>
+						<xs:documentation>First Linehaul movment sector designator.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="LstSectrDsgntr" type="MovementDesignatorType">
+					<xs:annotation>
+						<xs:documentation>Last linehaul movment sector  designator.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="Movement_IDRqstType">
+		<xs:annotation>
+			<xs:documentation>Movement business key</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Movement_ID">
+				<xs:attribute name="OrgFcId" type="FcId_6" use="optional">
+					<xs:annotation>
+						<xs:documentation>Movement origin facility identifier.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OrgSrvaCd" type="SrvaCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement origin service area code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OrgFcCd" type="FcCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement origin facility code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DstFcId" type="FcId_6" use="optional">
+					<xs:annotation>
+						<xs:documentation>Movement destination facility identifier.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DstSrvaCd" type="SrvaCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement destination service area code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DstFcCd" type="FcCd_3">
+					<xs:annotation>
+						<xs:documentation>Movement destination facility code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SchDptDtm" type="DtmType" use="optional">
+					<xs:annotation>
+						<xs:documentation>Scheduled movement departure datetime : The scheduled UTC date and time of departure of a movement.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SchDptTmOff" type="DtmGMTOff_6" use="optional">
+					<xs:annotation>
+						<xs:documentation>Scheduled Departure Time Offset.
+
+Current local UTC time zone offset including daylight saving offset if applicable.
+
+A time zone offset of "+hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes ahead of UTC. 
+
+A time zone offset of "-hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes behind UTC.
+
+Example:
+1994-11-05T08:15:30 and offset -05:00 corresponds to November 5, 1994, 3:15:30 am, US Eastern Standard Time.
+
+UTC time: 1994-11-05T08:15:30
+Local time zone offset: -05:00
+</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="FstSectrDsgntr" type="MovementDesignatorType">
+					<xs:annotation>
+						<xs:documentation>First Linehaul movment sector designator.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="LstSectrDsgntr" type="MovementDesignatorType">
+					<xs:annotation>
+						<xs:documentation>Last linehaul movment sector  designator.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="MovementDesignatorType">
+		<xs:annotation>
+			<xs:documentation>Movement designator type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="No_2">
+		<xs:annotation>
+			<xs:documentation>A number to use for identification of page numbers, line numbers etc.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="No_3">
+		<xs:annotation>
+			<xs:documentation>A number to use for identification of page numbers, line numbers etc.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="No_6">
+		<xs:annotation>
+			<xs:documentation>Number of Employees.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="6"/>
+			<xs:fractionDigits value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="No_Type">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Number, which Should only be used if the exact number domain has not been defined..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer"/>
+	</xs:simpleType>
+	<!--
+	<xs:complexType name="NoPcs_6_attr">
+		<xs:simpleContent>
+			<xs:extension base="RestrictedDouble">
+				<xs:attribute name="uom" fixed="second" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	-->
+	<xs:simpleType name="NoPcs_6">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Number of Pieces associated either with a Shipment or a Handling unit.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="6"/>
+			<xs:fractionDigits value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NtwAccNo">
+		<xs:annotation>
+			<xs:documentation>A unique nine-digit number without leading zeros used to identify an account within DHL. 
+The 4th digit is a check digit. Please refer to NSS 26.2 for further details.
+http://ishare.dhl.com/sites/EEIT/SA/EAO/CAT/Catalogue/EA%20Data%20Standard%20-%20Account%20Number.doc
+
+Business is still using non numeric account numbers and for that reason the restriction for the exact nine digits was removed.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OpsFncIdType">
+		<xs:annotation>
+			<xs:documentation>Operational Function Type Identifier.
+
+Includes the Operational function type and base identifier and optionally additional data elements for the cases when an operation function Id is a composite business key.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OpsFncTyCd">
+				<xs:annotation>
+					<xs:documentation>Operation function type code: "Unique identifier of the type of operation function,
+The valid Operation Function Type Codes are defined in the reference data repository</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OpsFncId">
+				<xs:annotation>
+					<xs:documentation>Operation function identifier:
+
+Contains the base identifier of a Operation function. 
+
+This identifier can be an identifier of a Route, Movement, facility etc.
+
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OpsFncIdAddDtEl" type="DatElmntType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Operational function identifier additional Data Element.
+
+The Data Element are required for the cases when Operation Funciton Indentifier is a composite Business Key.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="OrdNo_20">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Order Number as decimal(20,0).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="20"/>
+			<xs:fractionDigits value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OrNm">
+		<xs:annotation>
+			<xs:documentation>
+				
+				</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Text_100"/>
+	</xs:simpleType>
+	<xs:simpleType name="PartNoBaseType">
+		<xs:annotation>
+			<xs:documentation>Part number base type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PartNumberType">
+		<xs:annotation>
+			<xs:documentation>A part number unambiguously identifies a part design within a single business party, and sometimes across several business parties.
+
+http://en.wikipedia.org/wiki/Part_number</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="PartNoBaseType">
+				<xs:attribute name="CustId" type="Bp_20">
+					<xs:annotation>
+						<xs:documentation>The unique identifier of a business party which assigned and uses the Part number.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="PBNo_35">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Post Office Box Number as 35 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Pcnt_5_2">
+		<xs:annotation>
+			<xs:documentation>Value expressed as a percentage of a specified amount.
+
+Percentage = (ratio of an amount) * 100.	
+	</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="5"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Pcnt_8_4">
+		<xs:annotation>
+			<xs:documentation>Value expressed as a percentage of a specified amount.
+Percentage = (ratio of an amounts) * 100.	
+	</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="8"/>
+			<xs:fractionDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PcsId_35">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Piece Identifier as 35 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PcsTyCd">
+		<xs:annotation>
+			<xs:documentation>Piece type code - simple type
+
+Piece type is one of the factors defining network handling. The piece type is mainly defined by Piece dimensions and weight.
+
+The Piece types can for example be:
+Flyer: FLY
+Conveyable: COY
+Small Non Conveyable: NCY
+Large Non Conveyable: LCY
+Pallet: PAL</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PMthTyCd_3">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PoLocIDType">
+		<xs:annotation>
+			<xs:documentation>Postal location identifier type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer"/>
+	</xs:simpleType>
+	<xs:simpleType name="PoLocTy">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for country postal location type.
+.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PtyId_10">
+		<xs:annotation>
+			<xs:documentation>Unique identification of a Party or Party address.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="QuantityType">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The volume type as Dec(15,3) with attribute UOM apply to volume</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:integer">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="ReaCd_5">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Code identifying the reason behind a status event.
+
+Associated qualifier domain: Reason type code[3]
+
+DHL codelist on country-level..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ReferenceTypeCode">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RgsNo_35">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Registration Number as 35 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RtId_12">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Code to uniquely identify a single execution of part or all of a master route to carry out pick-ups and/or deliveries, as defined in the route plan.
+
+The Route identifier is structured and unique within facility.
+
+GSOP defines CHAR(4) as a standard route identifer, but the data model data type will be implemented in order to enable an extension.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="RtIdType">
+		<xs:annotation>
+			<xs:documentation>The composite unique Route identifier. Provides the globaly Route unique identification.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="RtId_12">
+				<xs:attribute name="BFcId" type="FcId_6" use="optional">
+					<xs:annotation>
+						<xs:documentation>Facility identifier where the route starts and ends and is managed by.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ExeDt" type="Dt_CYMD_10" use="optional">
+					<xs:annotation>
+						<xs:documentation>The actual date when the planned route is executed.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="CycCd" type="Cd_2" use="optional">
+					<xs:annotation>
+						<xs:documentation>The cycle code is used in legacy solutions to distinquis between various executions of one route during a day.
+
+Usually is used:
+A - AM - morning
+P - PM - afternoon</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="RtPrIdType">
+		<xs:annotation>
+			<xs:documentation>The composite unique Route identifier. Provides the globaly Route unique identification.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="RtId_12">
+				<xs:attribute name="BFcId" type="FcId_6" use="optional">
+					<xs:annotation>
+						<xs:documentation>Facility identifier where the route starts and ends and is managed by.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="RtStpTyCd_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Route stop type code as 1 char.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="RtTRtPlIdType">
+		<xs:annotation>
+			<xs:documentation>The composite unique Route identifier. Provides the globaly Route unique identification.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="RtId_12">
+				<xs:attribute name="BFcId" type="FcId_6" use="optional">
+					<xs:annotation>
+						<xs:documentation>Facility identifier where the route starts and ends and is managed by.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="CycCd" type="Cd_2" use="optional">
+					<xs:annotation>
+						<xs:documentation>The cycle code is used in legacy solutions to distinquis between various executions of one route during a day.
+
+Usually is used:
+A - AM - morning
+P - PM - afternoon</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="RtTyCd_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Route Type Code as 1 char.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SChrgTyCd_6">
+		<xs:annotation>
+			<xs:documentation>Code identifying the type of Shipment charge.
+
+Country-specific DHL codelist.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SdxCd_10">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Soundex code is a code which identifies names on the way they sound.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SEshpId_8">
+		<xs:annotation>
+			<xs:documentation>Identifies the customers installation of easyship.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SHInsCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for A code that indicates a Shipment handling instruction for the Shipment either for DHL internally or for the Customer.
+.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ShpId_35">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Shipment Identifier as 35 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ShpIdType">
+		<xs:annotation>
+			<xs:documentation>Shipment key</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="ShpId_35">
+				<xs:attribute name="Dt" type="Dt_CYMD_10">
+					<xs:annotation>
+						<xs:documentation>Shipment pickup date expressed as local pickup country date.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OrgCCd" type="CCd_2">
+					<xs:annotation>
+						<xs:documentation>Shipment origin country country code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ShpKeyType">
+		<xs:annotation>
+			<xs:documentation>The target shipment key</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="ShpId_35">
+				<xs:attribute name="OrgCCd" type="CCd_2">
+					<xs:annotation>
+						<xs:documentation>Shipment origin country country code.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OrgFcId" type="FcId_6">
+					<xs:annotation>
+						<xs:documentation>Shipment origin facility identifier.
+
+Identifies Facility managing Shipment pickup.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OrgSrvACd" type="SrvaCd_3">
+					<xs:annotation>
+						<xs:documentation>Shipment origin service area code.
+</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="PNtwAccNo" type="NtwAccNo">
+					<xs:annotation>
+						<xs:documentation>Transportation product payer network account number.
+
+The Network Account Number identified for settlement of charges for Shipment transportation product.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="Sp_Type">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Speed.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:complexType name="SpType">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The movement Speed at Geo Position</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Sp_Type">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="SqNo_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Number to define a sequence of Objects. 
+
+This sequence number can be used for identification of page numbers, line numbers etc..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SqNo_Type">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Number to define a sequence of Objects.
+
+This sequence number can be used for identification of page numbers, line numbers etc..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SrlNo_15">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Serial Number as 15 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SrvaCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Code identifying a Service area.
+
+Global DHL codelist, available in ESD.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SrvCatCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for code as with format 3 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SrvCd_6">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Uniquely identifies a network service..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SrvRq_15">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StCd_2">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Contains the valid status 
+C - create
+A - active
+I - inactive.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Str_20">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for string 20.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StrNo_20">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Unique number of a building or part of a building within a street in order to identify a Party address..</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TCStkNo_10">
+		<xs:annotation>
+			<xs:documentation>A unique number that identifies a Transport collect sticker attached to a Transport collect shipment.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_10">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 10 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_100">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 100 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_17">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text as 17 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="17"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_18">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 18 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="18"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_20">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 20 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_2000">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 2000 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2000"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_250">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 250 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="250"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_252">
+		<xs:annotation>
+			<xs:documentation>Generic domain for text.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="252"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_255">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 255 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_35">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 35 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_40">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 40 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_45">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 45 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="45"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_4">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 4 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_50">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 50 chars.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_504">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 504 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="504"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_512">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 512 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="512"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_70">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 70 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="70"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_75">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 75 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="70"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_80">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text up to 80 chars</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="80"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Tm_HM5">
+		<xs:annotation>
+			<xs:documentation>Time in format HH:MM, e.g.: 17:00</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:time"/>
+	</xs:simpleType>
+	<xs:simpleType name="TmZnCdType">
+		<xs:annotation>
+			<xs:documentation>
+Defines the time zone code as defined in GREF</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TmZnType">
+		<xs:simpleContent>
+			<xs:extension base="TmZnCdType">
+				<xs:attribute name="Offset" type="DtmGMTOff_6">
+					<xs:annotation>
+						<xs:documentation>Time zone GMT offset: Offset from GMT is the amount of time a time zone is ahead of or behind GMT.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="TrdBlocCdType">
+		<xs:annotation>
+			<xs:documentation>Trading Bloc Code type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TrTmClcCd_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition:Transit time calculation code[3]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TtType">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The movement Tilt at Geo Position</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Dgre_7_4">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="TxRtTy">
+		<xs:annotation>
+			<xs:documentation>Tax rate</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="6"/>
+			<xs:fractionDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TxType">
+		<xs:annotation>
+			<xs:documentation>Tax to be levied</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" type="TxTy_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A code to identify the rate of tax that will be levied.
+e.g. VAT or duty, airport, excise, postal tax, carrier tax. This tax type is given for each country.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amt" type="MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The amount of tax that has been levied. A code to identify the rate of tax that will be levied.
+e.g. VAT or duty, airport, excise, postal tax, carrier tax. This tax type is given for each country.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BaseAmt" type="MonType_18_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The base amount for a tax type amount calculation.
+Currency is specified in parent entity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TxTy_6">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Uom_3">
+		<xs:annotation>
+			<xs:documentation>
+Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VehIdType">
+		<xs:annotation>
+			<xs:documentation> Generic domain for Vehicle Identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="36"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Vol_15_3">
+		<xs:annotation>
+			<xs:documentation>"Measurement arrived at by multiplying length, width and height of a  Physical unit expressed as an amount of Volume units.
+
+WHEN used, must be accompanied BY a qualifier FOR the Volume unit."</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="VolType_15_3">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The volume type as Dec(15,3) with attribute UOM apply to volume</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Vol_15_3">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="Wgt_15_3">
+		<xs:annotation>
+			<xs:documentation>"The mass of a Physical unit expressed as an amount of Weight units.
+
+A qualifier FOR Weight unit must be specified AS a SEPARATE data element. DEFAULT = kilogrammes."</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="15"/>
+			<xs:fractionDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="WgtType_15_3">
+		<xs:annotation>
+			<xs:documentation>Original Domain_Definition: The weight type as Dec(15,3) with attribute UOM apply to weight</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="Wgt_15_3">
+				<xs:attribute name="Uom">
+					<xs:annotation>
+						<xs:documentation>Identifies uniquely the unit of measure code.
+For example:
+
+Weight:
+LB=Pounds
+YD=Yard
+KG=Kilogram
+
+Volume:
+YD3=Cubic Yard
+FT3=Cubic Feet
+M3=Cubic Meter
+CM3=Cubic Centimeter
+
+Distance/Dimension:
+FT=Feet
+IN=Inches
+MI=Mile
+M=Meter
+CM=Centimeter
+KM=Kilometer
+
+Quantity:
+PAL=Pallet
+BOX=Box
+PRT=Part/Article
+COM=Combined pallets and boxes
+
+Speed:
+MS - Meter per second
+KMS - Kilometer per second
+
+Angle:
+DEG - Degrees
+RAD - Radians</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="Uom_3"/>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="Wks_2">
+		<xs:annotation>
+			<xs:documentation>Local identifier of a data entry workstation.
+
+Used for reporting purposes in legacy systems.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Y_CY4">
+		<xs:annotation>
+			<xs:documentation>The Year that the credit card expires</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="Zip_12">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for Code defining a Postal area.
+
+Codelist at country-level.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LicPlatDatIdType">
+		<xs:annotation>
+			<xs:documentation>License plate data identifier type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IssuingAgencyCdType">
+		<xs:annotation>
+			<xs:documentation>Issuing agency code type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LicPlatNo">
+		<xs:annotation>
+			<xs:documentation>Country license plate number - Uniquely identifies licence plate numbers used in a country</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

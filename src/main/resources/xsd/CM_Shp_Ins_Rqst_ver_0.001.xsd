@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_ShpInsRqst/v2" xmlns:CM_Shp="http://www.dhl.com/Express/CM/CM_Shp/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_HDR="http://www.dhl.com/Express/CM/CM_Header/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_ShpInsRqst/v2" version="1.002">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Header/v2" schemaLocation="CM_Header_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Shp/v2" schemaLocation="CM_Shipment_ver_2.016.xsd"/>
+	
+	<xs:complexType name="ShpInsRqstMsgType">
+		<xs:annotation>
+			<xs:documentation>Request message type for Shipment and piece details request by Shipment or Piece identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hdr" type="CM_HDR:HDR">
+				<xs:annotation>
+					<xs:documentation>Standard message header </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Bd">
+				<xs:annotation>
+					<xs:documentation>Container element for the message data.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Shp" type="CM_Shp:ShpType" minOccurs="0" maxOccurs="5">
+							<xs:annotation>
+								<xs:documentation>Contains shipment detail information that required to insert into database</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ShpInsRqstMsg" type="ShpInsRqstMsgType">
+		<xs:annotation>
+			<xs:documentation>Shipment and piece details response message including service response status.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

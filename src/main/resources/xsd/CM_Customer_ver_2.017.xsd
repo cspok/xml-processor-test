@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+version 0.006 date 2012-04-10
+ - CM_Domain_V0.006 version increased
+ - in CType:
+      - CVatN renamed to VATNo
+      - BsnPtyCd removed
+ - IndvType definition moved to CM_Individual_ver_0.001.xsd and the same was imported
+ - Addr prefix removed from elements of AddrTy
+ - FrmtAddrType structure enhanced
+ - FrmtAddr added to AddrTy
+ - GPS prefix removed from AddrType geo position elements
+ - CtryDiv added to AddrType
+ - Indv element added to CntType
+ - in CustomerType
+		- Contact, Address, Individual elements removed
+		- Cnt element of CntType type added, it already includes individual elements
+		- Addr element of AddrType type added
+		- CCDev renamed to CommDev
+ - in CntType:
+		- Cnt prefix removed from its elemetns
+ - CommDevNoType renamed to CommDevType
+ - CDivType renamed to CtryDivType
+ - BkgCustType and ShpCustType removed
+ - In AddrType:
+		- CCd renamed to CtryCd
+ - In AddrType
+	 - TZCd renamed to TmZnCd. Offset introduced as the time zone attribute.
+ - In CtryDivType:
+	 - Offset introduced as the time zone attribute.
+version 0.007 date 2012-10-17
+ - CM_Domain_V0.009 version increased
+ - CM_Individual_V0.003 version increased
+
+version 0.008 date 2013-01-22
+ - CM_Individual_V0.004 version increased
+ - //element(*,CtryDivType)/Cd set as optional
+ - //element(*,CtryDivType)/TyCd and Nm set as mandatory
+
+version 0.009 date 2013-02-20
+ - CM_Domain_V0.011 version increased
+
+version 1.000 date 2013-03-12
+ - latest CM_Domain_ver_1.000.xsd version imported
+ - latest CM_Individual_ver_1.000.xsd version imported
+ - major version introduced
+
+version 1.001 date 2013-03-28
+ - latest CM_Domain_ver_1.001.xsd version imported
+ - latest CM_Individual_ver_1.001.xsd version imported
+
+version 1.001 date 2013-04-12
+ - latest CM_Domain_ver_1.002.xsd version imported
+ - latest CM_Individual_ver_1.002.xsd version imported
+ - DtmHM_5 domain replaced by Tm_HM5
+
+version 2.000 - Date 2013-05-20 - redesigned as to be aligned with OMP data model
+
+version 2.001 - Date 2013-06-14
+ - //element(*,PoAddrType_v2)/ActPntSp/Loc/BldOrCnstr - element attribute types defined
+ - CM_Domain_ver_2.001.xsd version increased
+ - CM_GeneralInfo_ver_2.002.xsd version increased
+
+version 2.002 - Date 2013-07-09
+ - CM_Domain_ver_2.003.xsd version increased
+ - CM_Individual_ver_2.002.xsd version increased
+
+version 2.003 - Date 2013-08-22
+ - CM_Domain_ver_2.004.xsd version increased
+ - CM_Individual_ver_2.003.xsd version increased
+ - //element(*,PoAddrType_v2)/ActPntSp/CtryCd - type defined
+
+version 2.004- Date 2013-08-29
+ - CM_Domain_ver_2.005.xsd version increased
+ - CM_Individual_ver_2.004.xsd version increased
+ - //element(*,ShipmentCustomerType)/AggrId - adde
+
+version 2.005- Date 2013-098-11
+ - CM_Domain_ver_2.006.xsd version increased
+ - CM_Individual_ver_2.005.xsd version increased
+ - CustClassificationType - added
+ - //element(*,ShipmentCustomerType)/Cls - added
+ - //element(*,ShipmentCustomerType)/DatElGrp - added
+
+version 2.006- Date 2013-09-18
+ - CM_Domain_ver_2.007.xsd version increased
+ - CM_Individual_ver_2.006.xsd version increased
+
+version 2.006- Date 2013-09-18
+ - //element(*,OrgnType)/OrgnU/@Lvl - data type set
+ - //element(*,OpenningHoursType)/@DayOfWk - data type set
+ - //element(*,ScoreType)/@TyCd - data type set
+
+version 2.007- Date 2013-10-04
+ - address region code annotation corrected.
+
+version 2.008- Date 2013-10-10
+ - CM_Domain_ver_2.008.xsd version increased
+ - CM_Individual_ver_2.007.xsd version increased
+
+version 2.009- Date 2013-10-25  - <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.009.xsd version increased
+ - CM_Individual_ver_2.008.xsd version increased
+
+version 2.010 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+ - CM_Individual_ver_2.009.xsd version increased
+
+version 2.011 - Date 2014-01-06 <Modified by Lukas Neubauer>
+ - //element(*,BsnPtyType)/Orgn/Nm - set as optinoal
+ - //element(*,BsnPtyType)/Indv - set as optional
+ - //element(*,BsnPtyType)/Orgn - set as optional
+ - //element(*,ActPntSpType)/Lty - set as optional
+
+version 2.012 - Date 2014-01-09 <Modified by Srinidhi Ramachandra>
+-  Changed min length for ThrfrNmType type to be 0
+-  ShipmentCustomerType/AccTyCd added
+
+version 2.013 - Date 2014-01-23 <Modified by Srinidhi Ramachandra>
+Following elements made optional in order to support shipper provided data
+- PoAddrType_v2/UsgTyCd
+- PoAddrType_v2/ActPntSp
+- OrgnUnitType/Nm
+- CntType/Indv
+- ScoreType/@TyCd
+- ActPntSpType/CtryCd
+- CtryDivType/TyCd
+- CtryDivType/Nm
+- OpenningHoursType/OpnTm
+- OpenningHoursType/ClsTm
+- ShipmentCustomerType/CustRolTyCd
+- CustClassificationType/TyCd
+- CustClassificationType/ClsCd
+
+version 2.014 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+- CM_Individual_ver_2.010.xsd - latest version imported
+
+version 2.015 - Date 2014-03-14 <Modified by Lukas Neubauer>
+ - //element(*,PoAddrType_v2)/BPAddrId - added
+
+version 2.016 - Date 2014-03-18 <Modified by Lukas Neubauer>
+ - PoAddrType_v2 - and related defintions moved to CM_BusinessPartyAddress_ver_2.000.xsd and the new XSD imported
+
+version 2.017 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd - latest version imported
+- CM_BusinessPartyAddress_ver_2.002.xsd - latest version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_Cust/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_INDV="http://www.dhl.com/Express/CM/CM_Individual/v2" xmlns:CM_BPAddr="http://www.dhl.com/Express/CM/CM_BPAddr/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_Cust/v2" version="2.017">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_BPAddr/v2" schemaLocation="CM_BusinessPartyAddress_ver_2.002.xsd"/>
+	<xs:complexType name="ShipmentCustomerType">
+		<xs:annotation>
+			<xs:documentation>Customer details</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CustRolTyCd" type="CM_DMN:Cd_2" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Customer role type code: "A code that uniquely identifies a customer role.
+VALUES are:
+BC=Barcode
+BT=Bill TO
+BY=Buyer
+DF=Destination Facility
+DH=DDI Shipper
+DP=DDI Payer
+DR=DDI Receiver
+DS=Dispatch
+DL=Delivery
+EP=Exporter
+FR=Freight Customer
+IN=Indivisible trans
+IP=Importer
+IQ=Inquirer
+LP=Logistic Service Supplier
+LS=Logistic Supplier Provider
+MR=Message Receiver Party
+MS=Message Sender Party
+NF=Non Freight Customer
+OB=Origin Barcode
+OF=Origin Facility
+OP=Operational
+PK=PACKAGE KEY
+PU=Pick-up
+PY=Payer
+RQ=Requestor
+RT=RETURN TO
+RV=Receiver
+SP=Shipper
+SU=Supplier
+TC=Technical
+TH=Third party"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CustId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer identifier: The unique identifier of the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NtwAccNo" type="CM_DMN:NtwAccNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Network account number:
+
+A unique ten-digit number without leading zeros used to identify an account within DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- BkgCustRmk changed fromV0.002 to CustCustRmk in V0.003 to support shipment customer-->
+			<xs:element name="AgrId" type="CM_DMN:CustAgrIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer Agreement Identifier.
+
+A unique identifier for a agreement created for a customer.
+
+The identifier can be derived from Network account number and in this structure is denormalized.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CustRmk" type="CM_DMN:Text_250" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer remark: Provides any further information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PMthTyCd" type="CM_DMN:PMthTyCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Payment method type code: 
+
+Identifies uniquely a payment method type.
+The list of payment menthods should be maintained in a reference data store.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CVatN" type="CM_DMN:RgsNo_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer VAT number: 
+
+ The customers registration number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!--xs:element name="Contact" type="CntType"/-->
+			<!--xs:element name="Person" type="IndvType"/-->
+			<!--xs:element name="Address" type="AddrType"/-->
+			<xs:element name="AccTyCd" type="CM_DMN:Cd_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Account type (code)
+
+Account type as defined for the particular Shipment.
+The Account type is defaulted from the Customer Account account type, and can be changed during the Shipment validation process.
+The Payer Account type is used in Billing.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CommDev" type="CM_BPAddr:CommDevType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Communication device number: The number (or e-mail address) for the communication type used by this customer. Provides the different communication methods given by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Addr" type="CM_BPAddr:BPAddrType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Address details associated with the customer and his role in a business transaction.
+
+A structured reference to a physical location for a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cnt" type="CM_BPAddr:CntType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Contact details.
+
+Contact details associated with the customer and his role in a business transaction.
+
+The function or title of a person who represents a Business party in a relationship with DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cls" type="CustClassificationType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Customer classification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="5000">
+				<xs:annotation>
+					<xs:documentation>Data element group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CustClassificationType">
+		<xs:annotation>
+			<xs:documentation>Associates a customer with different types of classifications that
+DHL has defined for different purposes.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer classification type code
+
+e.g. Volumes
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ClsCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer classification code of the given classification type.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

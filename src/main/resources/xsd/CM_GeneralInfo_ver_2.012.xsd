@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Change log:
+ version 0.004 - Date 2013-02-20
+ - CM_Domain_ver_0.011.xsd imported
+ - GUIDType - used at Identifiers where change backward compatible
+
+version 1.000 date 2013-03-12
+ - CM_Domain_ver_1.000.xsd imported
+ - schema major version introduced
+
+version 1.000 date 2013-03-28
+ - CM_Domain_ver_1.001.xsd imported
+
+version 1.002 date 2013-04-11
+ - CM_Domain_ver_1.002.xsd imported
+ - SrcGMTOff renamed to SrcTmOff and its type changed to CM_DMN:DtmGMTOff_6
+ - ExtrcDtm, SrcUpdDtm, SrcDtm domain changed to CM_DMN:DtmType, the XML type remains same xs:DateTime, but the semantic of the domain is different, see the domain documentation tag
+
+version 2.001 date 2013-06-06
+ - latest version CM_Domain_ver_2.001.xsd imported
+
+version 2.002 date 2013-06-10
+ - Expiration and Effective datatime attributes added
+
+version 2.003 - Date 2013-07-09
+ - CM_Domain_ver_2.002.xsd version increased
+
+version 2.004 - Date 2013-08-07
+ - CM_Domain_ver_2.003.xsd version increased
+
+version 2.005 - Date 2013-08-19
+ - CM_Domain_ver_2.004.xsd version increased
+ - //element(*,GenInfo)/@SrcFcId - added
+ - //element(*,GenInfo)/@SrcUpdFcId - added
+ - //element(*,GenInfo)/@SrcUpdSrvaCd - added
+ - //element(*,GenInfo)/@SrcUpdFcCd - added
+ - //element(*,GenInfo)/@SrcUpdAppInstId - added
+ - //element(*,GenInfo)/@SrcAppInstId - added
+ - //element(*,GenInfo)/@OprTy - annotation changed to define CRUD operation types
+
+version 2.006 - Date 2013-08-29
+ - CM_Domain_ver_2.005.xsd version increased
+
+version 2.007 - Date 2013-09-02
+ - CM_Domain_ver_2.006.xsd version increased
+
+version 2.008 - Date 2013-09-18
+ - CM_Domain_ver_2.007.xsd version increased
+
+version 2.009 - Date 2013-10-10 <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.009.xsd version increased
+ 
+version 2.010 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+ - Element GenInfo/@BOVerNo added
+
+version 2.011 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.010.xsd version increased
+
+version 2.012 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.011.xsd version increased
+Date 2014-05-07 <Modified by Srinidhi Ramachandra
+ - Added GenInfo/@SrcUpdTmOff
+
+ -->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" version="2.012">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:complexType name="LEIDType">
+		<xs:annotation>
+			<xs:documentation>Legacy element identification.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Src">
+			<xs:annotation>
+				<xs:documentation>Global identification of source application that generated Id. e.g. DOM.CAH.UK, INT.CAH.UK or WEBACC.UK.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_20"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Id" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Id of element in primary system.
+
+
+GUID is supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PSIDType">
+		<xs:annotation>
+			<xs:documentation>Primary source element identification.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Src">
+			<xs:annotation>
+				<xs:documentation>Global identification of source application that generated Id. e.g. DOM.CAH.UK, INT.CAH.UK or WEBACC.UK.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_20"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Id" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Id of element in primary system.
+
+GUID is supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TIDType">
+		<xs:annotation>
+			<xs:documentation>Trace identification used in context of request/response. Target application does not change this value, so source application can match request and response elements by this id.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Src">
+			<xs:annotation>
+				<xs:documentation>Global identification of source application that generated TID. e.g. DOM.CAH.UK, INT.CAH.UK or WEBACC.UK.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_20"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="TID" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Trace ID of element (element in primary system).
+
+GUID is supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="ApplicationSystemCode_5">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CountryCode_2">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Unique code for a Country.
+
+Global DHL codelist available in ESD. Codelist based on ISO 3166, containing alphanumeric codes.</xs:documentation>
+			<xs:documentation>
+Original Domain_Note: Global DHL codelist available in ESD.
+Codelist based on ISO 3166, containing alphanumeric codes.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DhlCompanyEntityCode_6">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DpwnDivisionCode_3">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IndicatorYn_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: An generic indicator field that can either be set to Y or N.
+
+Only allowed values are:
+Y = Yes
+N = No</xs:documentation>
+			<xs:documentation>
+Original Domain_Note: Only allowed values are:
+Y = Yes
+N = No</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_20">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text.</xs:documentation>
+			<xs:documentation>
+Original Domain_Note: char(18)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_3">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for a text</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_35">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text.</xs:documentation>
+			<xs:documentation>
+Original Domain_Note: Text can be a Description, Instruction, Remarks or a String.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text_75">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for a text</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="75"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UserName_10">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Generic domain for text.</xs:documentation>
+			<xs:documentation>
+Original Domain_Note: char(18)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Version_7">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Version information, typically associated with an application.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="XmlOperation_1">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: Type of operation   (I - insert, U - update, D delete).</xs:documentation>
+			<xs:documentation>Original Domain_Comment: Type of operation   (I - insert, U - update, D delete).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="GenInfo">
+		<xs:annotation>
+			<xs:documentation>General information, contained in all entities.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PSID" type="PSIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Primary Source Element Identification</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TID" type="TIDType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Trace Identification</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LEID" type="LEIDType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Legacy Element Identification</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="SrcDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>SourceDatetime The UTC date and time when a record is first created in the source.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SrcTmOff" type="CM_DMN:DtmGMTOff_6">
+			<xs:annotation>
+				<xs:documentation>SourceCreateDateTimeOffset
+Current local UTC time zone offset including daylight saving offset if applicable.
+
+A time zone offset of "+hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes ahead of UTC. 
+
+A time zone offset of "-hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes behind UTC.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SrcUsr">
+			<xs:annotation>
+				<xs:documentation>SourceUse The user name of the user, system or internal component that first creates a record in the source.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="UserName_10"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcWrkStId">
+			<xs:annotation>
+				<xs:documentation>Source Work station ID  Unique identifier of workstation where the record was created.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="40"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcAppCd" type="ApplicationSystemCode_5">
+			<xs:annotation>
+				<xs:documentation>SourceApplicationCode The code name of the application that first creates a record in the source, e.g. IBS = International Billing System.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SrcAppInstId" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Record Source Application Instance Identifier.
+
+The unique application instance identifier.
+
+For e-Com tools the identifier will be assigned by Customer Integration.
+
+GUID supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SrcAppNm">
+			<xs:annotation>
+				<xs:documentation>SourceApplicationName The code name of the application that first creates a record in the source, e.g. IBS = International Billing System.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcAppVer">
+			<xs:annotation>
+				<xs:documentation>SourceApplicationVersion The version of the application that first creates a record in the source.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Version_7"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcCtryCd">
+			<xs:annotation>
+				<xs:documentation>SourceCountryCode The country code associated with the data source. Country Code is a two-character code that uniquely identifies the specified COUNTRY.  The code may be assigned by the ISO or may be created by DHL.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="CountryCode_2"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcDivCd">
+			<xs:annotation>
+				<xs:documentation>The short name or code of a company within the DPWN Network.  ABN=Airborne DPE=DPEE International DPD=DPEE Domestic DHL=DHL DAF=Danzas freight DAA=Danzas Air and Oceans LMS=Loomis DAZ=Danzas WDH=Former DHL</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="DpwnDivisionCode_3"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcDhlEntCd">
+			<xs:annotation>
+				<xs:documentation>SourceDhlCompanyCode A unique identifier of a billing entity, also called a DHL company code or CREST code.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="DhlCompanyEntityCode_6"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ExtrcDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Extraction Datetime The UTC date and time when a record is extracted from its source.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="OprTy">
+			<xs:annotation>
+				<xs:documentation>Type of operation:
+
+C(I) - Create, I - is kept for legacy solutions only
+R     - Read
+U     - Update
+D     - Delete
+
+Additional operation specific types for support of service operation use cases can be introduced.
+
+</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="XmlOperation_1"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>The UTC date and time the record was updated.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdTmOff" type="CM_DMN:DtmGMTOff_6">
+			<xs:annotation>
+				<xs:documentation>SourceUpdatedGmtOffset Current local UTC time zone offset including daylight saving offset if applicable.
+
+A time zone offset of "+hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes ahead of UTC. 
+
+A time zone offset of "-hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes behind UTC.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="LgDelInd">
+			<xs:annotation>
+				<xs:documentation>Indicates if record was logically deleted. Y=Deleted N=Not deleted</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="IndicatorYn_1"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdUsr">
+			<xs:annotation>
+				<xs:documentation>The name of the user, system or internal component that has updated the record.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="UserName_10"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdWrkStId">
+			<xs:annotation>
+				<xs:documentation>Source Work station ID  Unique identifier of workstation where the record was updated.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="40"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdAppCd">
+			<xs:annotation>
+				<xs:documentation>The coded name fo the application that updated the record, e.g. IBS=International Billing System</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="ApplicationSystemCode_5"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdAppNm">
+			<xs:annotation>
+				<xs:documentation>The name fo the application that updated the record, e.g. International Billing System</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdAppV" type="Version_7">
+			<xs:annotation>
+				<xs:documentation>The version of the application that updated the record.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdAppInstId" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Record Update Application Instance Identifier.
+
+The unique application instance identifier.
+
+For e-Com tools the identifier will be assigned by Customer Integration.
+
+GUID supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="UpdRea">
+			<xs:annotation>
+				<xs:documentation>The reason that the record has been updated.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_35"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcFcId">
+			<xs:annotation>
+				<xs:documentation>Source Facility identifier.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_3"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcSrvaCd">
+			<xs:annotation>
+				<xs:documentation>Source Service Area Cd</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_3"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcFcCd">
+			<xs:annotation>
+				<xs:documentation>Source Facility code</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_3"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdFcId">
+			<xs:annotation>
+				<xs:documentation>Source update Facility identifier.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_3"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdFcCd">
+			<xs:annotation>
+				<xs:documentation>Source update Facility code</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_3"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SrcUpdSrvaCd">
+			<xs:annotation>
+				<xs:documentation>Source update Service Area Cd</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="Text_3"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="CorrId" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Unique identifier to be used for the correlation purposes of multipe business object or/and business object with a status within one message.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="sysEnvCd" default="PROD">
+			<xs:annotation>
+				<xs:documentation>The system Environment Code is used to identify whether this particular Data is being sent as a result of a “test” or as “production” level integration. Often times as new systems are brought online, testing must be performed in a production
+environment in order to ensure complete integration. This attribute allows the
+integrator to flag test messages as such. The systemEnvironmentCode attribute is an optional attribut.
+The data will be processed as production if the attribute is not specified. Allowed values: PROD - Production, TEST - Test</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="4"/>
+					<xs:maxLength value="4"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="EffDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Effective Datetime.
+
+The UTC date and time when a record becomes effective.
+
+The attribute main usage is for reference and master data messages.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ExpDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Expiration Datetime.
+
+The UTC date and time when a record becomes invalid.
+
+The attribute main usage is for reference and master data messages.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="BOVerNo" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Business Object Version Number
+Attribute used to indicate the record version number. 
+This is typically used to indicate the version of the record so that any modifications to the record can be identified.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

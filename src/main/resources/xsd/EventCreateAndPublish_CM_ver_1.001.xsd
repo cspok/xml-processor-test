@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:EVT_REQ="http://www.dhl.com/Express/CM/GenericEventMsg/v1"
+xmlns:EVT_RSP="http://www.dhl.com/Express/CM/GenericEventRspMsg/v1"
+xmlns:tns="EventService.SOAP.EventCreateAndPublish" targetNamespace="EventService.SOAP.EventCreateAndPublish" version="1.004">
+	<xs:import namespace="http://www.dhl.com/Express/CM/GenericEventMsg/v1" schemaLocation="CM_Event_Message_ver_1.003.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/GenericEventRspMsg/v1" schemaLocation="CM_Event_Message_Resp_ver_1.003.xsd"/>
+      	
+	<xs:element name="eventCreateAndPublish">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="EVT_REQ:EvtMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="eventCreateAndPublishResp">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="EVT_RSP:EvtRspMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

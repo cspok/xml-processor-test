@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Change log:
+ version 0.005 on 2012-04-06
+ - HI Category added to HInsBOType
+ - HI sub-category added to HInsBOType
+ - HI Confidentiality added to HInsBOType
+ - Prohibited recipient indicator added to HInsRcpBOType
+ - CourHInsType replaced with Ind_HInsType
+ - HInsAsc added to HInsType
+ - CourHInsBOType replaced with IndHInsBOType
+ - HInsBOType renamed to HInsBaseType
+
+ version 0.006 on 2012-04-25
+ - Handling instruction category hiearchy added. Substituted sub-category.
+ - association with Operational function added
+
+ version 0.007 on 2012-06-12
+ - Handling instruction data element added in HInsBaseType definition
+
+ version 0.008 on 2012-08-29
+ - HI category definition and type changed
+ - Business domain identifier added 
+ - Corporate division identifier added
+ - Business party role type code added
+ - ProcLvlType - added
+ - Process level aded to HI
+ - Trigger type code added
+ - latest version imported: CM_Domain_ver_0.009.xsd
+ - latest version imported: CM_Event_ver_0.010.xsd
+
+ version 0.009 on 2012-12-10
+ - CreByBsnPtyRolTyCd element set as optional
+ - HIIdType changed to support GUID format
+ - latest version imported: CM_Event_ver_0.010.xsd
+
+version 0.011 on 2012-02-20
+ - CM_Domain_ver_0.011.xsd version increased
+ - latest version imported: CM_Event_ver_0.012.xsd
+
+version 1.000 - Date 2013-03-12
+ - CM_Event_ver_1.000.xsd version increased
+ - CM_Domain_ver_1.000.xsd version increased
+ - major version introduced
+
+version 1.001 - Date 2013-03-28
+ - CM_Event_ver_1.001.xsd version increased
+ - CM_Domain_ver_1.001.xsd version increased
+
+version 1.002 - Date 2013-04-12
+ - CM_Event_ver_1.002.xsd version increased
+ - CM_Domain_ver_1.002.xsd version increased
+ - CrDtm -  domain changed to CM_DMN:DtmUTCType, the base XML type remains same xs:DateTime, but the semantic of the domain is different, see the domain documentation tag
+
+version 2.001 date 2013-06-06
+ - CM_Event_ver_2.001.xsd version increased
+ - CM_Domain_ver_2.001.xsd version increased
+
+version 2.002 - Date 2013-07-09
+ - CM_Event_ver_2.002.xsd version increased
+ - CM_Domain_ver_2.002.xsd version increased
+
+version 2.003 - Date 2013-08-19
+ - CM_Event_ver_2.003.xsd version increased
+ - CM_Domain_ver_2.004.xsd version increased
+
+version 2.004 - Date 2013-09-05
+ - CM_Event_ver_2.004.xsd version increased
+ - CM_Domain_ver_2.006.xsd version increased
+
+version 2.005 - Date 2013-09-19
+ - CM_Event_ver_2.005.xsd version increased
+ - CM_Domain_ver_2.007.xsd version increased
+
+version 2.006 - Date 2013-10-10
+ - CM_Event_ver_2.007.xsd version increased
+ - CM_Domain_ver_2.008.xsd version increased
+
+version 2.007 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+ - CM_Event_ver_2.008.xsd version increased
+ - CM_Domain_ver_2.009.xsd version increased
+
+version 2.008 - Date 2014-01-23 <Modified by Srinidhi Ramachandra>
+Following elements made optional in order to support shipper provided data
+- HInsBaseType/HIId
+- HInsBaseType/TyCd
+- HInsBaseType/CrDtm
+- HInsBaseType/Pri
+- HInsBaseType/Sev
+- HInsBaseType/Conf
+- HInsBaseType/St
+- ProcLvlType/ProcLvlCd
+- ProcLvlType/ProcLvlTyCd
+
+version 2.009 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+- CM_Event_ver_2.009.xsd - latest version imported
+
+version 2.010 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd - latest version imported
+- CM_Event_ver_2.010.xsd - latest version imported
+
+ -->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:CM_EVT="http://www.dhl.com/Express/CM/CM_Evt/v2" xmlns="http://www.dhl.com/Express/CM/CM_HIns/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_HIns/v2" version="2.010">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Evt/v2" schemaLocation="CM_Event_ver_2.010.xsd"/>
+	<xs:complexType name="HInsBaseType">
+		<xs:sequence>
+			<xs:element name="HIId" type="CM_DMN:HIIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique identifier of a handling instruction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="CM_DMN:SHInsCd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Handling instruction type code: </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CatCd" type="HInsCategoryCdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Coded value for a handling instruction category.
+F	Informative
+P	Imperative
+T	Interrogative</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dsc" type="CM_DMN:Text_255" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Description: "Details to be provided for a specific handling instruction type.
+
+Complementary information TO coded value AND description OF Handling instruction TYPE code."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TriggerTyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Trigger type code
+
+The Handling instruction creation was triggered by this trigger type.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CreByBsnPtyRolTyCd" type="CM_DMN:BsnPtyRolTyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business party role type code which created the Handlign Instruction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CrDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date and time when the handling instruction was created.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Pri" type="CM_DMN:No_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Priority: "Defines in which priority the handling instruction should be processed:· 10 Low· 50 Medium· 70 HighThe values are 0 to 100. The reserved valuefor Low is 10, for Medium is 50, and for High is 70. Other priorities MAY be added but MUST NOT exceed 100."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Sev" type="CM_DMN:No_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Severity: "Defines the severity of the handling instruction:The predefined severity levels, in order ofincreasing severity, are as follows:· 0 Unknown· 10 Information MUST be used for cases when the event contains only general information and is not reporting an error.· 20 Harmless MUST be used for cases in which the error event has no effect on the normal operation of theresource.· 30 Warning MUST be used when it is appropriate to let the user decide if an action is needed in response to the event.· 40 Minor MUST be used to indicate that action is needed, but the situation is not serious at this time.· 50 Critical MUST be used to indicate that an immediate action is needed and the scope is broad (perhaps an imminent outage to a critical resource will result).· 60 Fatal MUST be used to indicate that an error occurred, but it is too late to take remedial action.The associated values are 0 to 70. The reserved values start at 0 for Unknown andincrease by increments of 10 to 60 for Fatal. Other severities MAY be added but MUST NOT exceed 70. This is an OPTIONAL property."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Conf" type="CM_DMN:ConfL" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Confidentiality:
+The Corporate Information Security Standard (CISS) defines that all organization information stored and distributed aither internally or externally must be clssified according its confidentiality level into one of four classes:
+0 - Unclassified
+1 - For Internal Use
+2 - Restricted
+3 - Confidential
+
+Confidentiality level is used as indicator how a HI needs to be processed by human and systems.
+
+3 - Confidential: This level requires encryption of the HI Description attribute.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffDt" type="CM_DMN:Dt_Y4MD_8" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Effective date: The date from when the handling instruction becomes active.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpDt" type="CM_DMN:Dt_Y4MD_8" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Expiry date: The date when the handling instuction is expired and is no longer active.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SysEnvCd" type="CM_DMN:Cd_4" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>System Environment Code: "The system Environment Code is used to identify whether this particular record is being created as a result of a ¿test¿ or as ¿production¿ level integration. Often times as new systems are brought online, testing must be performed in a production environment in order to ensure complete integration. This attribute allows the integrator to flag test messages as such. The systemEnvironmentCode attribute is an optional attribut.The data will be processed as production if the attribute is not specified. Allowed values: PROD - Production, TEST - Test"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BsnDomainId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business domain identifier.
+
+The unque identifier of a Business domain within a Corporate division.
+
+The Handling instruction is intended for this Business domain.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CrpDivId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Corporate division identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcLvl" type="ProcLvlType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Process level hierarchy.
+Identifies uniquely a specific business process where the HI applies.
+
+The Handling instruction can be applicable to a certain business process of a level in the hierarchy. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="St" type="CM_DMN:Cd_5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Status: "Status of the handling instruction to be updated during its life cycle.
+
+CRE - Created
+REC - Received
+APP - Approved
+ACC - Accepted
+DEC - Declined
+PRO - Processed
+CLS - Closed"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Handling Instruction data element group.
+
+Additional information can be provided for a Handling instruction.
+
+A Handling instruction type or category can require additional or complementary information to be captured togehter with its Description.
+Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HInsEvt" type="CM_EVT:EvtType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Handling instruction event. The list of events capture progress, history and status update of the handling instruction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="HInsRcp" type="HInsRcpBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be intended for a single or a list of recipients.
+The recipient may no tbe known at the moment of the handling instruction creation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PcsHIns" type="PcsHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with Piece.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ShpHIns" type="ShpHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with Shipment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RtHIns" type="RtHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with Route.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IndHIns" type="IndHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with an Individual.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BkgHIns" type="BkgHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with Booking.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QtdShpHIns" type="QtdShpHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with Quoted Shipment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QtdPcsHIns" type="QtdPcsHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with Quoted Piece.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QtdHUHIns" type="QtdHUHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with Quoted Handling Unit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OpsFncHIns" type="OpsFncHInsBOType" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>Handling instruction can be associated with any type of operation function.
+
+The association can be of multiple types and the assciation type needs to be specified for each association.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HInsAsc" minOccurs="0" maxOccurs="100">
+						<xs:annotation>
+							<xs:documentation>A Handling instruction can be associated with another handling instruction.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="AscTy" type="CM_DMN:Cd_5">
+									<xs:annotation>
+										<xs:documentation>Defines the type of association between HI and Associated HI.
+
+TRG - Triggering
+CLS - Closing
+
+If the association type is set to TRG, then Associated HI is triggered creation of HI.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="AscHIId" type="CM_DMN:HIIdType">
+									<xs:annotation>
+										<xs:documentation>Unique identifier of the associated handling instruction.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PcsHInsBOType">
+		<xs:sequence>
+			<xs:element name="PcsId" type="CM_DMN:PcsId_35">
+				<xs:annotation>
+					<xs:documentation>Piece identifier: "A number that uniquely identifies a piece associated with a shipment.
+A piece identifier can be a licence plate."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ShpHInsBOType">
+		<xs:sequence>
+			<xs:element name="ShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment identifier: An identification number assigned to a shipment, controlled by DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RtHInsBOType">
+		<xs:sequence>
+			<xs:element name="RtId" type="CM_DMN:RtIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment identifier: An identification number assigned to a shipment, controlled by DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IndHInsBOType">
+		<xs:sequence>
+			<xs:element name="IndId">
+				<xs:annotation>
+					<xs:documentation>Individual identifier: 
+
+The unique identifier of an individual.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:Bp_20">
+							<xs:attribute name="RlTy" type="CM_DMN:IndRlTy">
+								<xs:annotation>
+									<xs:documentation>Short name of a individual role type.
+
+E.g.: Courier, Loader</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BkgHInsBOType">
+		<xs:sequence>
+			<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+				<xs:annotation>
+					<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QtdShpHInsBOType">
+		<xs:sequence>
+			<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+				<xs:annotation>
+					<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="QtdShpRef" type="CM_DMN:Text_35">
+				<xs:annotation>
+					<xs:documentation>Quoted shipment reference: Any reference or comment that is assigned to a quoted shipment. This reference can later be used to relate a shipment with its quote.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QtdPcsHInsBOType">
+		<xs:sequence>
+			<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+				<xs:annotation>
+					<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="QtdShpRef" type="CM_DMN:Text_35">
+				<xs:annotation>
+					<xs:documentation>Quoted shipment reference: Any reference or comment that is assigned to a quoted shipment. This reference can later be used to relate a shipment with its quote.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="QtdPcsRef" type="CM_DMN:PcsId_35">
+				<xs:annotation>
+					<xs:documentation>Quoted piece reference: A number given to the booking to differentiate between the pieces assoicated to a shipment  that will be pickup.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QtdHUHInsBOType">
+		<xs:sequence>
+			<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+				<xs:annotation>
+					<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="QtdHURef" type="CM_DMN:Text_35">
+				<xs:annotation>
+					<xs:documentation>Quoted handling unit reference: Any reference or comment that is assign to a handling unit o differentiate between the handling units that will be pickup.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HInsRcpBOType">
+		<xs:annotation>
+			<xs:documentation>Handling Instruction recipient.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RcpOpsFncTyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Quoted piece reference: Unique identifier of the type of operation function, e.g.
+
+PRT = Pick-Up Route
+PTR = Pick-Up Terminal
+DRT= Delivery Route
+DTR = Delivery Terminal
+AMV = Air Movement
+RMV = Road Movement
+ORG = Origin Gateway
+DEG = Destination Gateway
+ING = Inbound Gateway
+OUG = Outbound Gateway
+DOH = Domestic Hub
+INH = International Hub
+MFF = Multi-Function Facility
+SUF = Subcontractor Facility
+CUF = Customer Facility
+LUL = Loading/ Unloading Location
+HAL = Special Handling Location
+STL = Storage Location
+AIF = Airlport Facility
+HAF = Harbour Facility
+DRL = Drop-off Location
+etc.
+
+DIS - Dispatcher
+RT - Route</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RcpOpsFncId" type="CM_DMN:Text_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contains the specific identifier of the Operation function that created the handling instruction. This identifier can be an identifier of a Route, Dispatch, Movement, Facility etc.
+							</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RcpIndvId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contains the specific identifier of the Operation function that created the handling instruction. This identifier can be an identifier of a Route, Dispatch, Movement, Facility etc.
+							</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProhRcp" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Prohibited recipient indicator:
+
+Provides information about restrictions of on recipient list.
+
+E.g. A Business Unit organization can be defined as recipient but a single role from a Facility can be restricted to receive the HI.
+
+Possible values: Y- Yes, N - No
+
+The default value is N - No.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PcsHInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="PcsId" type="CM_DMN:PcsId_35">
+						<xs:annotation>
+							<xs:documentation>Piece identifier: "A number that uniquely identifies a piece associated with a shipment.
+A piece identifier can be a licence plate."</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ShpHInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="ShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Shipment identifier: An identification number assigned to a shipment, controlled by DHL.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RtHInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="RtId" type="CM_DMN:RtIdType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Shipment identifier: An identification number assigned to a shipment, controlled by DHL.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Ind_HInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="IndId" type="CM_DMN:Bp_20">
+						<xs:annotation>
+							<xs:documentation>Individual identifier: 
+
+The unique identifier of an individual</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BkgHInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+						<xs:annotation>
+							<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="QtdShpHInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+						<xs:annotation>
+							<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QtdShpRef" type="CM_DMN:Text_35">
+						<xs:annotation>
+							<xs:documentation>Quoted shipment reference: Any reference or comment that is assigned to a quoted shipment. This reference can later be used to relate a shipment with its quote.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="QtdPcsHInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+						<xs:annotation>
+							<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QtdShpRef" type="CM_DMN:Text_35">
+						<xs:annotation>
+							<xs:documentation>Quoted shipment reference: Any reference or comment that is assigned to a quoted shipment. This reference can later be used to relate a shipment with its quote.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QtdPcsRef" type="CM_DMN:PcsId_35">
+						<xs:annotation>
+							<xs:documentation>Quoted piece reference: A number given to the booking to differentiate between the pieces assoicated to a shipment  that will be pickup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="QtdHUHInsType">
+		<xs:complexContent>
+			<xs:extension base="HInsBaseType">
+				<xs:sequence>
+					<xs:element name="BkgRef" type="CM_DMN:BkgRefType">
+						<xs:annotation>
+							<xs:documentation>Booking Reference: A reference that is used to associate an order with a booking.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QtdHURef" type="CM_DMN:Text_35">
+						<xs:annotation>
+							<xs:documentation>Quoted handling unit reference: Any reference or comment that is assign to a handling unit o differentiate between the handling units that will be pickup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OpsFncHInsBOType">
+		<xs:sequence>
+			<xs:element name="OpsFncTyCd" type="CM_DMN:Cd_3">
+				<xs:annotation>
+					<xs:documentation>Operation function type code: "Unique identifier of the type of operation function, e.g.
+
+PUT = Pick-Up Tour
+PTR = Pick-Up Terminal
+DLT= Delivery Tour
+DTR = Delivery Terminal
+AMV = Air Movement
+RMV = Road Movement
+ORG = Origin Gateway
+DEG = Destination Gateway
+ING = Inbound Gateway
+OUG = Outbound Gateway
+DOH = Domestic Hub
+INH = International Hub
+MFF = Multi-FUNCTION Facility
+SUF = Subcontractor Facility
+CUF = Customer Facility
+LUL = Loading/ Unloading Location
+HAL = Special Handling Location
+STL = STORAGE Location
+AIF = Airlport Facility
+HAF = Harbour Facility
+DRL = DROP-OFF Location
+etc.
+"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OpsFncId" type="CM_DMN:Text_20">
+				<xs:annotation>
+					<xs:documentation>Operation function identifier: "Contains the specific identifier of the Operation function that captured the event. This identifier can be an identifier of a Tour, Movement, facility etc."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AscTy" type="CM_DMN:Cd_5">
+				<xs:annotation>
+					<xs:documentation>Association type.
+
+Defines the type of association between HI and associated operation function.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="HInsCategoryCdType">
+		<xs:annotation>
+			<xs:documentation>Coded value for a handling instruction category.
+F	Informative
+P	Imperative
+T	Interrogative</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ProcLvlType">
+		<xs:annotation>
+			<xs:documentation>Process level type.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ProcLvlCd" type="CM_DMN:No_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Process level code: Identifies uniquely a specific process level used within an application or system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcLvlTyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Process level type code: Unique identifier of a process level type, e.g.
+
+PRS = Process
+SPR = Sub-Process
+PRC = Procedure
+TSK = Task
+STP = Step
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcLvl" type="ProcLvlType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Participating process level.
+
+Lower level process level which is part of this process level. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

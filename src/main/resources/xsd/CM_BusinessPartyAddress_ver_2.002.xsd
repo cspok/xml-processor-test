@@ -1,0 +1,1119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+version 2.000 - Date 2014-03-18 <Modified by Lukas Neubauer>
+ - the XSD introduced
+
+version 2.001 - Date 2014-04-25 - <modified by Lukas Neubauer>
+ - //element(*,CntType)/CntId - data type changed from char(20) to GUIDType
+ - //element(*,BPAddrType)/AsBPAddrId - added
+ - //element(*,BPAddrType)/TyCd - added
+ - //element(*,BPAddrType)/LngCd - added
+ - //element(*,ActPntSpType)/CtryNm - added
+
+version 2.002 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd - latest version imported
+- CM_Individual_ver_2.011.xsd - latest version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_BPAddr/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_INDV="http://www.dhl.com/Express/CM/CM_Individual/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_BPAddr/v2" version="2.002">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Individual/v2" schemaLocation="CM_Individual_ver_2.011.xsd"/>
+	<xs:complexType name="FrmtAddrType">
+		<xs:annotation>
+			<xs:documentation>Formated address: Structured address fields can be visualized (or captured) in a formatted address.
+
+E.g.: the visualized form can be used for printing.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FmtTyCd" type="CM_DMN:Cd_5">
+				<xs:annotation>
+					<xs:documentation>Address format type code:Unique code for an address format type.
+
+E.g. LINES - for address formated in a several address lines
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence maxOccurs="100">
+				<xs:element name="FmtPosId" type="CM_DMN:Cd_5">
+					<xs:annotation>
+						<xs:documentation>Address format position identifier: Unique identifier of a field on an address format.
+
+e.g.: For address format type "LINES" it will be set to numbers 1-8.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PosCont" type="CM_DMN:Text_45">
+					<xs:annotation>
+						<xs:documentation>Position content: Content of the formated address position.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BPAddrType">
+		<xs:annotation>
+			<xs:documentation>Postal Address aligned with UPU (Universal Postal Union)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BPAddrId" type="CM_DMN:GUIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business Party Address Identifier
+
+The globally unique Business Party Address identification as assigned by the database of record.
+
+GUID supported.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UsgTyCd" type="CM_DMN:AddrTyCd_3" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Address usage type code.
+
+A code that uniquely identifies a type of address usage, e.g. billing, pickup, delivery, main, mailing or account receivable.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LngCd" type="CM_DMN:LanguageCodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business Party Language Code
+
+The address date elements are expressed in this language.
+
+The allowed language codes are defined in ISO 639-3.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business Party Address Type Code
+
+A code identifying a type of Business Party address:
+
+Values are:
+COM=Commercial
+RES=Residential</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BsnPty" type="BsnPtyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business party details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cnt" type="CntType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Contact details.
+
+Contact details associated with the customer and his role in a business transaction.
+
+The function or title of a person who represents a Business party in a relationship with DHL.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActPntSp" type="ActPntSpType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Postal address segment which designates the service provision point for a postal item.
+
+UPU name: Delivery point specification</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rmk" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Address remark.
+
+Any remark regarding the address.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="504"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FrmtAddr" type="FrmtAddrType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Structured address fields can be visualized (or captured) in a formatted address.
+
+E.g.: the visualized form can be used for printing.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OpnHr" type="OpenningHoursType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Opening Hours.
+
+Opening hours are the defined operating hours of an entity, defined for each day of the week.
+
+Multiple opening hours can be defined for one day of week.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AsBPAddrId" minOccurs="0" maxOccurs="1000">
+				<xs:annotation>
+					<xs:documentation>Business Party Address Association
+
+The associated BPA with this BPA.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:GUIDType">
+							<xs:attribute name="AsTy" type="CM_DMN:Cd_5">
+								<xs:annotation>
+									<xs:documentation>Association type
+
+Defines the type of association between BPA and Associated BPA.
+e.g.:
+ALT - Alternate: Associated BPA is the alternate BPA for the BPA</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Score" type="ScoreType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Postal address score
+
+The Postal Address scores of a Score type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CtryDivType">
+		<xs:annotation>
+			<xs:documentation>Country division</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Cd" type="CM_DMN:DivCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country division code: "A code that identifies the specified geographical division of the specified Country.
+Depending ON the Country division TYPE the country divsion might be a State, Province etc. This code will the actual value OF the Country division."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="CM_DMN:Cd_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country division type code: "Code that uniquely identifies a division type. Valid values are:
+A=Autonomous community
+B=Autonomous country region
+C=County
+D=District
+N=Canton
+O=Country (should be used WHEN no division TYPE FOR a country has been IDENTIFIED)
+P=Province
+R=Country region
+S=State"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nm" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country division name: "The full name of the specified Country division, as uniquely identified by a Division code.
+
+The short name IS FOR publication OF a short name WHERE the short Division code has no PUBLIC meaning. The Division Short Name should DEFAULT TO Division code but can be changed TO a more meaningfull name.
+
+DDM review: IN DHL CF IS defined data TYPE CHAR35) - need TO be checked which IS correct."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PCtryDivCd" type="CM_DMN:DivCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Parent Country division code: A code that identifies the specified geographical division of the
+specified Country.
+Depending on the Country division type the country divsion might be a
+State, Province etc. This code will the actual value of the Country
+division.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffDt" type="CM_DMN:Dt_CYMD_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country division effective date: The date the country division is effective from.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpDt" type="CM_DMN:Dt_CYMD_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country division expiry date: The date the country division expires.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TmZnCd" type="CM_DMN:TmZnType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Time zone code: The time zone on country division level needs to be defined if one coutry is within more than one time zone.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CntType">
+		<xs:annotation>
+			<xs:documentation>Contact details.
+
+The function or title of a person who represents a Business party in a relationship with DHL.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CntId" type="CM_DMN:GUIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contact individual identifier: The unique identifier of an individual.
+
+Is derived from Business party code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpcShprInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contact experience shipper indicator: Indicates whether a contact is an experienced shipper. Requirement added form Service Star.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpsCdNo" type="CM_DMN:Text_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contact expense code number: Requirement from Service Star. Apparently used as a reference to the cost centre used by the Customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrfCntMth" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contact preferred contact method: "The preferred contact method of a contact, e.g. e-mail, phone, fax.
+EML=E-mail
+TEL=Phone
+FAX=Fax
+MOB=Mobile"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ByRolCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Buying role code: "The role that a contact has in procurement, e.g. process approver, decision maker, influencer, user."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MlStpInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contact mail stop indicator: An indicator specifying that a contact should not be included in any mailing.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NvrEmInd" type="CM_DMN:Ind_1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contact never e-mail indicator: A flag indicating that a contact has not authorised DHL to send e-mail.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BsnPtyCd" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business party code: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Indv" type="CM_INDV:IndvType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Characteristics of a single person as the contact.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CommDev" type="CommDevType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Communication device number: The number (or e-mail address) for the communication type used by this customer. Provides the different communication methods given by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Score" type="ScoreType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Shipment customer contact score.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommDevType">
+		<xs:annotation>
+			<xs:documentation>Communication device</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="CM_DMN:Cno_70">
+				<xs:annotation>
+					<xs:documentation>Communication device number: The number (or e-mail address) for the communication type used by this customer.</xs:documentation>
+				</xs:annotation>
+				<xs:attribute name="TyCd" type="CM_DMN:CChnTyCd_3">
+					<xs:annotation>
+						<xs:documentation>Communication device type code: "The code for a communication method that can be used to reach e.g. a facility, staff contact. Values are:
+EML=Email
+EXT=Extension
+FAX=Fax
+MOB=Mobile
+REV=ReversePhoneNo
+SMS=SMS
+TEL=Phone
+TLX=Telex
+VML=Voice Mail
+URL=Website / URL
+"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DevPrfInd" type="CM_DMN:Ind_1">
+					<xs:annotation>
+						<xs:documentation>Shipment customer communication device preferred indicator: "Indicates whether this is a preferred communication devices for the customer.
+Y=Yes
+N=No"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="ThrfrNmType">
+		<xs:annotation>
+			<xs:documentation>Thoroughfare Name type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="0"/>
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OpenningHoursType">
+		<xs:annotation>
+			<xs:documentation>Opening Hours.
+
+Opening hours are the defined operating hours of an entity, defined for each day of the week.
+
+Multiple opening hours can be defined for one day of week.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="10">
+			<xs:element name="OpnTm" type="CM_DMN:Tm_HM5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Opening time.
+
+Opening Time is a time of day, in 24 hour format, local time, that indicates the opening time of an address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ClsTm" type="CM_DMN:Tm_HM5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Closing time.
+
+Closing Time is a time of day, in 24 hour format, local time, that indicates the closing time of an address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="DayOfWk" type="CM_DMN:DOWNo_1">
+			<xs:annotation>
+				<xs:documentation>Day of week number.
+
+A unique reference number for a day of the week.
+0=Sunday
+1=Monday
+2=Tuesday
+3=Wednesday
+4=Thursday
+5=Friday
+6=Saturday
+7=Holiday
+8=Weekdays</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ScoreType">
+		<xs:annotation>
+			<xs:documentation>Postal address, activity point and contact score.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="ScoreOnlyeType">
+				<xs:attribute name="TyCd">
+					<xs:annotation>
+						<xs:documentation>Score type code.
+
+Unique code for a score type.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="ScoreOnlyeType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BsnPtyType">
+		<xs:annotation>
+			<xs:documentation>Business party complex type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:annotation>
+				<xs:documentation>The sequence groups together the Business party code (as unique identifier) and Business party details.</xs:documentation>
+			</xs:annotation>
+			<xs:element name="BsnPtyCd" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business party code.
+
+The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>The sequence groups Individual and Organization. 
+
+There can be three scenarios:
+ - Individual (as Contact) can be specified as Business Party
+ - Organization (as Company) can be specified as Business Party
+ - Both Individual (as Contact) and Organization (as Company) can be specified as Business Party</xs:documentation>
+				</xs:annotation>
+				<xs:element name="Indv" type="CM_INDV:IndvType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Individual</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Orgn" type="OrgnType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Organisation</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="Ty">
+			<xs:annotation>
+				<xs:documentation>Business party type.
+
+Type of business party
+ O - Organisation
+ I - Individual</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="OrgnType">
+		<xs:annotation>
+			<xs:documentation>Organisation complex type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CICCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country industry class code : A code that identifies the industry in which a business party operates, as defined locally.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CtryCd" type="CM_DMN:CCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country code : The country code is a two-character code that uniquely identifies a country.  The code should be aligned to the ISO (ISO 3166-1-alpha-2 code elements) or in certain circumstances created by DHL. 
+Values are e.g.
+BE=Belgium
+FR=France
+XC=Curacao (Not ISO - part of Netherlands Antilles)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InduCd" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Industry code : A code to identify the type of industry in which a business party operates. A number of "authorities" (SIC, NACE etc.) are recognised by the ISO for creation of these codes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nm" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisation name : The name of the organisation.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ShtNm" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisation short name : The short name of an organisation if such a name exists.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="17"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SzNoEmp" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisation size by number of employees : The number of employees working for an organisation.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="6"/>
+						<xs:fractionDigits value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LglSt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisation Legal Status
+
+UPU ID: U10.01</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OrgnU" type="OrgnUnitType" minOccurs="0" maxOccurs="50">
+				<xs:annotation>
+					<xs:documentation>Organisational Unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrgnUnitType">
+		<xs:annotation>
+			<xs:documentation>Organisational unit complex type.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisational unit Identifier</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Nm" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisational unit name
+
+The name of an organisational unit within a Organisation.
+Also known as department.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Lvl" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Organisation unit level within the Organisation.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ActPntSpType">
+		<xs:sequence>
+			<xs:element name="ActPntSpId" type="CM_DMN:GUIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique identifier of an Activity point specification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CtryCd" type="CM_DMN:CCd_2" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country code.
+
+Country code is a two character code, assigned by the International Standards Organization, that uniquely identifies the specified ISO country.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CtryNm" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Country name
+
+The name of the Country as identified by Country Code.
+
+This element is de-normalized from DDM.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeoPos" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Geo Position.
+
+A location in geographic space converted into readable form. This means making a record of the point's coordinates.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Lat" type="CM_DMN:LatType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Geo position latitude: "Also called the Parallel. The distance north or south of the equator of a point on the earth s surface. This distance is measured in degrees, minutes, and seconds. Lines (parallels) of latitude circle the earth horizontally and are parallel to one another. One minute of latitude equals one nautical mile.
+(south latitudes are negative)"</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Lgtd" type="CM_DMN:LgtdType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Geo position longitude: "Also called the meridian.
+The distance east OR west OF the prime meridian OF a point ON the earth s surface. Longitude IS measured IN degrees, minutes AND seconds. Lines (meridians) OF longitude CREATE a geographic grid around the world AND are NOT PARALLEL, but rather converge AT the poles.
+(West longitude IS depicted BY negative VALUES.)"</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Alt" type="CM_DMN:AltType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Geo position altitude: "The vertical distance of a level, a point or an object considered as a point, measured from mean sea level."</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DefAthr" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Defining authority.
+
+Postal address element designating the postal operator or other authority responsible for the definition and maintenance of the activity point specification concerned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DlvSrvTyNm" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Delivery service type name.
+
+A delivery service type is an element sub-type indicating the type of delivery service.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DlvSrvInd" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Delivery service indicator.
+
+A delivery service indicator is an element sub-type designating a specific delivery point, within the category identified by delivery service type, within, or accessed for postal delivery services via, the locality.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AltDlvSrvTyNm" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Alternate delivery service type name.
+
+A delivery service type is an element sub-type indicating the type of delivery service.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AltDlvSrvInd" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Alternate delivery service indicator.
+
+A delivery service indicator is an element sub-type designating a specific delivery point, within the category identified by delivery service type, within, or accessed for postal delivery services via, the locality.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OfclAddrTyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Official address type code.
+
+A code identifying a type of address usage known to a regulatory issuing authority (for example importer-of-record address or business registered office address)
+VALUES are:
+RUL=Rural
+URB=Urban
+BUA=Business Area
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="CM_DMN:AddrTyCd_3">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RgnCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Address region code.
+
+Postal address element indicating a region in which the country, territory, or area of geopolitical interest is located and by which it may be more effectively recognized.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LUsdDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Last used datetime.
+
+The date time when the Location was last used for DHL service provisioning.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lty" type="LtyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Locality
+
+Postal address construct identifying the geographical area in or adjacent to which a delivery point is located.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Loc" type="LocType" minOccurs="0" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation>Location
+
+UPU name: Delivery point location
+
+Postal address construct identifying a delivery point, or a group of delivery points from which the postal operator may choose one, by reference to geographical and, where necessary, other spatial data expressed in human
+intelligible form.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Score" type="ScoreType" minOccurs="0" maxOccurs="20"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LtyType">
+		<xs:sequence>
+			<xs:element name="LtyId" type="CM_DMN:GUIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Locality identifier
+
+Unique identifier of a Locality.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CtyNm" type="CM_DMN:Text_45" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>City name.
+
+City name is the full name of a city within a country.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CtyDist" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>City district.
+
+Postal address element giving the name of the hamlet, estate, or area within or adjacent to town, in which a delivery point is located, or via which it is accessed for postal delivery purposes.
+
+NOTE 1 This element appears in the delivery point specification segment. It comprises element sub-types for four levelsinstances of district/sector, each with two positions, with and for a type and indicator for each level and
+positioninstance.
+
+NOTE 2 A district/sector may be a commonly known name for an area, or it may be an area assigned for a postal or administrative purposes. A district or sector may be one of a number of areas with a similar naming structure that may include a type and indicator structure.
+
+EXAMPLE Arrondissement, Conjunto, Colonia Juarez, Kebele 4, Moo 11</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:Text_45">
+							<xs:attribute name="Pos">
+								<xs:annotation>
+									<xs:documentation>City district position.
+
+Two poistions can be defined.
+
+Position 1 or 2.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="Ind">
+								<xs:annotation>
+									<xs:documentation>District or sector indicator.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="50"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DlvSrvQf" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Delivery Service Qualifier.
+
+Postal address element designating the name of the distribution office used for delivery services.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Zip" type="CM_DMN:Zip_12" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Postcode.
+
+Postcode is used within countries and country divisions to uniquely identify pickup and delivery areas used by the national postal organisation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CtryDiv" type="CtryDivType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>Country division</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LocType">
+		<xs:sequence>
+			<xs:element name="LocId" type="CM_DMN:GUIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Location identifier.
+
+Unique identifier of a Location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Wing" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Wing
+
+Postal address element identifying, for a delivery point, the building/construction section in which it is housed and/or the main entry door through which it is accessed.
+
+NOTE This element appears in the delivery point specification segment and in the mail recipient despatching information segment. In each segment, it comprises the element sub-types wing type and wing indicator.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Ty">
+								<xs:annotation>
+									<xs:documentation>Wing type
+
+UPU ID: U40.29-0-1</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="20"/>
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="Ind" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>Wing indicator
+
+UPU ID: U40.29-0-2</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Strw" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Stairwell
+
+UPU ID: U40.30
+
+Postal address element indicating access to floor or door within a building/construction.
+NOTE This element appears in the delivery point specification segment and in the mail recipient despatching information
+segment. In each segment, it comprises the element sub-types stairwell type and stairwell indicator.
+EXAMPLE Escalier</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Ty">
+								<xs:annotation>
+									<xs:documentation>Stairwell type
+
+UPU ID: U40.30-0-1</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="20"/>
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="Ind" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>Stairwell indicator
+
+UPU ID: U40.30-0-2</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Floor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Floor
+
+UPU ID: U40.31
+
+Postal address element indicating the floor or level on which a delivery point is located in a multi-story construction.
+
+NOTE This element appears in the delivery point specification segment and in the mail recipient despatching information segment. In each segment, it comprises the element sub-types floor type and floor indicator.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Ty">
+								<xs:annotation>
+									<xs:documentation>Floor type
+
+UPU ID: U40.31-0-1</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="20"/>
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="Ind" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>Floor indicator
+
+UPU ID: U40.31-0-2</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Door" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Door
+
+UPU ID: U40.32
+
+Postal address element indicating the apartment, room or office in, at or adjacent to which a delivery point which is situated within a building is located.
+
+NOTE This element appears in the delivery point specification segment and in the mail recipient despatching information segment. In each segment, it comprises the element sub-types door type and door indicator.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Ty">
+								<xs:annotation>
+									<xs:documentation>Door type
+
+UPU ID: U40.32-0-1</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="20"/>
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="Ind" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>Door indicator
+
+UPU ID: U40.32-0-2</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ThrfrNm" minOccurs="0" maxOccurs="3">
+				<xs:annotation>
+					<xs:documentation>Thoroughfare name
+
+UPU ID: 40.21-1-1
+
+Postal address element which identifies the road or part of a road or other access route along which a delivery point can be accessed, either directly or via a secondary or tertiary road or access route.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ThrfrNmType">
+							<xs:attribute name="Pos">
+								<xs:annotation>
+									<xs:documentation>Thoroughfare position.
+
+Activity point location can be defined by primary, secondary and tertiary thoroughfare.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="Ty">
+								<xs:annotation>
+									<xs:documentation>Thoroughfare type.
+
+A thoroughfare type indicates the category or type of thoroughfare. Thoroughfare type can be used to distinguish between instances in the locality which have the same thoroughfare name. Thoroughfare type is separated from thoroughfare name and thoroughfare qualifier because it may have different abbreviation rules and/or a sorting significance which differs from its relative position in printed representations.
+
+e.g. Road, Avenue</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="250"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="Qf">
+								<xs:annotation>
+									<xs:documentation>Thoroughfare qualifier.
+
+A thoroughfare qualifier distinguishes between different parts or instances of thoroughfare, within a locality, which have the same thoroughfare name and thoroughfare type.
+
+E.g. Street number</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="50"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BldOrCnstr" minOccurs="0" maxOccurs="3">
+				<xs:annotation>
+					<xs:documentation>Activity point location Building or construction
+
+Postal address element identifying the number or name and type of the building or construction in or adjacent to which a delivery point is located.
+
+NOTE 1 This element appears in the delivery point specification segment. It comprises the element sub-types preceding building/construction type,  succeeding building/construction type, and building/construction indicator.
+
+EXAMPLE Batiment A, Block 7, Houseboat, London Tower
+
+NOTE 2 This element and its sub-types comprise two levels of  building/construction, in order to account for situations in which an individual building/construction is designated along with a building complex. The building/construction element at each level comprises the element sub-types preceding building/construction type, succeeding  building/construction type, and building/construction indicator.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="Lvl" type="xs:integer">
+						<xs:annotation>
+							<xs:documentation>Level</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="PrcTy">
+						<xs:annotation>
+							<xs:documentation>Preceding building or construction type.
+</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:minLength value="1"/>
+								<xs:maxLength value="50"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="SuccTy">
+						<xs:annotation>
+							<xs:documentation>Succeeding building or construction type.
+</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:minLength value="1"/>
+								<xs:maxLength value="50"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="Ind" type="CM_DMN:Ind_1">
+						<xs:annotation>
+							<xs:documentation>Building or construction indicator.
+B - Building
+C - Construction
+</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SuppActPntDat" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Supplementary activity point data.
+
+Postal address element providing additional data or instructions intended to facilitate access to, or designation of, a delivery point
+
+NOTE This element appears in the delivery point specification segment. It comprises element sub-types for two occurrences specified as positions.
+
+EXAMPLE "Opposite number 23", "50 metres to the left of the main door", “Cruce Con Calle Obregon”</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="250"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp1 (x64) (http://www.altova.com) by Mat Saidi Mohamed (DHL Information Services (Asia-Pacific) Sdn Bhd) -->
+<!-- change log 
+version 0.001 date 2012-04-10
+ - created
+ - In IndvType: IndvIntls renamed to Intls
+version 0.002 - Date 2012-08-13
+ - latest version of CM_Domain_ver_0.008.xsd imported
+version 0.003 - Date 2012-10-17
+ - latest version of CM_Domain_ver_0.009.xsd imported
+version 0.004 - Date 2013-02-20
+ - Nm element added 
+ - IndId set as optional
+ - CM_GeneralInfo_ver_0.004.xsd version increased
+ - CM_Domain_ver_0.011.xsd version increased
+
+version 1.000 - Date 2013-03-12
+ - CM_GeneralInfo_ver_1.000.xsd version increased
+ - CM_Domain_ver_1.000.xsd version increased
+ - major version introduced
+
+version 1.001- Date 2013-03-28
+ - CM_GeneralInfo_ver_1.001.xsd version increased
+ - CM_Domain_ver_1.001.xsd version increased
+
+version 1.002- Date 2013-04-11
+ - Nm data type corrected to string(200)
+ - CM_Domain_ver_1.002.xsd version increased
+ - CM_GeneralInfo_ver_1.002.xsd version increased
+
+version 2.000 - Date 2013-05-20 
+ - major version introduced to be aligned with major version for redesigned CM_Shipment
+
+version 2.001 - Date 2013-06-14
+ - CM_Domain_ver_2.001.xsd version increased
+ - CM_GeneralInfo_ver_2.002.xsd version increased
+
+version 2.002 - Date 2013-07-09
+ - CM_Domain_ver_2.002.xsd version increased
+ - CM_GeneralInfo_ver_2.003.xsd version increased
+
+version 2.003 - Date 2013-08-21
+ - CM_Domain_ver_2.004.xsd version increased
+ - CM_GeneralInfo_ver_2.005.xsd version increased
+
+version 2.004 - Date 2013-08-29
+ - CM_Domain_ver_2.004.xsd version increased
+ - CM_GeneralInfo_ver_2.005.xsd version increased
+
+version 2.005 - Date 2013-09-11
+ - CM_Domain_ver_2.006.xsd version increased
+ - CM_GeneralInfo_ver_2.007.xsd version increased
+
+version 2.006 - Date 2013-09-18
+ - CM_Domain_ver_2.007.xsd version increased
+ - CM_GeneralInfo_ver_2.008.xsd version increased
+
+version 2.007 - Date 2013-10-10 <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.008.xsd version increased
+ - CM_GeneralInfo_ver_2.009.xsd version increased
+
+version 2.008 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.009.xsd version increased
+ - CM_GeneralInfo_ver_2.009.xsd version increased
+
+version 2.009 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+ - CM_GeneralInfo_ver_2.010.xsd version increased
+
+version 2.010 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+- CM_GeneralInfo_ver_2.011.xsd - latest version imported
+
+version 2.011 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd - latest version imported
+- CM_GeneralInfo_ver_2.012.xsd - latest version imported
+
+ -->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_Individual/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_Individual/v2" version="2.011">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" schemaLocation="CM_GeneralInfo_ver_2.012.xsd"/>
+	<xs:complexType name="IndvType">
+		<xs:sequence>
+			<xs:element name="IndvId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual identifier: 
+The unique identifier of a courier.
+In data model derived from business party unique identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!--/xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RtIndvType">
+		<xs:sequence-->
+			<xs:element name="OrgId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Organisation identifier: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual type code: "Identifies uniquely an individual type, e.g. Contact, DHL employee, etc.CNT - ContactDEM - DHL EmployeeEXU - DHL External UserCON - Contractor"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CvlTtlCd" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Civil title code: A title used to address a person according to his civil status.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JbTtl" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Job title: The functional title of the job that an Individual is employed as.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Intls" type="CM_DMN:Text_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual initials: "First characters of the christian names of a Person.e.g. FPO=F.Pat ODonnell"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nm" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual's full name:  
+Optionally combines together first name, family name, salutation, and qualifications.
+Introduced for uses cases where is not possible handle atomic name data.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FstNm" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual first name: "Principle forename of the person.US Post office defines as ""Given name""."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FstNmSdx" type="CM_DMN:SdxCd_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual first name soundex: A generated soundex of the individual first name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FamNm" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual family name: "Family name (or surname) of the person.US Post office defines as ""Surname""."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FamNmSdx" type="CM_DMN:SdxCd_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual family name soundex: A generated soundex of the individual family name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DtBth" type="CM_DMN:Dt_CYMD_10" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual date of birth: The date the individual was born.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nat" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual nationality: Contains the nationality of the individual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Slt" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual salutation: "The way to address an individual. e.g. Mr, Miss, Ms, David.US Post office defines as ""Form of Address""."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dptm" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Individual department: "Department the person works in"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcdQf" type="CM_DMN:Text_45" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Preceding qualification: "The qualification to be used in the front of the individual name.e.g. DR"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SucQf" type="CM_DMN:Text_45" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Succeeding qualification: "The qualification to be used in the bbehind of the individual name.e.g. PH.D."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

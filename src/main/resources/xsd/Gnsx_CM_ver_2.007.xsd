@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:SHP_REQ="http://www.dhl.com/Express/CM/CM_ShpPcsDetailsMsg/v2" xmlns:SHP_READ_REQ="http://www.dhl.com/Express/CM/CM_ShpPcsDtlRqst/v2" xmlns:EVT_REQ="http://www.dhl.com/Express/CM/GenericEventMsg/v1" xmlns:EVT_READ_REQ="http://www.dhl.com/Express/CM/EventRqstMsg/v1" xmlns:tns="http://www.dhl.com/gnsx/v2" targetNamespace="http://www.dhl.com/gnsx/v2" version="2.006">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_ShpPcsDtlRqst/v2" schemaLocation="CM_ShpPcs_Rqst_ver_2.008.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_ShpPcsDetailsMsg/v2" schemaLocation="CM_ShpPcsDetailsMsg_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/GenericEventMsg/v1" schemaLocation="CM_Event_Message_ver_1.003.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/GenericEventRspMsg/v1" schemaLocation="CM_Event_Message_Resp_ver_1.003.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/EventRqstMsg/v1" schemaLocation="CM_Event_Message_Rqst_ver_1.003.xsd"/>
+	<xs:element name="shipmentPieceLink">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SHP_REQ:ShpPcdDetailsMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="shipmentPieceCreate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SHP_REQ:ShpPcdDetailsMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="shipmentPieceUpdate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SHP_REQ:ShpPcdDetailsMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="shipmentPieceRead">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SHP_READ_REQ:ShpPcsIDRqstMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="eventCreate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="EVT_REQ:EvtMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="eventRead">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="EVT_READ_REQ:EvtRqstMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="checkpointCreate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="EVT_REQ:EvtMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="checkpointRead">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="EVT_READ_REQ:EvtRqstMsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

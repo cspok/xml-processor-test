@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+version 0.006 date 2012-04-10
+ - CM_Domain_V0.006 version increased
+ - In PcsType:
+	  - PcsHIns type changed to HInsBaseType
+	 -  StCd element added 
+ - PcsDtlType:
+	 - Pcs prefix removed from its elements
+ - PcsDtlType merged with PcsType. PcsType remains.
+version 0.007 date 2012-10-17
+ - CM_Domain_V0.011 version increased
+ - CM_HIns_V0.008 version increased
+version 0.008 date 2013-01-22
+ - CM_HIns_V0.009 version increased
+
+version 0.009 date 2013-02-20
+ - CM_GeneralInfo_ver_0.004.xsd version increased
+ - CM_HandlingInstruction_ver_0.010.xsd version increased
+
+version 1.000 - Date 2013-03-12
+ - latest CM_GeneralInfo_ver_1.000.xsd version imported
+ - latest CM_Domain_ver_1.000.xsd version imported
+ - latest CM_HandlingInstruction_ver_1.000.xsd version imported
+ - major version introduced
+
+version 1.001 - Date 2013-03-28
+ - latest CM_GeneralInfo_ver_1.001.xsd version imported
+ - latest CM_Domain_ver_1.001.xsd version imported
+ - latest CM_HandlingInstruction_ver_1.001.xsd version imported
+
+version 1.002 - Date 2013-04-12
+ - latest CM_GeneralInfo_ver_1.002.xsd version imported
+ - latest CM_Domain_ver_1.002.xsd version imported
+ - latest CM_HandlingInstruction_ver_1.002.xsd version imported
+
+version 2.000 - Date 2013-05-20 
+ - major version introduced to be aligned with OMP data model
+
+version 2.001 - Date 2013-06-14
+ - CM_Domain_ver_2.001.xsd version increased
+ - CM_GeneralInfo_ver_2.002.xsd version increased
+ - CM_HandlingInstruction_ver_2.001.xsd version imported
+
+version 2.002 - Date 2013-07-09
+ - //element(*,PcsType)/PcsInPcs - added
+ - //element(*,PcsType)/Trashbin - removed
+ - //element(*,PcsType)/PcsHIns - moved to PcsType - originally it was in sequence with Meas
+ - //element(*,PcsType)/Meas - moved to PcsType - originally it was in sequence with PcsHIns
+ - CM_Domain_ver_2.002.xsd version increased
+ - CM_GeneralInfo_ver_2.003.xsd version increased
+ - CM_HandlingInstruction_ver_2.002.xsd version imported
+
+version 2.003 - Date 2013-08-06
+ - PcsRefType - added
+ - //element(*,PcsType)/PcsRef - added
+
+version 2.004 - Date 2013-08-21
+ - CM_Domain_ver_2.004.xsd version increased
+ - CM_GeneralInfo_ver_2.005.xsd version increased
+ - CM_HandlingInstruction_ver_2.003.xsd version imported
+
+version 2.005 - Date 2013-08-29
+ - CM_Domain_ver_2.005.xsd version increased
+ - CM_GeneralInfo_ver_2.006.xsd version increased
+ - CM_HandlingInstruction_ver_2.004.xsd version imported
+ - PcsRqstType - added
+
+version 2.006 - Date 2013-09-16
+ - CM_Domain_ver_2.006.xsd version increased
+ - CM_GeneralInfo_ver_2.007.xsd version increased
+
+version 2.007 - Date 2013-08-18
+ - CM_Domain_ver_2.007.xsd version increased
+ - CM_GeneralInfo_ver_2.008.xsd version increased
+ - CM_HandlingInstruction_ver_2.005.xsd version imported
+
+version 2.008 - Date 2013-10-01
+ - //element(*,PcsType)/InHUId/@Pos - data type set
+ - //element(*,PcsRqstType)/InHUId/@Pos - data type set
+
+version 2.009 - Date 2013-10-22
+ - //element(*,PcsType)/RcvSpecDlvDtm - removed
+ - //element(*,PcsType)/EstDlvDtm - removed
+ - //element(*,PcsType)/DlvDtm - added
+
+version 2.010 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+ - CM_Domain_ver_2.009.xsd version increased
+ - CM_GeneralInfo_ver_2.009.xsd version increased
+ - CM_HandlingInstruction_ver_2.007.xsd version imported
+ - PcsType/StCd renamed to PcsType/St
+
+version 2.011 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+ - CM_GeneralInfo_ver_2.010.xsd version increased
+
+version 2.012 - Date 2014-01-15 <Modified by Srinidhi Ramachandra>
+ - DscType/@LngCd made optional
+
+version 2.013 - Date 2014-01-23 <Modified by Srinidhi Ramachandra>
+Following elements made optional in order to support shipper provided data
+- PcsRefType/TyCd
+- PcsRefType/Ref
+- DscType/Cd
+- ShpDeliveryDtmType/TyCd
+- SortCdType/Ty
+- PcsMeasType/TyCd
+- PcsType/PcsId
+
+version 2.014 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+- CM_HandlingInstruction_ver_2.009.xsd version increased
+- CM_GeneralInfo_ver_2.011.xsd - latest version imported
+
+version 2.015 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd version increased
+- CM_HandlingInstruction_ver_2.010.xsd version increased
+- CM_GeneralInfo_ver_2.012.xsd - latest version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_Piece/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_HIns="http://www.dhl.com/Express/CM/CM_HIns/v2" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_Piece/v2" version="2.015">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_HIns/v2" schemaLocation="CM_HandlingInstruction_ver_2.010.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" schemaLocation="CM_GeneralInfo_ver_2.012.xsd"/>
+	<xs:complexType name="PcsRefType">
+		<xs:annotation>
+			<xs:documentation>Piece reference</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reference type code.
+
+A code identifying the type of reference used in relationship to a shipment, e.g.
+
+BKN 	Booking Number 
+BOL 	Bill of Lading Number 
+CRN 	Carrier Reference Number 
+HAN 	House Airwaybill Number
+MAB 	Master Airwaybill Number 
+OBL 	Ocean Bill of Lading Number 
+PON 	Purchase Order Number
+etc. 
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ref" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece reference: 
+
+Any reference that a business party involved in the transaction wants to assign to the piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer identifier: The unique identifier of a business party.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DscType">
+		<xs:annotation>
+			<xs:documentation>Piece description</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="CM_DMN:Text_70">
+				<xs:annotation>
+					<xs:documentation>Shipment description of goods: A brief description of the goods in a shipment.</xs:documentation>
+				</xs:annotation>
+				<xs:attribute name="LngCd" type="CM_DMN:LanguageCodeType">
+					<xs:annotation>
+						<xs:documentation>Language code
+
+Provides informatin in which language is the shipment description.
+
+Code to uniquely identify a language.
+
+ISO 639-2 Code</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Cd">
+					<xs:annotation>
+						<xs:documentation>Shipment description code: "Classifies the description of the piece.
+Allowed VALUES:
+CNT=Content"</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="CM_DMN:Cd_3">
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="PcsType">
+		<xs:annotation>
+			<xs:documentation>Reprezents full Piece details.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcsId" type="CM_DMN:PcsId_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece identifier: "A number that uniquely identifies a piece associated with a shipment.
+A piece identifier can be a licence plate."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatId" type="CM_DMN:Cd_4" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece data identifier: "An identifier closely related to the License plate, which is represented in the Piece Identifier. Data Identifier - DI - (standard ANSI/FACR-1) It is an alphanumeric string indicating the inteded use of the data, e.g. part number or quantity. The DI is made up of 0 to 3 numerics followed by an upper case alphabetic (DHL uses ""J"").
+AS a sysnonym TO DI IS Application Identifier - AI - (ANS/UCC-4 OR UCC/EAN-128). The AI can be 2 TO 4 DIGITS LONG."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dsc" type="DscType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece description: 
+
+A brief description of the Piece with a specified type of description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="PcsTyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece type code.
+
+Piece type is one of the factors defining network handling. The piece type is mainly defined by Piece dimensions and weight.
+
+The Piece types can for example be:
+Flyer: FLY
+Conveyable: COY
+Small Non Conveyable: NCY
+Large Non Conveyable: LCY
+Pallet: PAL</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PkgTyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece packaging type code:
+
+Defines the different types of packinging that for a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rmk" type="CM_DMN:Text_255" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece remark: Any additional information related to a piece can be entered here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CsId" type="CM_DMN:No_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Case identifier: A unique identifier of a case.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DlvDtm" type="ShpDeliveryDtmType" minOccurs="0" maxOccurs="10">
+				<xs:annotation>
+					<xs:documentation>A list of Shipment delivery date time is required for a Shipment.
+
+This entity allows for capture and maintenance of an unrestricted number of the Shipment delivery datetimes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrtCd" type="SortCdType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Piece sort code
+
+Only one sort code for one sort code type can be defined for a peice.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="St" type="CM_DMN:BOStatusExtendedType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Piece status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcsHIns" type="CM_HIns:HInsBaseType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Additional information provided about a Piece, to support the pickup and transport within the DHL Network.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Meas" type="PcsMeasType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece measurements.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcsRef" type="PcsRefType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece reference: 
+
+Any reference that a business party involved in the transaction wants to assign to the piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InHUId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece in handling unit</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:HUId_35">
+							<xs:attribute name="DeCntDtm" type="CM_DMN:DtmType">
+								<xs:annotation>
+									<xs:documentation>Piece de-containerization datetime
+
+The datetime when the Piece was removed from the HU.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Pos">
+								<xs:annotation>
+									<xs:documentation>Position
+
+Position occupied by the Piece in the handling unit.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PcsInPcs" type="PcsType" minOccurs="0" maxOccurs="5000"/>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PcsRqstType">
+		<xs:annotation>
+			<xs:documentation>Copy of PcsType wher all data elments are all optional for support of Query message types. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcsId" type="CM_DMN:PcsId_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece identifier: "A number that uniquely identifies a piece associated with a shipment.
+A piece identifier can be a licence plate."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatId" type="CM_DMN:Cd_4" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece data identifier: "An identifier closely related to the License plate, which is represented in the Piece Identifier. Data Identifier - DI - (standard ANSI/FACR-1) It is an alphanumeric string indicating the inteded use of the data, e.g. part number or quantity. The DI is made up of 0 to 3 numerics followed by an upper case alphabetic (DHL uses ""J"").
+AS a sysnonym TO DI IS Application Identifier - AI - (ANS/UCC-4 OR UCC/EAN-128). The AI can be 2 TO 4 DIGITS LONG."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dsc" type="DscType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece description: 
+
+A brief description of the Piece with a specified type of description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TyCd" type="PcsTyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece type code.
+
+Piece type is one of the factors defining network handling. The piece type is mainly defined by Piece dimensions and weight.
+
+The Piece types can for example be:
+Flyer: FLY
+Conveyable: COY
+Small Non Conveyable: NCY
+Large Non Conveyable: LCY
+Pallet: PAL</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PkgTyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece packaging type code:
+
+Defines the different types of packinging that for a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rmk" type="CM_DMN:Text_255" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece remark: Any additional information related to a piece can be entered here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CsId" type="CM_DMN:No_Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Case identifier: A unique identifier of a case.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EstDlvDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece estimated delivery datetime (EDD).
+
+The estimated delivery date/time DHL calculates as the shipment moves through the network to destination/final delivery. The EDD starts out as the CDD and may be adjusted during transit. The EDD is held at shipment and piece level, and is business-mandatory. v The EDD is displayed to customers as per its network display rules.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RcvSpecDlvDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece receiver specified delivery datetime (RDD).
+
+The estimated delivery date/time the Receiver, or the Receiver’s authorized representative, has requested and DHL has accepted/validated. The RDD is only relevant, and will only be present, if a Receiver has requested a delivery date, delivery time or delivery date/time change, or has requested disposition of the shipment that causes such a change (e.g. redirect).  The RDD is held at shipment and piece level and is business-conditional. The RDD is displayed to customers as the current EDD.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SrtCd" type="SortCdType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Piece sort code
+
+Only one sort code for one sort code type can be defined for a peice.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StCd" type="CM_DMN:BOStatusType" minOccurs="0" maxOccurs="20">
+				<xs:annotation>
+					<xs:documentation>Piece status code
+
+The piece status can change during the piece life cycle and this entity describes the piece lifecycle statuses.
+
+Piece can have parallel status types during its lifecycle.
+
+Status code describes the state.
+
+Just one state of a state type is possible and allowed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcsHIns" type="CM_HIns:HInsBaseType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Additional information provided about a Piece, to support the pickup and transport within the DHL Network.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Meas" type="PcsMeasType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece measurements.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PcsRef" type="PcsRefType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Piece reference: 
+
+Any reference that a business party involved in the transaction wants to assign to the piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InHUId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Piece in handling unit</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:HUId_35">
+							<xs:attribute name="DeCntDtm" type="CM_DMN:DtmType">
+								<xs:annotation>
+									<xs:documentation>Piece de-containerization datetime
+
+The datetime when the Piece was removed from the HU.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Pos">
+								<xs:annotation>
+									<xs:documentation>Position
+
+Position occupied by the Piece in the handling unit.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PcsInPcs" type="PcsType" minOccurs="0" maxOccurs="5000"/>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="100">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PcsShpType">
+		<xs:complexContent>
+			<xs:extension base="PcsType">
+				<xs:sequence>
+					<xs:element name="ShpId" type="CM_DMN:ShpIdType">
+						<xs:annotation>
+							<xs:documentation>Shipment identifier: An identification number assigned to a shipment, controlled by DHL.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PcskInd" type="CM_DMN:Ind_1" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Piece completion indicator: "Indicates whether the Piece has received an event notifying that is completed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PodId" type="CM_DMN:DcId_35" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Proof of delivery identifier: A unique identifier of a document that caprtures the content of a delivery.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PcsMeasType">
+		<xs:sequence>
+			<xs:element name="TyCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Measure type code: "Provides classificatin of various measure types for an unit.
+
+DEC - measurement provided BY customer/shipper
+
+BIL - measurement that has been used FOR the charging. IS used WHEN the product OR service enables e.g. piece billing.
+
+ACT - measurement taken AND verified BY DHL.
+
+PRC - measurement that has been used FOR pricing."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="H" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Height: The height of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="L" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Length: The length of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="W" type="CM_DMN:MeaType_10_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Width: The width of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Wgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Weight: The weight of a piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NetWgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Net weight: The net weight of the piece.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VolWgt" type="CM_DMN:WgtType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Volumetric weight: A calculated weight based on the piece volume.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Vol" type="CM_DMN:VolType_15_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Volume: The piec volume.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PcsTyCd">
+		<xs:annotation>
+			<xs:documentation>Piece type code - simple type
+
+Piece type is one of the factors defining network handling. The piece type is mainly defined by Piece dimensions and weight.
+
+The Piece types can for example be:
+Flyer: FLY
+Conveyable: COY
+Small Non Conveyable: NCY
+Large Non Conveyable: LCY
+Pallet: PAL</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SortCdType">
+		<xs:annotation>
+			<xs:documentation>Piee sort code type</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="SortCdBaseType">
+				<xs:attribute name="Ty">
+					<xs:annotation>
+						<xs:documentation>Sort code type code.
+
+Classifies the sort code if defined for:
+IN - Piece inbound processing
+OUT - Piece outbound processing </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="SortCdBaseType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ShpDeliveryDtmType">
+		<xs:annotation>
+			<xs:documentation>A list of Shipment delivery date time is required for a Shipment.
+
+This entity allows for capture and maintenance of an unrestricted number of the Shipment delivery datetimes.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TyCd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Shipment delivery datetime type code
+
+Quoted Delivery Date/Time - Fastest (QDDF) / Committed (QDDC)
+
+QDDF -  is the fastest ("docs") transit time as quoted to the customer at booking or shipment creation. When clearance or any other non-transport operational component is expected to impact transit time, QDDf does not constitute DHL's service commitment.
+
+QDDC -  constitutes DHL's service commitment as quoted at booking/shipment creation. QDDc builds in clearance time, and potentially other special operational non-transport component(s), when relevant.
+
+QDD's - are held at shipment level, and are mandatory for shipment detail whenever captured at booking or shipment creation. QDDs are never displayed, presented or otherwise articulated to customers outside of booking or shipment creation. QDDs are always derived from DHL's customer-facing transit time standards.(1)
+
+Fastest Delivery Date/Time (FDD)
+The fastest ("docs") estimated delivery date/time DHL calculates following physical shipment acceptance. FDD does not consider clearance or any other non-transport operational component that may impact transit time. FDD is held at shipment level, and is mandatory for all shipment detail. FDD is always derived from DHL's customer-facing transit time standards, and does not change in transit.(1)
+
+Committed Delivery Date/Time (CDD)
+The committed estimated delivery date/time DHL calculates following physical shipment acceptance. CDD builds in clearance and/or any other special non-transport operational component that may impact transit time. CDD is held at shipment level, and is mandatory for all shipment detail. CDD is always derived from DHL's customer-facing transit time standards, and does not change in transit.(1)
+
+Estimated Delivery Date/Time (EDD)
+The best/latest estimate of delivery date/time for a shipment. The EDD starts out as the F/CDD (2) and may be adjusted during transit. EDD is held at shipment and piece level, and is business-mandatory.(3) The EDD is displayed to customers as per its standard Global SOP network display rules.
+
+Requested Delivery Date/Time (RDD)
+The delivery date/time the Shipper, Receiver, Payer or other authorized party has requested and DHL has accepted/validated. RDD is only relevant, and will only be present, if a specific delivery date/time change has been requested, or if the requested disposition of the shipment causes such a change (e.g. redirect). RDD is held at shipment and piece level and is business-conditional. If present, RDD is displayed to customers as the current EDD.
+
+Dynamic Delivery Date/Time (DDD)
+The estimated delivery date/time DHL calculates as a shipment moves through the network to delivery. DDD is held at shipment and piece level, and is business-mandatory. (3) DDD is displayed to customers as per its network display rules.
+
+(1) In future, customer-specific transit times may apply in select instances.
+(2) The business will decide whether CDD or FDD is to be used.
+(3) Piece level EDD calculation for shipments-in-transit is not at present possible. Shipment-level EDDs will be cascaded.
+</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Dtm" type="CM_DMN:DtmUTCType">
+				<xs:annotation>
+					<xs:documentation>Shipment delivery datetime
+
+The delivery datetime of the specified type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

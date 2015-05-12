@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp1 (x64) (http://www.altova.com) by Mat Saidi Mohamed (DHL Information Services (Asia-Pacific) Sdn Bhd) -->
+<!-- change log
+version 0.006 
+ - CrpLglEntCd renamed to CCrpLglEntCd - the role is set to Captured
+ - EvtCMthCd renamed to CMthCd
+ - RecUsrNmIndvId renamed to RecIndvId
+ - DatElmntValType changed from CM_DMN:Text_18 to CM_DMN:Text_100
+ - VehEvtAndVehIdType removed
+ - ShpEvtType, BkgEvtType, PcsEvtType removed
+version 0.006 
+ - latest CM_Domain_ver_0.007.xsd imported
+ - ScnSwV moved to ScnSw as its attribute
+ - COpsFncId simple type replaced by complex type. COpsFncTyCd moved to the complex type. The complex type is enabled for composite business keys.
+ - RecOpsFncId simple type replaced by complex type. RecOpsFncTyCd moved to the complex type. The complex type is enabled for composite business keys.
+ - DatElmntValType definition moved to CM_Domain_ver_0.007.xsd
+ - DatElmntType definition moved to CM_Domain_ver_0.007.xsd
+version 0.008
+ - latest CM_Domain_ver_0.008.xsd imported
+ - Event data element group added - Event data element is now member of the group. See implementation guideline in the group annotation.
+ - Capture operation function identifier made mandatory
+version 0.009 - date 2012-08-06
+- DatElGrp/@Id renamed to Cd
+- Common data element group (CommonGrp) for single value data elements introduced as par of DatElGrp annotation
+version 0.010 - date 2012-08-29
+ - Data element group complex type definition  moved to CM_Domain_V0.011
+ - latest version imported: CM_Domain_ver_0.009.xsd
+version 0.011 - date 2013-02-12
+ - latest version imported: CM_Domain_ver_0.010.xsd
+version 0.012 - date 2013-02-20
+ - latest version imported: CM_Domain_ver_0.011.xsd
+version 0.013 - date 2013-02-20
+ - latest version imported: CM_Domain_ver_0.012.xsd
+
+version 1.000 - Date 2013-03-12
+ - CM_Domain_ver_1.000.xsd version increased
+ - major version introduced
+
+version 1.001 - Date 2013-03-28
+ - CM_Domain_ver_1.001.xsd version increased
+
+version 1.002- Date 2013-04-12
+ - CM_Domain_ver_1.002.xsd version increased
+ - Dtm, RecDtm, SDtm, AvlDtm -  domain changed to CM_DMN:DtmUTCType, the base XML type remains same xs:DateTime, but the semantic of the domain is different, see the domain documentation tag
+
+version 2.001 date 2013-06-06
+ - latest version CM_Domain_ver_2.001.xsd imported
+
+version 2.002 - Date 2013-07-09
+ - //element(*,EvtType)/DatElGrp -  max number of occurences increased to 5000
+ - latest version CM_Domain_ver_2.002.xsd imported
+
+version 2.003 - Date 2013-08-19
+ - latest version CM_Domain_ver_2.004.xsd imported
+
+version 2.004 - Date 2013-09-05 
+ - latest version CM_Domain_ver_2.006.xsd imported
+
+version 2.005 - Date 2013-09-18 
+ - latest version CM_Domain_ver_2.007.xsd imported
+
+version 2.006 - Date 2013-10-02
+ - //element(*,EvtType)/ScnSw/@ScnSwV - data type changed from integer to string with max size 7
+
+version 2.007 - Date 2013-10-10 <Modified by Srinidhi Ramachandra> 
+ - latest version CM_Domain_ver_2.008.xsd imported
+
+version 2.008 - Date 2013-10-25 <Modified by Srinidhi Ramachandra> 
+ - latest version CM_Domain_ver_2.009.xsd imported
+
+version 2.009 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+
+version 2.010 - Date 2014-04-29 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd - latest version imported
+- EvtType/RDsc added
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_Evt/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_Evt/v2" version="2.010">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:complexType name="EvtType">
+		<xs:sequence>
+			<xs:element name="TyCd" type="CM_DMN:EvtCd_5">
+				<xs:annotation>
+					<xs:documentation>Event type code: 
+The code uniquely identifying a valid event type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Dtm" type="CM_DMN:DtmUTCType">
+				<xs:annotation>
+					<xs:documentation>Event datetime: 
+
+The timestamp of the occurrence of the event and when it was captured.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!--xs:element name="RtId" type="CM_DMN:RtIdType">
+				<xs:annotation>
+					<xs:documentation>Route Unique identifier</xs:documentation>
+				</xs:annotation>
+			</xs:element-->
+			<xs:element name="RecDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event recording datetime: 
+
+Data Entry Timestamp (Insertion Timestamp).
+
+The data ENTRY TIMESTAMP identifies the moment IN TIME that the event details BECOME available TO
+a business application ON an ON-line computer SYSTEM. This could be the TIME that CHECKPOINT
+details were entered through the keyboard USING an ON-line device, OR the TIME that information
+FROM an OFF-line device such AS a courier scanner was downloaded AND the data uploaded TO the
+backend systems."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event send datetime: 
+
+Event Issue Timestamp (Generation Timestamp)
+
+The event issue TIMESTAMP identifies the moment IN TIME that the event information IS sent FROM
+the business application that records it TO the appropriate databases. IN most cases this will be the
+TIME that the message IS passed FROM the business application TO the LOCAL communications
+infrastructure."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AvlDtm" type="CM_DMN:DtmUTCType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event available datetime: The time at which the data is available (and is the time that is returned by GQS).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RCd" type="CM_DMN:ReaCd_5" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event reason code: 
+
+A code to uniquely identify an event reason.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RDsc" type="CM_DMN:Text_255" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event reason description</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rmk" type="CM_DMN:Text_255" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event remark: 
+
+Additional remarks provided as a reason for the event.
+
+For Handling unit, Shipment or Piece: Event standard remark as defined in Checkpoint Business Guide.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="COpsFncId" type="CM_DMN:OpsFncIdType">
+				<xs:annotation>
+					<xs:documentation>Captured operation function identifier.
+
+Contains the specific identifier of the Operation function that captured the event. This identifier can be an identifier of a Route, Movement, facility etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CIndvId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event captured user name individual identifier: 
+
+The unique identifier of an individual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecOpsFncId" type="CM_DMN:OpsFncIdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Recording operation function identifier: 
+
+Contains the specific identifier of the Operation function that recorded the event. This identifier can be an identifier of a Route, Movement, facility etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecIndvId" type="CM_DMN:Bp_20" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event recording user name individual identifier: 
+
+The unique identifier of an individual.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecUsrNm" type="CM_DMN:Text_35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event recording user name.
+
+The name that uniquely identify a user within a system or set of systems.
+
+e.g. LDAP USER ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CCrpLglEntCd" type="CM_DMN:DhlDvLECd_6" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Captured corporate legal entity code: "A unique identifier of a billing entity, also called a DHL company code or CREST code."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lat" type="CM_DMN:LatType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Geo position latitude: "Also called the Parallel. The distance north or south of the equator of a point on the earth s surface. This distance is measured in degrees, minutes, and seconds. Lines (parallels) of latitude circle the earth horizontally and are parallel to one another. One minute of latitude equals one nautical mile.
+(south latitudes are negative)"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lgtd" type="CM_DMN:LgtdType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Geo position longitude: "Also called the meridian.
+The distance east OR west OF the prime meridian OF a point ON the earth s surface. Longitude IS measured IN degrees, minutes AND seconds. Lines (meridians) OF longitude CREATE a geographic grid around the world AND are NOT PARALLEL, but rather converge AT the poles.
+(West longitude IS depicted BY negative VALUES.)"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Alt" type="CM_DMN:AltType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Geo position altitude: "The vertical distance of a level, a point or an object considered as a point, measured from mean sea level."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScnSw" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event scanner software: The name of the software used by the scanning device.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="CM_DMN:Text_35">
+							<xs:attribute name="ScnSwV">
+								<xs:annotation>
+									<xs:documentation>The version number of the software used by the scanning device.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="7"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CMthCd" type="CM_DMN:Cd_3" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Event capture method code: "A code that uniquely identifies a capturing method, e.g.
+SCA=Scan
+KEY=Keyed
+AUT=Automated
+RTF=RF-tag."</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DatElGrp" type="CM_DMN:DatElGrpType" minOccurs="0" maxOccurs="5000">
+				<xs:annotation>
+					<xs:documentation>Data element group.
+
+In the case a set of data elements provide information value only as a group then these data elements will be grouped into one group.
+E.g. 
+ - Monetary amount and its currency
+ - Dimension and unit of dimension
+ - Communication device number and communication device type
+ - Additional feature and associated charge amount, tax and currency 
+ - vehicle mileage and unit of measurement
+
+Single data elements providing information value will be always placed in event common group with 
+Data element group code ser to "CommonGrp":
+E.g.:
+ - Vehicle Id
+ - Destination facility identifier 
+ - Seals Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

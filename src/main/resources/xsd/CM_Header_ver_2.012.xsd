@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+version 0.004 date 2012-10-09
+ - CM_Domain_ver_0.009.xsd imported
+ - Datetime elements and attributes type changed to CM_DMN:DtmUTC_25
+ - GMT Offset elements and attributes type changed to CM_DMN:DtmGMTOff_6
+ - Internal datetime and offset type definitions removed
+ - AppInstId added to PartIndentification
+ - Datetime element and attributes implement UTC and GmtOff elements and attributes renamed to TmOff
+
+version 0.005 date 2013-02-12
+ - CM_Domain_ver_0.010.xsd imported
+ - GUIDType - used at PartIdentification/@AppInstId, PrtnrId, and at HDR@Id, CorrId - all chages are backward compatible
+
+version 0.006 date 2013-02-20
+ - CM_Domain_ver_0.011.xsd imported
+ - CM_GeneralInfo_ver_0.004.xsd imported
+
+version 1.000 date 2013-03-12
+ - CM_Domain_ver_1.000.xsd imported
+ - CM_GeneralInfo_ver_1.000.xsd imported
+ - major version introduced
+
+version 1.001 date 2013-03-28
+ - CM_Domain_ver_1.001.xsd imported
+ - CM_GeneralInfo_ver_1.001.xsd imported
+
+version 1.002 date 2013-04-11
+ - CM_Domain_ver_1.002.xsd imported
+ - CM_GeneralInfo_ver_1.002.xsd imported
+ - Datetime elements and attributes type changed to CM_DMN:DtmType, UTC datetime will be provided in the tags and current local offset in a separate tag
+
+version 2.000 - Date 2013-05-17 - major version introduced for OMP program
+ - latest CM_GeneralInfo_ver_2.000.xsd version imported
+ - latest CM_Domain_ver_2.000.xsd version imported
+
+version 2.001 - Date 2013-06-07
+ - latest CM_GeneralInfo_ver_2.001.xsd version imported
+ - latest CM_Domain_ver_2.001.xsd version imported
+
+version 2.001 - Date 2013-06-10
+ - latest CM_GeneralInfo_ver_2.002.xsd version imported
+
+version 2.003 - Date 2013-07-09
+ - latest CM_GeneralInfo_ver_2.003.xsd version imported
+ - latest CM_Domain_ver_2.002.xsd version imported
+
+version 2.004 - Date 2013-08-07
+ - latest CM_GeneralInfo_ver_2.004.xsd version imported
+ - latest CM_Domain_ver_2.003.xsd version imported
+
+version 2.005 - Date 2013-08-20
+ - latest CM_GeneralInfo_ver_2.005.xsd version imported
+ - latest CM_Domain_ver_2.004.xsd version imported
+
+version 2.006 - Date 2013-08-29
+ - latest CM_GeneralInfo_ver_2.006.xsd version imported
+ - latest CM_Domain_ver_2.005.xsd version imported
+
+version 2.007 - Date 2013-09-02
+ - latest CM_GeneralInfo_ver_2.007.xsd version imported
+ - latest CM_Domain_ver_2.006.xsd version imported
+
+version 2.008 - Date 2013-09-18
+ - latest CM_GeneralInfo_ver_2.008.xsd version imported
+ - latest CM_Domain_ver_2.007.xsd version imported
+
+version 2.009 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+ - latest CM_GeneralInfo_ver_2.009.xsd version imported
+ - latest CM_Domain_ver_2.009.xsd version imported
+
+version 2.010 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+- latest CM_GeneralInfo_ver_2.010.xsd version imported
+
+version 2.011 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+ - latest CM_GeneralInfo_ver_2.011.xsd version imported
+ - latest CM_Domain_ver_2.010.xsd version imported
+
+version 2.012 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+ - latest CM_GeneralInfo_ver_2.012.xsd version imported
+ - latest CM_Domain_ver_2.011.xsd version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_Header/v2" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_Header/v2" version="2.012">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" schemaLocation="CM_GeneralInfo_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:simpleType name="ApplicationSystemCode_5">
+		<xs:annotation>
+			<xs:documentation>
+Original Domain_Definition: The user-assigned code identifying an application, e.g. IBS = International Billing System. Also known as 'Application Name'.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PartIdentification">
+		<xs:annotation>
+			<xs:documentation>Identification of part type.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TAddr" type="TechAdd" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>String field identifying technicall address of the message on transport level.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GId" type="GenIdentification" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>String field identifying general identifications of the message.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="AppCd" type="ApplicationSystemCode_5">
+			<xs:annotation>
+				<xs:documentation>Application code.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="AppInstId" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Application instance identifier. 
+
+Required for scenarios when more than one application instance is deployed.
+
+GUID is supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="AppVer">
+			<xs:annotation>
+				<xs:documentation>Application version.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="7"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="AppNm">
+			<xs:annotation>
+				<xs:documentation>Application name.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="CtryCd" type="CM_DMN:CCd_2">
+			<xs:annotation>
+				<xs:documentation>ISO Country code of the part.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="CmptTy">
+			<xs:annotation>
+				<xs:documentation>Component Type
+Well-defined name that is used to characterize all instances of a given kind of component.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xsd:string">
+					<xs:maxLength value="512"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="CmptNm">
+			<xs:annotation>
+				<xs:documentation>Component Name
+Specifies the logical identity of a component. This property should contain the name of a particular application, product or  subsystem (e.g., IBM DB2). This value SHOULD be unique within the scope.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xsd:string">
+					<xs:maxLength value="256"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="CmptIdTy">
+			<xs:annotation>
+				<xs:documentation>Component Identifier Type
+Specifies the format and meaning of the component
+identified by this componentIdentification. 
+
+The nonexclusive reserved keywords for this property are:
+· ProductName
+· DeviceName
+· SystemName
+· ServiceName
+· Process
+· Application
+· Unknown</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xsd:string">
+					<xs:maxLength value="32"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="CmptId" use="optional">
+			<xs:annotation>
+				<xs:documentation>Component Identifier: Specifies a handle or identifier for the instance of the component that is specified by the component property (e.g., Grid Service Handle(GSH)4 or EJBHandle).</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xsd:string">
+					<xs:maxLength value="128"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="DivCd" use="optional">
+			<xs:annotation>
+				<xs:documentation>The short name or code of a company within the DPWN Network.
+ABN=Airborne
+DPE=DPEE International
+DPD=DPEE Domestic
+DHL=DHL
+DAF=Danzas freight
+DAA=Danzas Air and Oceans
+LMS=Loomis
+DAZ=Danzas
+WDH=Former DHL
+</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xsd:string">
+					<xs:maxLength value="3"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="PtnrId" type="CM_DMN:GUIDType" use="optional">
+			<xs:annotation>
+				<xs:documentation>Partner Identifier: Identifies the profile of the partner.
+
+GUID is supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="PrcsId" use="optional">
+			<xs:annotation>
+				<xs:documentation>Process Identifier: This property identifies the process ID of the running
+component or subcomponent that generated the event.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xsd:string">
+					<xs:maxLength value="64"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ThdId" type="CM_DMN:GUIDType" use="optional">
+			<xs:annotation>
+				<xs:documentation>Thread Identifier: This property identifies the thread ID of the component
+or subcomponent that generated the event. This value changes with every new thread spawned by the process identified by processId.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TechAdd">
+		<xs:annotation>
+			<xs:documentation>Technical address.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="TAddr">
+			<xs:annotation>
+				<xs:documentation>Address value.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="250"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="TAddrTy">
+			<xs:annotation>
+				<xs:documentation>Type of technical address. (example: IPV4; IPV6; NWA; ISDN; ICD; OID-OSI; Dial; HWA; HID; X25; DCC; SNA; IPX; E.164; Hostname; FQHostname; Devicename				
+				)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GenIdentification">
+		<xs:annotation>
+			<xs:documentation>General identification.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Id">
+			<xs:annotation>
+				<xs:documentation>Identification value.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="IdTp">
+			<xs:annotation>
+				<xs:documentation>Type of identification.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="HDR">
+		<xs:annotation>
+			<xs:documentation>Control Data.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Sndr" type="PartIdentification" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Sender identification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rcp" type="PartIdentification" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Recipient identification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ErrPt" type="PartIdentification" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Error recipient identification. Error part identification - where send error messages.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Rpl" type="PartIdentification" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reply recipient. The ReplyTo header field contains a Destination supplied by a client when a message is sent. It is the destination where a reply to the message should be sent. Messages sent with a null ReplyTo value may be a notification of some event or they may just be some data the sender thinks is of interest. Messages sent with a ReplyTo value are typically expecting a response. A response may be optional; it is up to the client to decide.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="No" type="xs:long">
+			<xs:annotation>
+				<xs:documentation>Message sequential number. Scope: Application</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Id" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Message identifier. Scope: Application
+
+GUID is supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Ty">
+			<xs:annotation>
+				<xs:documentation>Type of message. Sample: 521 for Shipment details</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="20"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="OprTy">
+			<xs:annotation>
+				<xs:documentation>Type of operation   (I - insert, U - update, D delete).</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Ver">
+			<xs:annotation>
+				<xs:documentation>Message version. Version of file CF_Main_ver_XXXXX.xsd .</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="7"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Dtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Message creation datetime expressed in UTC.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="TmOff" type="CM_DMN:DtmGMTOff_6">
+			<xs:annotation>
+				<xs:documentation>Message creation local datetime UTC offset.
+
+Current local UTC time zone offset including daylight saving offset if applicable.
+
+A time zone offset of "+hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes ahead of UTC. 
+
+A time zone offset of "-hh:mm" indicates that the date/time uses a local time zone which is "hh" hours and "mm" minutes behind UTC.
+
+Example:
+1994-11-05T08:15:30 and offset -05:00 corresponds to November 5, 1994, 3:15:30 am, US Eastern Standard Time.
+
+UTC time: 1994-11-05T08:15:30
+Local time zone offset: -05:00
+
+US Eastern Standard Time is 05:00 behind UTC time.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="LstPrsdBy">
+			<xs:annotation>
+				<xs:documentation>Last processed by. Indicates the process or person that last processed the message.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="64"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="LstPrsdDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Last processed datetime. Provides the UTC date and time for when the message was last processed.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="LstPrsdTmOff" type="CM_DMN:DtmGMTOff_6">
+			<xs:annotation>
+				<xs:documentation>Last processed local datetime UTC offset.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ExpDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Expiration UTC DateTime. When a message is sent, its expiration time is calculated as the sum of the timeto- live value specified on the send method and send datetime. On return from the send method, the message’s Expiration header field contains this value. When a message is received its Expiration header field contains this same value. If the time-to-live is specified as zero, expiration is set to zero to indicate that the message does not expire. When current time is later than an undelivered message’s expiration time, the message should be destroyed.  Clients should not receive messages that have expired; however.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Srv">
+			<xs:annotation>
+				<xs:documentation>Name of service on which data are published.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="50"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="CorrId" type="CM_DMN:GUIDType">
+			<xs:annotation>
+				<xs:documentation>Correlation Message identification (Referenci to ID). A client can use Correlation ID header field to link one message with another. A typical use is to link a response message with its request message.
+
+GUID is supported.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Pri" use="optional">
+			<xs:annotation>
+				<xs:documentation>Priority
+Defines the importance of the messaget. The predefined priorities are:
+· 10 Low
+· 50 Medium
+· 70 High
+The values are 0 to 100.  The reserved value
+for Low is 10, for Medium is 50, and for High is 70. Other priorities MAY be added but MUST NOT exceed 100.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xsd:short">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="100"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="sysEnvCd" default="PROD">
+			<xs:annotation>
+				<xs:documentation>The system Environment Code is used to identify whether this particular Message is being sent as a result of a “test” or as “production” level integration. Often times as new systems are brought online, testing must be performed in a production
+environment in order to ensure complete integration. This attribute allows the
+integrator to flag test messages as such. The systemEnvironmentCode attribute is an optional attribut.
+The data will be processed as production if the attribute is not specified. Allowed values: PROD - Production, TEST - Test</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="4"/>
+					<xs:maxLength value="4"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

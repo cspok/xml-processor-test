@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+version 0.004 date 2012-04-10
+ - CM_Domain_V0.006 version increased
+ - unused namespaces removed
+
+ version 0.005 date 2013-02-20
+ - CM_Domain_ver_0.011.xsd version increased
+ - CM_Header_ver_0.006.xsd version increased
+
+ version 0.006 date 2013-03-08
+ - latest version of CM_Domain_ver_0.012.xsd imported
+
+version 1.000 - Date 2013-03-14
+ - latest CM_Domain_ver_1.000.xsd version imported
+ - latest CM_Header_ver_1.000.xsd version imported
+ - major version introduced
+
+version 1.002 - Date 2013-04-12
+ - latest CM_Domain_ver_1.002.xsd version imported
+ - latest CM_Header_ver_1.002.xsd version imported
+
+version 2.001 - Date 2013-06-17
+ - version number aligned with response message
+ - latest CM_Domain_ver_2.001.xsd version imported
+ - latest CM_Header_ver_2.002.xsd version imported
+
+version 2.002 - Date 2013-08-07
+ - latest CM_Domain_ver_2.002.xsd version imported
+ - latest CM_Header_ver_2.003.xsd version imported
+ - CM_GenericRequest_ver_2.003.xsd imported
+ - ShpPcsIDRqstMsg/Bd/GenReq - added
+ - ShpPcsIDRqstMsg/Bd/ShpKey - added
+
+version 2.003 - Date 2013-08-29
+ - latest CM_Domain_ver_2.004.xsd version imported
+ - latest CM_Header_ver_2.005.xsd version imported
+ - CM_GenericRequest_ver_2.005.xsd imported
+ 
+version 2.004 - Date 2013-09-23 - <Modified by Srinidhi Ramachandra>
+ - latest CM_Domain_ver_2.007.xsd version imported
+ - latest CM_Header_ver_2.008.xsd version imported
+ - CM_GenericRequest_ver_2.008.xsd imported
+
+version 2.005 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.009.xsd - latest version imported
+- CM_Header_ver_2.009.xsd - latest version imported
+- CM_GenericRequest_ver_2.009.xsd - latest version imported
+
+version 2.006 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+- CM_Header_ver_2.010.xsd - latest version imported
+- CM_GenericRequest_ver_2.010.xsd - latest version imported
+
+version 2.007 - Date 2014-02-24 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd - latest version imported
+- CM_Header_ver_2.011.xsd - latest version imported
+- CM_GenericRequest_ver_2.011.xsd - latest version imported
+
+version 2.008 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd version increased
+- CM_Header_ver_2.012.xsd - latest version imported
+- CM_GenericRequest_ver_2.012.xsd - latest version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_ShpPcsDtlRqst/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_HDR="http://www.dhl.com/Express/CM/CM_Header/v2" xmlns:CM_GREQ="http://www.dhl.com/Express/CM/CM_GenericRequest/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_ShpPcsDtlRqst/v2" version="2.008">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Header/v2" schemaLocation="CM_Header_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GenericRequest/v2" schemaLocation="CM_GenericRequest_ver_2.012.xsd"/>
+	<xs:complexType name="ShpPcsRqstMsgType">
+		<xs:annotation>
+			<xs:documentation>Request message type for Shipment and piece details request by Shipment or Piece identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Hdr" type="CM_HDR:HDR">
+				<xs:annotation>
+					<xs:documentation>Standard message header </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Bd">
+				<xs:annotation>
+					<xs:documentation>Container element for the message data.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ShpId" type="CM_DMN:ShpIdType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Shipment business key (legacy).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ShpKey" type="CM_DMN:ShpKeyType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Shipment business key (target).
+
+Shipment business key is a composite key.
+HWB number as the main value is stored as value of this element and the remaining values are provided as attributes of this element.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PcsId" type="CM_DMN:PcsId_35" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Shipment identifier: An identification number assigned to a shipment, controlled by DHL.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="GenReq" type="CM_GREQ:GenericRequest_GenericRequest" minOccurs="0" maxOccurs="100">
+							<xs:annotation>
+								<xs:documentation>Generic request criteria.
+
+The request can be further specifield with the usage of this complex type element.
+
+Service operation needs to be specified in the implementation guide.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ShpPcsIDRqstMsg" type="ShpPcsRqstMsgType">
+		<xs:annotation>
+			<xs:documentation>Request message for Shipment and piece details request by Shipment or Piece identifier.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

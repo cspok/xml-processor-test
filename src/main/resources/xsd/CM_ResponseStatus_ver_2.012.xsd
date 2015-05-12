@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp1 (x64) (http://www.altova.com) by Mat Saidi Mohamed (DHL Information Services (Asia-Pacific) Sdn Bhd) -->
+<!-- change log 
+version 0.005 date 2012-10-09
+ - latest CM_Header_ver_0.004.xsd imported
+ - Reported By RpBy element added to RespStatusType
+version 0.006 - date 2013-02-12
+ - latest CM_Header_ver_0.005.xsd imported
+version 0.00 - date 2013-02-20
+ - latest CM_Header_ver_0.006.xsd imported
+ - latest CM_GeneralInfo_ver_0.004.xsd imported
+
+version 1.000 - Date 2013-03-12
+ - latest CM_GeneralInfo_ver_1.000.xsd version imported
+ - latest CM_Header_ver_1.000.xsd version imported
+ - major version introduced
+
+version 1.001 - Date 2013-03-28
+ - latest CM_GeneralInfo_ver_1.001.xsd version imported
+ - latest CM_Header_ver_1.001.xsd version imported
+
+version 1.002 - Date 2013-04-12
+ - latest CM_GeneralInfo_ver_1.002.xsd version imported
+ - latest CM_Header_ver_1.002.xsd version imported
+
+version 2.000 - Date 2013-05-17 - major version introduced for OMP program
+ - latest CM_GeneralInfo_ver_2.000.xsd version imported
+ - latest CM_Header_ver_2.000.xsd version imported
+
+version 2.001 - Date 2013-06-07
+ - latest CM_GeneralInfo_ver_2.001.xsd version imported
+ - latest CM_Header_ver_2.001.xsd version imported
+
+version 2.002 - Date 2013-06-10
+ - latest CM_GeneralInfo_ver_2.002.xsd version imported
+ - latest CM_Header_ver_2.002.xsd version imported
+
+version 2.003 - Date 2013-07-09
+ - latest CM_GeneralInfo_ver_2.003.xsd version imported
+ - latest CM_Header_ver_2.003.xsd version imported
+
+version 2.004 - Date 2013-08-07
+ - latest CM_GeneralInfo_ver_2.004.xsd version imported
+ - latest CM_Header_ver_2.004.xsd version imported
+
+version 2.005 - Date 2013-08-20
+ - latest CM_GeneralInfo_ver_2.005.xsd version imported
+ - latest CM_Header_ver_2.005.xsd version imported
+
+version 2.006 - Date 2013-08-29
+ - latest CM_GeneralInfo_ver_2.006.xsd version imported
+ - latest CM_Header_ver_2.006.xsd version imported
+
+version 2.007 - Date 2013-09-02
+ - latest CM_GeneralInfo_ver_2.007.xsd version imported
+ - latest CM_Header_ver_2.007.xsd version imported
+
+version 2.008 - Date 2013-09-18
+ - latest CM_GeneralInfo_ver_2.008.xsd version imported
+ - latest CM_Header_ver_2.008.xsd version import
+
+version 2.009 - Date 2013-10-25 - <Modified by Srinidhi Ramachandra>
+- CM_Header_ver_2.009.xsd - latest version imported
+- CM_GeneralInfo_ver_2.009.xsd - latest version imported
+
+version 2.010 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+- CM_Header_ver_2.010.xsd - latest version imported
+- CM_GeneralInfo_ver_2.010.xsd - latest version imported
+
+version 2.011 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+- CM_Header_ver_2.011.xsd - latest version imported
+- CM_GeneralInfo_ver_2.011.xsd - latest version imported
+
+version 2.012 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Header_ver_2.012.xsd - latest version imported
+- CM_GeneralInfo_ver_2.012.xsd - latest version imported
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" xmlns="http://www.dhl.com/Express/CM/CM_RespStatus/v2" xmlns:CM_HDR="http://www.dhl.com/Express/CM/CM_Header/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_RespStatus/v2" version="2.012">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" schemaLocation="CM_GeneralInfo_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Header/v2" schemaLocation="CM_Header_ver_2.012.xsd"/>
+	<xs:complexType name="BusinessObjectError">
+		<xs:sequence>
+			<xs:element name="BOId" type="BusinessObjectIdentification" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Identification of business object.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FldErr" type="FieldError" minOccurs="0" maxOccurs="1000">
+				<xs:annotation>
+					<xs:documentation>Field error</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FieldError">
+		<xs:sequence>
+			<xs:element name="FldId" type="FieldIdentification" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Identification of field</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ErrMsgDtl" type="MessageDetail" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Details of error message</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FldOrgVal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Field original value as used for the validation.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FldNewVal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Field new value as updated by a validation process.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MessageDetail">
+		<xs:sequence>
+			<xs:element name="Sev" type="xs:short">
+				<xs:annotation>
+					<xs:documentation>Severity
+The perceived severity of the status the event is describing with respect to the
+application that reports the event. The predefined severity levels, in order of
+increasing severity, are as follows:
+· 0 Unknown
+· 10 Information MUST be used for cases when the event contains only general information and is not reporting an error.
+· 20 Harmless MUST be used for cases in which the error event has no effect on the normal operation of the resource.
+· 30 Warning MUST be used when it is appropriate to let the user decide if an action is needed in response to the event.
+· 40 Minor MUST be used to indicate that action is needed, but the situation is not serious at this time.
+· 50 Critical MUST be used to indicate that an immediate action is needed and the scope is broad (perhaps an imminent outage to a critical resource will result).
+· 60 Fatal MUST be used to indicate that an error occurred, but it is too late to take remedial action.
+
+The associated values are 0 to 70. The reserved values start at 0 for Unknown and
+increase by increments of 10 to 60 for Fatal. Other severities MAY be added but MUST NOT exceed 70. This is an OPTIONAL property.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MsgCIgd">
+				<xs:annotation>
+					<xs:documentation>Error message code as defined in the catalogue. The status code.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MsgClg">
+				<xs:annotation>
+					<xs:documentation>Error message catalogune code. E.g. IPESB</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Dsc" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Description from catalog.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DtlDsc" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Detailed description. Its content can be specific for a particular response status.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BusinessObjectIdentification">
+		<xs:attribute name="BOTyAbbr">
+			<xs:annotation>
+				<xs:documentation>Business type abbreviation: Type of business object (for example Shp,Ord,Pcs ...)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="10"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="BOId">
+			<xs:annotation>
+				<xs:documentation>Id of business object (for example shipment id, picec id ...)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="100"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="BOXPth">
+			<xs:annotation>
+				<xs:documentation>XPath to business object</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="512"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FieldIdentification">
+		<xs:attribute name="FldNm">
+			<xs:annotation>
+				<xs:documentation>Name of field</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="100"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="FldXPth">
+			<xs:annotation>
+				<xs:documentation>XPath to Field</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="512"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RespStatusType">
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0"/>
+			<xs:element name="Sev" type="xs:short">
+				<xs:annotation>
+					<xs:documentation>Severity
+The perceived severity of the status the event is describing with respect to the
+application that reports the event. The predefined severity levels, in order of
+increasing severity, are as follows:
+· 0 Unknown
+· 10 Information MUST be used for cases when the event contains only general information and is not reporting an error.
+· 20 Harmless MUST be used for cases in which the error event has no effect on the normal operation of the resource.
+· 30 Warning MUST be used when it is appropriate to let the user decide if an action is needed in response to the event.
+· 40 Minor MUST be used to indicate that action is needed, but the situation is not serious at this time.
+· 50 Critical MUST be used to indicate that an immediate action is needed and the scope is broad (perhaps an imminent outage to a critical resource will result).
+· 60 Fatal MUST be used to indicate that an error occurred, but it is too late to take remedial action.
+
+The associated values are 0 to 70. The reserved values start at 0 for Unknown and
+increase by increments of 10 to 60 for Fatal. Other severities MAY be added but MUST NOT exceed 70. This is an OPTIONAL property.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MsgCIgd">
+				<xs:annotation>
+					<xs:documentation>Error message code as defined in the catalogue. The status code.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MsgClg">
+				<xs:annotation>
+					<xs:documentation>Error message catalogune code. E.g. IPESB</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Dsc" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Description from catalog.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DtlDsc" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Detailed description. Its content can be specific for a particular response status.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="BOErr" type="BusinessObjectError" minOccurs="0"/>
+			<xs:element name="RpBy" type="CM_HDR:PartIdentification" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reported by
+
+Provides unique identification of an applicaiton or component and related information.
+
+Should be implemented in the scenarios where is required to capture this information on a single response status.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

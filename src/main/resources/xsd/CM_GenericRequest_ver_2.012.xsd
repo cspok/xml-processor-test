@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- change log 
+version 0.004 date 2012-04-10
+ - CM_Domain_V0.006 version increased
+
+version 0.005 date 2013-02-20
+ - CM_Domain_V0.011 version increased
+ - CM_Header_ver_0.006.xsd version increased
+ - CM_GeneralInfo_ver_0.004.xsd version increased
+
+version 1.000 - Date 2013-04-02
+ - latest CM_GeneralInfo_ver_1.001.xsd version imported
+ - latest CM_Domain_ver_1.001.xsd version imported
+ - latest CM_Header_ver_1.001.xsd version imported
+ - major version introduced
+
+version 1.001 - Date 2013-04-12
+ - latest CM_GeneralInfo_ver_1.002.xsd version imported
+ - latest CM_Domain_ver_1.002.xsd version imported
+ - latest CM_Header_ver_1.002.xsd version imported
+
+version 2.002 - Date 2013-06-10
+ - latest CM_GeneralInfo_ver_2.002.xsd version imported
+ - latest CM_Domain_ver_2.001.xsd version imported
+ - latest CM_Header_ver_2.002.xsd version imported
+ - Cdm - prefix removed from the XML schema data types
+ - CF removed from the XML schema data type
+
+version 2.003 - Date 2013-07-26
+ - latest CM_GeneralInfo_ver_2.003.xsd version imported
+ - latest CM_Domain_ver_2.002.xsd version imported
+ - latest CM_Header_ver_2.003.xsd version imported
+
+version 2.004 - Date 2013-08-07
+ - latest CM_GeneralInfo_ver_2.004.xsd version imported
+ - latest CM_Domain_ver_2.003.xsd version imported
+ - latest CM_Header_ver_2.004.xsd version imported
+
+version 2.005 - Date 2013-08-20
+ - latest CM_GeneralInfo_ver_2.004.xsd version imported
+ - latest CM_Domain_ver_2.003.xsd version imported
+ - latest CM_Header_ver_2.005.xsd version imported
+
+version 2.006 - Date 2013-08-29
+ - latest CM_GeneralInfo_ver_2.004.xsd version imported
+ - latest CM_Domain_ver_2.003.xsd version imported
+ - latest CM_Header_ver_2.005.xsd version imported
+
+version 2.007 - Date 2013-09-02
+ - latest CM_GeneralInfo_ver_2.007.xsd version imported
+ - latest CM_Domain_ver_2.006.xsd version imported
+ - latest CM_Header_ver_2.007.xsd version imported
+
+version 2.008 - Date 2013-09-19
+ - latest CM_GeneralInfo_ver_2.008.xsd version imported
+ - latest CM_Domain_ver_2.007.xsd version imported
+ - latest CM_Header_ver_2.008.xsd version imported
+
+version 2.009 - 2013-10-25 - <Modified by Srinidhi Ramachandra>
+ - latest CM_GeneralInfo_ver_2.009.xsd version imported
+ - latest CM_Domain_ver_2.009.xsd version imported
+ - latest CM_Header_ver_2.009.xsd version imported
+
+version 2.010 - Date 2013-11-07 <Modified by Srinidhi Ramachandra>
+ - latest CM_GeneralInfo_ver_2.010.xsd version imported
+ - latest CM_Header_ver_2.010.xsd version imported
+
+version 2.011 - Date 2014-02-21 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.010.xsd version increased
+- CM_GeneralInfo_ver_2.011.xsd - latest version imported
+- CM_Header_ver_2.011.xsd - latest version imported
+
+version 2.012 - Date 2014-05-02 <Modified by Srinidhi Ramachandra>
+- CM_Domain_ver_2.011.xsd version increased
+- CM_GeneralInfo_ver_2.012.xsd - latest version imported
+- CM_Header_ver_2.012.xsd - latest version imported
+
+-->
+<xs:schema xmlns:java="clsTools" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com/Express/CM/CM_GenericRequest/v2" xmlns:CM_GI="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" xmlns:CM_DMN="http://www.dhl.com/Express/CM/CM_Domain/v2" xmlns:CM_HDR="http://www.dhl.com/Express/CM/CM_Header/v2" targetNamespace="http://www.dhl.com/Express/CM/CM_GenericRequest/v2" version="2.012">
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Domain/v2" schemaLocation="CM_Domain_ver_2.011.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_GeneralInfo/v2" schemaLocation="CM_GeneralInfo_ver_2.012.xsd"/>
+	<xs:import namespace="http://www.dhl.com/Express/CM/CM_Header/v2" schemaLocation="CM_Header_ver_2.012.xsd"/>
+	<xs:complexType name="GenRqType">
+		<xs:annotation>
+			<xs:documentation>Business object messages.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Genrq" type="GenericRequest_GenericRequest" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation> Element for Generic Request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GenericRequest_GenericRequest">
+		<xs:annotation>
+			<xs:documentation>Uniquely identified request sent to any client.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GenrcRqCritr" type="GenericRequest_GenericRequestCriteria" minOccurs="0" maxOccurs="50">
+				<xs:annotation>
+					<xs:documentation>Generic Request has criteria type and value Generic request criteria </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GenrcRqObj" type="GenericRequest_GenericRequestObject" minOccurs="0" maxOccurs="50">
+				<xs:annotation>
+					<xs:documentation>Generic Request request for Generic request object </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="BOVer">
+			<xs:annotation>
+				<xs:documentation>Version of business object.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="7"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="BOId">
+			<xs:annotation>
+				<xs:documentation>Id of business objects, this Id has to be unique.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:ID"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="EffDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Generic request effective datetime.
+
+UTC date and time when the request was created.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ExpDtm" type="CM_DMN:DtmType">
+			<xs:annotation>
+				<xs:documentation>Generic request expiry datetime.
+
+The UTC date and time the request is no longer valid.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Id">
+			<xs:annotation>
+				<xs:documentation>Generic request identifier : Identifies uniquely a request independent on type.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="TyCd">
+			<xs:annotation>
+				<xs:documentation>Generic request type code : Defines a uniquely a type of requests.
+S=Subscription
+Q=Query</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GenericRequest_GenericRequestCriteria">
+		<xs:annotation>
+			<xs:documentation>Data request criteria to be applied to all requested objects.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="TyCd">
+			<xs:annotation>
+				<xs:documentation>Generic request criteria type code.
+
+Represents the key of the key value pair.
+
+Defines different uniquely a criteria for the request, such as
+SID = Shipment id
+PID = Piece id
+ACCNO=Account number
+LACCNO = Local account number
+NTVTYCD = Network Type Code
+CTRYCD = Country Code
+EVTTY = Event type</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="12"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Val" type="CM_DMN:Text_75">
+			<xs:annotation>
+				<xs:documentation>Generic request criteria value.
+
+Represents the value of the key value pair.
+
+Contains the actual value of the criteria chosen.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ValStrt">
+			<xs:annotation>
+				<xs:documentation>Generic request criteria value start.
+
+Represents the value of the key value pair.
+
+Contains range starting value of the criteria chosen.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="CM_DMN:Text_75"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ValEnd">
+			<xs:annotation>
+				<xs:documentation>Generic request criteria value start.
+
+Represents the value of the key value pair.
+
+Contains range ending value of the criteria chosen.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="CM_DMN:Text_75"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GenericRequest_GenericRequestObject">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GenrcRqObjRspnOrd" type="GenericRequest_GenericRequestObjectResponseOrder" minOccurs="0" maxOccurs="50">
+				<xs:annotation>
+					<xs:documentation>Generic request object response object data ordered by Generic request object response order </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="MxRspnRecs">
+			<xs:annotation>
+				<xs:documentation>Generic request object maximum response records : Defines maximum namber of records which should be contained in response to the data request.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="CM_DMN:No_Type"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ObjTyCd">
+			<xs:annotation>
+				<xs:documentation>Object type code : Identifies different type objects that might be in questions. Values are:
+SHP=Shipment
+PCS=Piece
+ACC=Account
+EVT=Event type
+CSE=Case</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="12"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GenericRequest_GenericRequestObjectResponseOrder">
+		<xs:annotation>
+			<xs:documentation>Requirements on ordering of object data in response to the data request.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GI" type="CM_GI:GenInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>General Info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ByAtt">
+			<xs:annotation>
+				<xs:documentation>Generic request object response order by attribute : Defines name of a business object attribute whi will be used for ordering of response data set.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="CM_DMN:Text_75"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Direction">
+			<xs:annotation>
+				<xs:documentation>Generic request object response order direction : Defines direction for ordering.
+Allowed values:
+ASCENDING
+DESCENDING
+
+If missing, then ASCENDING ordering will be applied.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="CM_DMN:Text_10"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Sq">
+			<xs:annotation>
+				<xs:documentation>Generic request object response order sequence : Defines sequnce in which will be the response data ordered.
+Starts with 1 and is unique.
+
+E.g. AccNo has sequence number 1 and AccNm has sequence number 2, then the response data will be ordered by AccNo, AccNm
+
+</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="CM_DMN:No_2"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GPSQryType">
+		<xs:sequence>
+			<xs:element name="Hdr" type="CM_HDR:HDR" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Comment describing your root element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Bd" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Container element for the message data.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GenrcRq" type="GenericRequest_GenericRequest"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GPSQR" type="GPSQryType">
+		<xs:annotation>
+			<xs:documentation>The Route task assignment root  element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
