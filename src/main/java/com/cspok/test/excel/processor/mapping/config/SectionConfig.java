@@ -9,6 +9,12 @@ public interface SectionConfig {
 
     int getMinCellsCount();
 
+    String getTableNameColumn();
+
+    String getFieldNameColumn();
+
+    String getXPathColumn();
+
     int getTableNameCellNum();
 
     int getFieldNameCellNum();

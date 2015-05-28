@@ -1,5 +1,6 @@
 package com.cspok.test.excel.processor.main;
 
+import com.cspok.test.excel.processor.mapping.MappingItem;
 import com.cspok.test.excel.processor.mapping.config.MappingConfigManager;
 import com.cspok.test.excel.processor.mapping.config.impl.WiniMappingConfigManager;
 import com.cspok.test.excel.processor.parser.ExcelParser;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by CS on 26/5/2015.
@@ -56,6 +58,14 @@ public class ProcessMappingExcel {
         parser.setHandler(handler);
 
         parser.parse(excelFile);
+
+        List<MappingItem> mappingList = handler.getMappingList();
+
+        logger.info("Processed {} mappings.", mappingList.size());
+
+        for (MappingItem item : mappingList) {
+            logger.info("{}, {}, {}", item.getTableName(), item.getFieldName(), item.getXPath());
+        }
     }
 
 }

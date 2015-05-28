@@ -26,10 +26,10 @@ public class ExcelParserImpl implements ExcelParser {
     public boolean parse(File excelFile) throws Exception {
         Workbook wb = null;
         try {
-            logger.info("Opening excel file{} ", excelFile.getAbsolutePath());
+            logger.info("Processing excel file{} ", excelFile.getAbsolutePath());
             wb = WorkbookFactory.create(excelFile);
             int sheetsCount = wb.getNumberOfSheets();
-            logger.info("Sheets count: {}", sheetsCount);
+            logger.debug("Sheets count: {}", sheetsCount);
             for (int i = 0; i < sheetsCount; i++) {
                 Sheet sheet = wb.getSheetAt(i);
                 int rowCount = sheet.getPhysicalNumberOfRows();
@@ -39,20 +39,25 @@ public class ExcelParserImpl implements ExcelParser {
                         Row row = sheet.getRow(j);
                         int cellsCount = row.getPhysicalNumberOfCells();
                         if (handler.onRowStart(j, cellsCount)) {
-                            logger.info("Processing row {}", j);
+                            logger.debug("Processing row {}", j + 1);
                             for (int k = 0; k < cellsCount; k++) {
                                 Cell cell = row.getCell(k);
-                                if (!handler.onCell(k, cell)) {
-                                    break;
+                                try {
+                                    if (!handler.onCell(k, cell)) {
+                                        logger.debug("Terminating row {} processing at cell {}.", j + 1, k + 1);
+                                        break;
+                                    }
+                                } catch (Exception e) {
+                                    logger.error("Error processing cell {} at row {}: {}", k + 1, j + 1, e.getMessage(), e);
                                 }
                             }
                             handler.onRowEnd(j);
                         } else {
-                            logger.info("Skipping row {}", j);
+                            logger.debug("Skipping row {}", j + 1);
                         }
                     }
                 } else {
-                    logger.info("Skipping sheet: {}", sheet.getSheetName());
+                    logger.debug("Skipping sheet: {}", sheet.getSheetName());
                 }
                 handler.onSheetEnd(sheet.getSheetName());
             }

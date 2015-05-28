@@ -1,6 +1,9 @@
 package com.cspok.test.excel.processor.parser;
 
+import com.cspok.test.excel.processor.mapping.MappingItem;
 import org.apache.poi.ss.usermodel.Cell;
+
+import java.util.List;
 
 /**
  * Created by CS on 25/5/2015.
@@ -16,4 +19,6 @@ public interface ExcelParsingHandler {
     void onRowEnd(int j);
 
     void onSheetEnd(String sheetName);
+
+    List<MappingItem> getMappingList();
 }

@@ -27,10 +27,10 @@ public class WiniMappingConfigManager implements MappingConfigManager {
         for (String sectionName : ini.keySet()) {
             Profile.Section section = ini.get(sectionName);
             if (sectionName.equals("?")) {
-                logger.info("Found global section in config.");
+                logger.debug("Found global section in config.");
                 commonConfig = new WiniGlobalConfig(section);
             } else {
-                logger.info("Found section in config: {}.", sectionName);
+                logger.debug("Found section in config: {}.", sectionName);
                 SectionConfig sc = new WiniSectionConfig(section);
                 sectionConfigMap.put(sectionName, sc);
             }
